@@ -45,6 +45,8 @@ namespace Calender
                 RichTextBox rtb = CreateRichTextBox(Month + "/" + (days[Month - 1] - startday + i + 1), false);
                 CalenderPanels.Controls.Add(rtb, i, row);
                 col++;
+
+
             }
 
             for (int i = 0; i < days[Month]; i++) // 시작일부터 말일까지 출력
@@ -88,8 +90,13 @@ namespace Calender
             rtb.Text = text;
             rtb.Dock = DockStyle.Fill;
             rtb.Enabled = able;
-
+            rtb.DoubleClick += Rtb_DoubleClick;
             return rtb;
+        }
+
+        private void Rtb_DoubleClick(object? sender, EventArgs e)
+        {
+            ((RichTextBox)sender).Text = "_qwr";
         }
     }
 }
