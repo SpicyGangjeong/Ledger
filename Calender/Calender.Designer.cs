@@ -39,8 +39,6 @@
             YearMonthDisplayer = new TextBox();
             MonthPicker = new ComboBox();
             YearPicker = new TextBox();
-            textDay = new TextBox();
-            textB = new TextBox();
             CalenderPanels.SuspendLayout();
             SuspendLayout();
             // 
@@ -211,28 +209,12 @@
             YearPicker.Text = "2023";
             YearPicker.TextAlign = HorizontalAlignment.Center;
             // 
-            // textDay
-            // 
-            textDay.Location = new Point(118, 12);
-            textDay.Name = "textDay";
-            textDay.Size = new Size(100, 23);
-            textDay.TabIndex = 8;
-            // 
-            // textB
-            // 
-            textB.Location = new Point(224, 12);
-            textB.Name = "textB";
-            textB.Size = new Size(100, 23);
-            textB.TabIndex = 9;
-            // 
             // CalenderMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(752, 603);
-            Controls.Add(textB);
-            Controls.Add(textDay);
             Controls.Add(YearPicker);
             Controls.Add(MonthPicker);
             Controls.Add(YearMonthDisplayer);
@@ -258,7 +240,5 @@
         private TextBox textBox5;
         private TextBox textBox6;
         private TextBox textBox7;
-        private TextBox textDay;
-        private TextBox textB;
     }
 }

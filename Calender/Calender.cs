@@ -30,7 +30,6 @@ namespace Calender
                 startday += days[i];
             }
             startday = startday % 7;
-            textB.Text = startday + "_" + Month;
             Filling(startday, Month, days);
         }
         private void Filling(int startday, int Month, int[] days)
@@ -47,7 +46,6 @@ namespace Calender
                 CalenderPanels.Controls.Add(rtb, i, row);
                 col++;
             }
-            textDay.Text = startday + "_" + col + "_" + row;
 
             for (int i = 0; i < days[Month]; i++) // 시작일부터 말일까지 출력
             {
