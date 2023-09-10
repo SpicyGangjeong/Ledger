@@ -88,8 +88,13 @@ namespace Calender
             rtb.Text = text;
             rtb.Dock = DockStyle.Fill;
             rtb.Enabled = able;
-
+            rtb.DoubleClick += Rtb_DoubleClick;
             return rtb;
+        }
+
+        private void Rtb_DoubleClick(object? sender, EventArgs e)
+        {
+            ((RichTextBox)sender).Text = "_qwr";
         }
     }
 }
