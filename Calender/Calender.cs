@@ -96,7 +96,7 @@ namespace Calender
 
         private void Rtb_DoubleClick(object? sender, EventArgs e)
         {
-            ((RichTextBox)sender).Text = "_qwr";
+            ((RichTextBox)sender).Text = "1234567";
         }
     }
 }
