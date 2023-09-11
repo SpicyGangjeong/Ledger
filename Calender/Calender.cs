@@ -13,6 +13,7 @@ namespace Calender
             MonthPicker.SelectedIndex = 2;
             YearMonthDisplayer.Text = YearPicker.Text + "_" + MonthPicker.Text;
             Calc_day();
+            //dhdP
         }
         private void Calc_day()
         {
