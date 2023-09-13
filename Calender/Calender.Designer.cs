@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalenderMain));
             CalenderPanels = new TableLayoutPanel();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
@@ -36,9 +37,13 @@
             textBox5 = new TextBox();
             textBox6 = new TextBox();
             textBox7 = new TextBox();
-            YearMonthDisplayer = new TextBox();
             MonthPicker = new ComboBox();
             YearPicker = new TextBox();
+            txtNowMonth = new TextBox();
+            btnPreMonth = new Button();
+            btnPostMonth = new Button();
+            btnSwitchCalender = new Button();
+            btnSwitchTree = new Button();
             CalenderPanels.SuspendLayout();
             SuspendLayout();
             // 
@@ -182,32 +187,76 @@
             textBox7.Text = "토";
             textBox7.TextAlign = HorizontalAlignment.Center;
             // 
-            // YearMonthDisplayer
-            // 
-            YearMonthDisplayer.Location = new Point(12, 12);
-            YearMonthDisplayer.Name = "YearMonthDisplayer";
-            YearMonthDisplayer.ReadOnly = true;
-            YearMonthDisplayer.Size = new Size(100, 23);
-            YearMonthDisplayer.TabIndex = 5;
-            // 
             // MonthPicker
             // 
             MonthPicker.FormattingEnabled = true;
             MonthPicker.Items.AddRange(new object[] { "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" });
-            MonthPicker.Location = new Point(619, 12);
+            MonthPicker.Location = new Point(690, 6);
             MonthPicker.Name = "MonthPicker";
-            MonthPicker.Size = new Size(121, 23);
+            MonthPicker.Size = new Size(50, 23);
             MonthPicker.TabIndex = 6;
             MonthPicker.SelectedIndexChanged += MonthPicker_SelectedIndexChanged;
             // 
             // YearPicker
             // 
-            YearPicker.Location = new Point(572, 12);
+            YearPicker.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            YearPicker.Location = new Point(354, 6);
             YearPicker.Name = "YearPicker";
-            YearPicker.Size = new Size(41, 23);
+            YearPicker.Size = new Size(41, 29);
             YearPicker.TabIndex = 7;
             YearPicker.Text = "2023";
             YearPicker.TextAlign = HorizontalAlignment.Center;
+            // 
+            // txtNowMonth
+            // 
+            txtNowMonth.BorderStyle = BorderStyle.None;
+            txtNowMonth.Enabled = false;
+            txtNowMonth.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txtNowMonth.Location = new Point(327, 38);
+            txtNowMonth.Name = "txtNowMonth";
+            txtNowMonth.Size = new Size(100, 22);
+            txtNowMonth.TabIndex = 8;
+            txtNowMonth.TextAlign = HorizontalAlignment.Center;
+            // 
+            // btnPreMonth
+            // 
+            btnPreMonth.BackgroundImageLayout = ImageLayout.None;
+            btnPreMonth.Location = new Point(278, 39);
+            btnPreMonth.Name = "btnPreMonth";
+            btnPreMonth.Size = new Size(43, 23);
+            btnPreMonth.TabIndex = 9;
+            btnPreMonth.Text = "←";
+            btnPreMonth.UseVisualStyleBackColor = true;
+            btnPreMonth.Click += btnPreMonth_Click;
+            // 
+            // btnPostMonth
+            // 
+            btnPostMonth.BackgroundImageLayout = ImageLayout.None;
+            btnPostMonth.Location = new Point(433, 39);
+            btnPostMonth.Name = "btnPostMonth";
+            btnPostMonth.Size = new Size(42, 23);
+            btnPostMonth.TabIndex = 10;
+            btnPostMonth.Text = "→ ";
+            btnPostMonth.UseVisualStyleBackColor = true;
+            btnPostMonth.Click += btnPostMonth_Click;
+            // 
+            // btnSwitchCalender
+            // 
+            btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
+            btnSwitchCalender.Location = new Point(7, 4);
+            btnSwitchCalender.Name = "btnSwitchCalender";
+            btnSwitchCalender.Size = new Size(38, 34);
+            btnSwitchCalender.TabIndex = 11;
+            btnSwitchCalender.UseVisualStyleBackColor = true;
+            // 
+            // btnSwitchTree
+            // 
+            btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
+            btnSwitchTree.Location = new Point(51, 4);
+            btnSwitchTree.Name = "btnSwitchTree";
+            btnSwitchTree.Size = new Size(38, 34);
+            btnSwitchTree.TabIndex = 12;
+            btnSwitchTree.UseVisualStyleBackColor = true;
             // 
             // CalenderMain
             // 
@@ -215,9 +264,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(752, 603);
+            Controls.Add(btnSwitchTree);
+            Controls.Add(btnSwitchCalender);
+            Controls.Add(btnPostMonth);
+            Controls.Add(btnPreMonth);
+            Controls.Add(txtNowMonth);
             Controls.Add(YearPicker);
             Controls.Add(MonthPicker);
-            Controls.Add(YearMonthDisplayer);
             Controls.Add(CalenderPanels);
             Name = "CalenderMain";
             Text = "CalenderMain";
@@ -230,7 +283,6 @@
 
         #endregion
         private TableLayoutPanel CalenderPanels;
-        private TextBox YearMonthDisplayer;
         private ComboBox MonthPicker;
         private TextBox YearPicker;
         private TextBox textBox1;
@@ -240,5 +292,10 @@
         private TextBox textBox5;
         private TextBox textBox6;
         private TextBox textBox7;
+        private TextBox txtNowMonth;
+        private Button btnPreMonth;
+        private Button btnPostMonth;
+        private Button btnSwitchCalender;
+        private Button btnSwitchTree;
     }
 }
