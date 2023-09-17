@@ -1,18 +1,22 @@
+using MySqlConnector;
+
 namespace Calender
 {
     public partial class CalenderMain : Form
     {
+        public static string strConn = "Server=localhost;Port=3306;Database=jspdb;Uid=jspuser;Pwd=jsppass";
+        public static MySqlConnection conn = null;
         public CalenderMain()
         {
             InitializeComponent();
-
         }
 
         private void CalenderMain_Load(object sender, EventArgs e)
         {
+            conn = new MySqlConnection(strConn);
+            conn.Open();
             MonthPicker.SelectedIndex = 2;
             Calc_day();
-            //dhdP
         }
         private void Calc_day()
         {
@@ -45,9 +49,10 @@ namespace Calender
                 RichTextBox rtb = CreateRichTextBox(Month + "/" + (days[Month - 1] - startday + i + 1), false);
                 CalenderPanels.Controls.Add(rtb, i, row);
                 col++;
-
-
             }
+
+
+
 
             for (int i = 0; i < days[Month]; i++) // 시작일부터 말일까지 출력
             {
@@ -60,6 +65,7 @@ namespace Calender
                 startday++;
                 RichTextBox rtb = CreateRichTextBox((Month + 1) + "/" + (i + 1));
                 CalenderPanels.Controls.Add(rtb, col, row);
+
                 col++;
             }
 
@@ -96,9 +102,34 @@ namespace Calender
 
         private void Rtb_DoubleClick(object? sender, EventArgs e)
         {
-            ((RichTextBox)sender).Text = "1234567";
+            OpenAccountBookList(sender, e);
+        }
+        //클릭한 셀의 지출 / 수입 목록을 확인하는 창 열기
+        public void OpenAccountBookList(object sender, EventArgs e)
+        {
+            string date = YearPicker.Text + '/' + (sender as Control).Text;
+            AccountBookList acc_list = new AccountBookList(date);
+            acc_list.Show();
+            acc_list.FormClosed += CloseAccountBookList;
+            //자기 컨트롤 전부 비활성화
+            foreach (Control control in this.Controls)
+            {
+                control.Enabled = false;
+            }
+        }
+        //지출 / 수입 리스트 닫을 때 자신의 컨트롤을 전부 활성화
+        public void CloseAccountBookList(object sender, EventArgs e)
+        {
+            foreach (Control control in this.Controls)
+            {
+                control.Enabled = true;
+            }
         }
 
+        private void CalenderMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            conn.Close();
+        }
         private void btnPostMonth_Click(object sender, EventArgs e)
         {
             MonthPicker.SelectedIndex++;
