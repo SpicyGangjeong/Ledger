@@ -11,7 +11,6 @@ namespace Calender
         private void CalenderMain_Load(object sender, EventArgs e)
         {
             MonthPicker.SelectedIndex = 2;
-            YearMonthDisplayer.Text = YearPicker.Text + "_" + MonthPicker.Text;
             Calc_day();
             //dhdP
         }
@@ -81,7 +80,7 @@ namespace Calender
         }
         private void MonthPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            YearMonthDisplayer.Text = YearPicker.Text + "_" + MonthPicker.Text;
+            txtNowMonth.Text = MonthPicker.Text;
             Calc_day();
         }
 
@@ -98,6 +97,16 @@ namespace Calender
         private void Rtb_DoubleClick(object? sender, EventArgs e)
         {
             ((RichTextBox)sender).Text = "1234567";
+        }
+
+        private void btnPostMonth_Click(object sender, EventArgs e)
+        {
+            MonthPicker.SelectedIndex++;
+        }
+
+        private void btnPreMonth_Click(object sender, EventArgs e)
+        {
+            MonthPicker.SelectedIndex--;
         }
     }
 }
