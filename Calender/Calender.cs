@@ -1,3 +1,4 @@
+using Ledger;
 using MySqlConnector;
 
 namespace Calender
@@ -7,6 +8,10 @@ namespace Calender
         public static string strConn = "Server=localhost;Port=3306;Database=jspdb;Uid=jspuser;Pwd=jsppass";
         public static MySqlConnection conn = null;
         public CalenderMain()
+        {
+            InitializeComponent();
+        }
+        public CalenderMain(TreeMain tree)
         {
             InitializeComponent();
         }
@@ -138,6 +143,34 @@ namespace Calender
         private void btnPreMonth_Click(object sender, EventArgs e)
         {
             MonthPicker.SelectedIndex--;
+        }
+
+        private void btnSwitchTree_Click(object sender, EventArgs e)
+        {
+            foreach (Form openForm in Application.OpenForms)
+            {
+                // 폼 중복 열기 방지
+                if (openForm.Name == "TreeMain") // 열린 폼의 이름 검사
+                {
+                    if (openForm.WindowState == FormWindowState.Minimized)
+                    {   // 폼이 active 인지 검사
+                        openForm.WindowState = FormWindowState.Normal;
+                        openForm.Location = new Point(this.Location.X, this.Location.Y);
+                    }
+                    openForm.Activate();
+                    openForm.Show();
+                    this.Hide();
+                    return;
+                }
+            }
+            TreeMain TreeMain = new TreeMain(this); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
+            TreeMain.Show();
+            this.Hide();
+        }
+
+        private void btnSwitchCalender_Click(object sender, EventArgs e)
+        {
+            // 필요없음
         }
     }
 }

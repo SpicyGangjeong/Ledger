@@ -248,6 +248,7 @@
             btnSwitchCalender.Size = new Size(38, 34);
             btnSwitchCalender.TabIndex = 11;
             btnSwitchCalender.UseVisualStyleBackColor = true;
+            btnSwitchCalender.Click += btnSwitchCalender_Click;
             // 
             // btnSwitchTree
             // 
@@ -257,6 +258,7 @@
             btnSwitchTree.Size = new Size(38, 34);
             btnSwitchTree.TabIndex = 12;
             btnSwitchTree.UseVisualStyleBackColor = true;
+            btnSwitchTree.Click += btnSwitchTree_Click;
             // 
             // CalenderMain
             // 
