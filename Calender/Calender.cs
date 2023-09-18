@@ -7,12 +7,15 @@ namespace Calender
     {
         public static string strConn = "Server=localhost;Port=3306;Database=jspdb;Uid=jspuser;Pwd=jsppass";
         public static MySqlConnection conn = null;
-        public CalenderMain()
+        FormMain formMain;
+        public CalenderMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
         {
+            formMain = _formMain;
             InitializeComponent();
         }
-        public CalenderMain(TreeMain tree)
+        public CalenderMain(TreeMain tree, FormMain _formMain) // Tree에서 생성될 때 사용
         {
+            formMain = _formMain;
             InitializeComponent();
         }
 
@@ -134,6 +137,7 @@ namespace Calender
         private void CalenderMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             conn.Close();
+            formMain.Dispose();
         }
         private void btnPostMonth_Click(object sender, EventArgs e)
         {
@@ -163,7 +167,7 @@ namespace Calender
                     return;
                 }
             }
-            TreeMain TreeMain = new TreeMain(this); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
+            TreeMain TreeMain = new TreeMain(this, formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
             TreeMain.Show();
             this.Hide();
         }

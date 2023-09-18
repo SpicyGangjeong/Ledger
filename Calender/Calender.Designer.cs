@@ -276,6 +276,7 @@
             Controls.Add(CalenderPanels);
             Name = "CalenderMain";
             Text = "CalenderMain";
+            FormClosing += CalenderMain_FormClosing;
             Load += CalenderMain_Load;
             CalenderPanels.ResumeLayout(false);
             CalenderPanels.PerformLayout();

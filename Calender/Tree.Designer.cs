@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeMain));
             panelHeader = new Panel();
+            btnSwitchTree = new Button();
+            btnSwitchCalender = new Button();
             splitContainer1 = new SplitContainer();
             treeView1 = new TreeView();
             splitContainer2 = new SplitContainer();
             groupBoxIncome = new GroupBox();
             groupBoxSpend = new GroupBox();
-            btnSwitchTree = new Button();
-            btnSwitchCalender = new Button();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -57,6 +57,26 @@
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(800, 53);
             panelHeader.TabIndex = 4;
+            // 
+            // btnSwitchTree
+            // 
+            btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
+            btnSwitchTree.Location = new Point(54, 12);
+            btnSwitchTree.Name = "btnSwitchTree";
+            btnSwitchTree.Size = new Size(38, 34);
+            btnSwitchTree.TabIndex = 14;
+            btnSwitchTree.UseVisualStyleBackColor = true;
+            btnSwitchTree.Click += btnSwitchTree_Click;
+            // 
+            // btnSwitchCalender
+            // 
+            btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
+            btnSwitchCalender.Location = new Point(10, 12);
+            btnSwitchCalender.Name = "btnSwitchCalender";
+            btnSwitchCalender.Size = new Size(38, 34);
+            btnSwitchCalender.TabIndex = 13;
+            btnSwitchCalender.UseVisualStyleBackColor = true;
+            btnSwitchCalender.Click += btnSwitchCalender_Click;
             // 
             // splitContainer1
             // 
@@ -120,26 +140,6 @@
             groupBoxSpend.TabStop = false;
             groupBoxSpend.Text = "지출";
             // 
-            // btnSwitchTree
-            // 
-            btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
-            btnSwitchTree.Location = new Point(54, 12);
-            btnSwitchTree.Name = "btnSwitchTree";
-            btnSwitchTree.Size = new Size(38, 34);
-            btnSwitchTree.TabIndex = 14;
-            btnSwitchTree.UseVisualStyleBackColor = true;
-            btnSwitchTree.Click += btnSwitchTree_Click;
-            // 
-            // btnSwitchCalender
-            // 
-            btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
-            btnSwitchCalender.Location = new Point(10, 12);
-            btnSwitchCalender.Name = "btnSwitchCalender";
-            btnSwitchCalender.Size = new Size(38, 34);
-            btnSwitchCalender.TabIndex = 13;
-            btnSwitchCalender.UseVisualStyleBackColor = true;
-            btnSwitchCalender.Click += btnSwitchCalender_Click;
-            // 
             // TreeMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -150,6 +150,7 @@
             Controls.Add(panelHeader);
             Name = "TreeMain";
             Text = "TreeMain";
+            FormClosing += TreeMain_FormClosing;
             panelHeader.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);

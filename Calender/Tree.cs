@@ -1,4 +1,5 @@
 ﻿using Calender;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,14 +14,17 @@ namespace Ledger
 {
     public partial class TreeMain : Form
     {
-        public TreeMain() // 처음 FormMain에서 생성될 때 사용됨
+        FormMain formMain;
+        public TreeMain(FormMain formMain) // 처음 FormMain에서 생성될 때 사용됨
         {
             InitializeComponent();
+            this.formMain = formMain;
         }
 
-        public TreeMain(CalenderMain calenderMain, int year = 2023, int month = 1) // 처음 Calender 에서 열렸을 때 사용됨
+        public TreeMain(CalenderMain calenderMain, FormMain formMain) // 처음 Calender 에서 열렸을 때 사용됨
         {
             InitializeComponent();
+            this.formMain = formMain;
         }
 
         private void btnSwitchCalender_Click(object sender, EventArgs e)
@@ -41,7 +45,7 @@ namespace Ledger
                     return;
                 }
             }
-            CalenderMain calenderMain = new CalenderMain(this); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
+            CalenderMain calenderMain = new CalenderMain(this, formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
             calenderMain.Show();
             this.Hide();
         }
@@ -49,6 +53,11 @@ namespace Ledger
         private void btnSwitchTree_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void TreeMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            formMain.Dispose();
         }
     }
 }

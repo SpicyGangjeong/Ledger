@@ -20,7 +20,7 @@ namespace Ledger
 
         private void btnSwitchTree_Click(object sender, EventArgs e)
         {
-            TreeMain tree = new TreeMain();
+            TreeMain tree = new TreeMain(this);
             tree.Show();
             this.Hide();
             notifyIcon1.Visible = true;
@@ -28,7 +28,7 @@ namespace Ledger
 
         private void btnSwitchCalender_Click(object sender, EventArgs e)
         {
-            CalenderMain calenderMain = new CalenderMain();
+            CalenderMain calenderMain = new CalenderMain(this);
             calenderMain.Show();
             this.Hide();
             notifyIcon1.Visible = true;
