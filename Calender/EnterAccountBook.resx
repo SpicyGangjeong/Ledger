@@ -18,7 +18,7 @@
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
     <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
     <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing"">Blue</data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
         <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
@@ -117,47 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnSwitchCalender.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACQAAAAoCAYAAACWwljjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAA9xJREFUWEftV1krbmEUVrhByjxEmXIvylhuXFGmIiRJMty4cul/uFGEMqTIlSFz
-        IpRZZplSZjJlek7POu/OZ9jfNuxzck6eWvXt51vv2s/e73rXWtsG3ww/gozwI8gI/76gjY0NtLa24uTk
-        RDH6ODs7Q1tbG1ZXVxVjjA8LqqiogI2NDdrb2xWjj66uLvEtLy9XjDHeJej09FSCNzY2Ij4+Xm5SUFCA
-        5uZm1NTUvGlNTU0oKioS35iYGDQ0NKCzsxPHx8cq6tswFDQwMIDY2FgJbIZFR0ejp6dHRX8Nq4LGx8fh
-        7+8vgUJCQpCcnIygoCC5DgsLQ1pamnBvGf8LDw8X34CAAKSkpCA0NFSufXx8MDIyou7yHLqCbm5ukJGR
-        IQFycnKwtbUlfFlZmXC1tbVybQ3cUvoWFxfL9e7uLvLy8oRLTU3F1dWV8JbQFbSysgJnZ2f4+flhb29P
-        sUBJSYkErK6uVow+mDf0zc/PVwxwcHCAwMBAODo6YmFhQbFP0BU0NjYmwfj6LdHX1ydPzONvhO3tbXmA
-        7u5uxfyG9uaHhoYU8wRdQdxjLmJC83TQOjo60N/fj8HBQfT29sq1NWPy8lBwjcbxtGonlfxL6AoaHR2V
-        RX/SKPYlDAW5uLggKirqmUVGRr7i9OylL4+9q6vr5wUlJSXh/PzcVEtPT/+8INYTs5GVlfV5QSxoGlib
-        5ubm5ASyYT48PAjPozwxMSHG3wT/W1tbE9/Z2VlcX18LT2RmZpojqKqqCvb29sK7ubmJgMfHRykN5GiJ
-        iYkiZnp6Gp6ensLZ2dmhsrJSRTFRUEtLi7QQX19faQvz8/PCl5aWSgGlsaFS5PLysiQ0fYODg6UxazBN
-        EMHOv7+/j4uLC8UA9/f3slU0/tbA1kBfrrGEqYLMwP8riMm6s7Mj+cGt0HB5eSknisbfGriF9GVPs9xK
-        0wTV19fDy8sL7u7ukqhTU1PC5+bmwsPDQ4w1hknNhOf8Q1+usZwOPiVIa66WhbGurk5u4ODgIEPX5OSk
-        8NnZ2XBychJjJ6cg1iuKpi9LhKUgrTB+qLmyxnBRQkKCYoDb21ssLS1Jjdnc3FQsZE5m8aNZzswc6ui7
-        uLgoazWwVjH28PCwYp6gK4g35KjJ5jozM6PYr4NDGbeWb5o59xK6gpiE2rjKDs35h09/dHSEw8PDDxnX
-        cC1zJi4uTmJycLu7u1N3e4KuIIJviZ8wDGBrayt5wyGfI+hHTFujtZ2IiAisr6+ruzyHVUEER1WOrN7e
-        3hLsK8beVlhYaPVL1lCQBtYS7v9XTPtysYZ3C/pb+BFkhB9BRvhmgoBfajZAyGDmHmEAAAAASUVORK5C
-        YII=
-</value>
-  </data>
-  <data name="btnSwitchTree.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACEAAAAkCAYAAAAHKVPcAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAxpJREFUWEftls0rfFEYxweNjTXNIKIx4i8QC2sLQjHZTEn+BNlYWXgZpSykKBtR
-        WGGjbCwwymveWXhJFsxkZrxMjbfvr+e559zmuONyJ/WzmE895T73meNzzzn33MeGP0BKQpKSkCgST09P
-        mJ6exsjICIaHh/U4ODgQFdag8aamppSxRkdHsb+/Lyo0FInt7W3YbDZD9Pf3iwprXFxcwOFwGMZrbW0V
-        FRqKhN/v56Kenh4cHR2x1M7ODu7v70WFNd7e3nB6eoqtrS3s7e1hbW0N2dnZqK+vFxUaisT6+jpLzMzM
-        iMzv8vLygoKCAjQ0NIiMRsKZmJiYEBltXa+urnB9fW056He3t7f4+PjgsSKRCHJzc1FXV8fXEkViY2OD
-        JWhzSmiTlpSUoKysDOXl5ZaCfldbW4u7uzse6/n5GUVFRWhubuZriSLx8PCA+fl5tpd0dnayWLJB008b
-        lKAZWV5exu7uLl9LFIlEdHV1KYPa7XZkZmYiIyNDyaelpXGegv6WebfbzctihiWJmpoarKysYHV1FYuL
-        izzd8h7VUZ5iaGhIl/wViY6ODv0ftbe3i6xGVVUV5+nJFxYWRFY9b/Ly8vTl+IpvJebm5uDxeHgzTU5O
-        iqy2ySoqKnSJ+NeanrytrQ1NTU28p0KhkLiTmG8liNfXV454zCSI9/d3Phfk62nGjyQS8Z2EFVISkpSE
-        JCUhSVqCqKys1CXoUEsWReLx8RFLS0sIBoMiY4QOITqG6WtYWlrKEhTd3d3cRdGX2AzqWahri0eR2Nzc
-        5KeanZ0VGSPhcBjV1dVcJwUo0tPTkZWVZbos0WiUP3otLS0io6FIJOqsPhMIBJQZ+BxjY2Oi0gh1Vk6n
-        07yz+kmPSdPd2NiIwsJCFBcX60Edk8vlUr6mn4nFYj/vMQcGBnB+fs5rd3x8bFjnm5sbvkd7QMbJyQnO
-        zs54yiVy/xweHvI96rpzcnLMu20qip9aGSSVDJeXl8jPzzeM5/V6RYWGIkFPPD4+Dp/Ph97eXvT19XFQ
-        k5IM9LbRHpHjUAwODvLDxqNI/C9SEpI/IAH8AzXBQXP4a5UrAAAAAElFTkSuQmCC
-</value>
-  </data>
 </root>

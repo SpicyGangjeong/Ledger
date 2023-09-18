@@ -1,18 +1,30 @@
+using Ledger;
+using MySqlConnector;
+
 namespace Calender
 {
     public partial class CalenderMain : Form
     {
-        public CalenderMain()
+        public static string strConn = "Server=localhost;Port=3306;Database=jspdb;Uid=jspuser;Pwd=jsppass";
+        public static MySqlConnection conn = null;
+        FormMain formMain;
+        public CalenderMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
         {
+            formMain = _formMain;
             InitializeComponent();
-
+        }
+        public CalenderMain(TreeMain tree, FormMain _formMain) // Tree에서 생성될 때 사용
+        {
+            formMain = _formMain;
+            InitializeComponent();
         }
 
         private void CalenderMain_Load(object sender, EventArgs e)
         {
+            conn = new MySqlConnection(strConn);
+            conn.Open();
             MonthPicker.SelectedIndex = 2;
             Calc_day();
-            //dhdP
         }
         private void Calc_day()
         {
@@ -45,9 +57,10 @@ namespace Calender
                 RichTextBox rtb = CreateRichTextBox(Month + "/" + (days[Month - 1] - startday + i + 1), false);
                 CalenderPanels.Controls.Add(rtb, i, row);
                 col++;
-
-
             }
+
+
+
 
             for (int i = 0; i < days[Month]; i++) // 시작일부터 말일까지 출력
             {
@@ -60,6 +73,7 @@ namespace Calender
                 startday++;
                 RichTextBox rtb = CreateRichTextBox((Month + 1) + "/" + (i + 1));
                 CalenderPanels.Controls.Add(rtb, col, row);
+
                 col++;
             }
 
@@ -91,14 +105,42 @@ namespace Calender
             rtb.Dock = DockStyle.Fill;
             rtb.Enabled = able;
             rtb.DoubleClick += Rtb_DoubleClick;
+            rtb.ReadOnly = true;
+            rtb.BackColor = Color.White;
             return rtb;
         }
 
         private void Rtb_DoubleClick(object? sender, EventArgs e)
         {
-            ((RichTextBox)sender).Text = "1234567";
+            OpenAccountBookList(sender, e);
+        }
+        //클릭한 셀의 지출 / 수입 목록을 확인하는 창 열기
+        public void OpenAccountBookList(object sender, EventArgs e)
+        {
+            string date = YearPicker.Text + '/' + (sender as Control).Text;
+            AccountBookList acc_list = new AccountBookList(date);
+            acc_list.Show();
+            acc_list.FormClosed += CloseAccountBookList;
+            //자기 컨트롤 전부 비활성화
+            foreach (Control control in this.Controls)
+            {
+                control.Enabled = false;
+            }
+        }
+        //지출 / 수입 리스트 닫을 때 자신의 컨트롤을 전부 활성화
+        public void CloseAccountBookList(object sender, EventArgs e)
+        {
+            foreach (Control control in this.Controls)
+            {
+                control.Enabled = true;
+            }
         }
 
+        private void CalenderMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            conn.Close();
+            formMain.Dispose();
+        }
         private void btnPostMonth_Click(object sender, EventArgs e)
         {
             MonthPicker.SelectedIndex++;
@@ -107,6 +149,34 @@ namespace Calender
         private void btnPreMonth_Click(object sender, EventArgs e)
         {
             MonthPicker.SelectedIndex--;
+        }
+
+        private void btnSwitchTree_Click(object sender, EventArgs e)
+        {
+            foreach (Form openForm in Application.OpenForms)
+            {
+                // 폼 중복 열기 방지
+                if (openForm.Name == "TreeMain") // 열린 폼의 이름 검사
+                {
+                    if (openForm.WindowState == FormWindowState.Minimized)
+                    {   // 폼이 active 인지 검사
+                        openForm.WindowState = FormWindowState.Normal;
+                        openForm.Location = new Point(this.Location.X, this.Location.Y);
+                    }
+                    openForm.Activate();
+                    openForm.Show();
+                    this.Hide();
+                    return;
+                }
+            }
+            TreeMain TreeMain = new TreeMain(this, formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
+            TreeMain.Show();
+            this.Hide();
+        }
+
+        private void btnSwitchCalender_Click(object sender, EventArgs e)
+        {
+            // 필요없음
         }
     }
 }
