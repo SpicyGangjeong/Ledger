@@ -105,6 +105,7 @@ namespace Calender
             rtb.Dock = DockStyle.Fill;
             rtb.Enabled = able;
             rtb.DoubleClick += Rtb_DoubleClick;
+            rtb.ReadOnly = true;
             return rtb;
         }
 
