@@ -106,6 +106,7 @@ namespace Calender
             rtb.Enabled = able;
             rtb.DoubleClick += Rtb_DoubleClick;
             rtb.ReadOnly = true;
+            rtb.BackColor = Color.White;
             return rtb;
         }
 
