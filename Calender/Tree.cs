@@ -33,10 +33,18 @@ namespace Ledger
         }
         public void InitializeTree()
         {
-            TreeNode root = new TreeNode();
-            string sql = "select distinct substr(f_date, 1, 4)from tb_spend";
+            string sql = "select distinct substr(f_date, 1, 4) \"YEAR\" from tb_spend";
             MySqlCommand cmd = new MySqlCommand(sql, TreeMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
+            while (data.Read())
+            {
+                TreeNode node = new TreeNode();
+                node.Text = data["YEAR"].ToString();
+                node.Name = "Y" + node.Text;
+                node.ImageIndex = 0;
+                IOTree.Nodes.Add(node);
+            }
+            data.Close();
         }
 
         private void btnSwitchCalender_Click(object sender, EventArgs e)
@@ -83,6 +91,13 @@ namespace Ledger
             conn.Open();
             MonthPicker.SelectedIndex = 2;
             InitializeTree();
+        }
+
+        private void IOTree_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNode node = IOTree.SelectedNode;
+            node.ImageIndex = 1;
+            string sql = "select substr(f_date, 6, 2) \"MONTH\" from tb_spend where substr(f_date, 1, 4) = " + node.Text;
         }
     }
 }

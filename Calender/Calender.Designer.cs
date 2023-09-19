@@ -192,7 +192,7 @@
             MonthPicker.FormattingEnabled = true;
             MonthPicker.Items.AddRange(new object[] { "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" });
             MonthPicker.Location = new Point(887, 8);
-            MonthPicker.Margin = new Padding(4, 4, 4, 4);
+            MonthPicker.Margin = new Padding(4);
             MonthPicker.Name = "MonthPicker";
             MonthPicker.Size = new Size(63, 28);
             MonthPicker.TabIndex = 6;
@@ -202,7 +202,7 @@
             // 
             YearPicker.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
             YearPicker.Location = new Point(455, 8);
-            YearPicker.Margin = new Padding(4, 4, 4, 4);
+            YearPicker.Margin = new Padding(4);
             YearPicker.Name = "YearPicker";
             YearPicker.Size = new Size(52, 34);
             YearPicker.TabIndex = 7;
@@ -215,7 +215,7 @@
             txtNowMonth.Enabled = false;
             txtNowMonth.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
             txtNowMonth.Location = new Point(420, 51);
-            txtNowMonth.Margin = new Padding(4, 4, 4, 4);
+            txtNowMonth.Margin = new Padding(4);
             txtNowMonth.Name = "txtNowMonth";
             txtNowMonth.Size = new Size(129, 27);
             txtNowMonth.TabIndex = 8;
@@ -225,7 +225,7 @@
             // 
             btnPreMonth.BackgroundImageLayout = ImageLayout.None;
             btnPreMonth.Location = new Point(357, 52);
-            btnPreMonth.Margin = new Padding(4, 4, 4, 4);
+            btnPreMonth.Margin = new Padding(4);
             btnPreMonth.Name = "btnPreMonth";
             btnPreMonth.Size = new Size(55, 31);
             btnPreMonth.TabIndex = 9;
@@ -237,7 +237,7 @@
             // 
             btnPostMonth.BackgroundImageLayout = ImageLayout.None;
             btnPostMonth.Location = new Point(557, 52);
-            btnPostMonth.Margin = new Padding(4, 4, 4, 4);
+            btnPostMonth.Margin = new Padding(4);
             btnPostMonth.Name = "btnPostMonth";
             btnPostMonth.Size = new Size(54, 31);
             btnPostMonth.TabIndex = 10;
@@ -249,7 +249,7 @@
             // 
             btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
             btnSwitchCalender.Location = new Point(9, 5);
-            btnSwitchCalender.Margin = new Padding(4, 4, 4, 4);
+            btnSwitchCalender.Margin = new Padding(4);
             btnSwitchCalender.Name = "btnSwitchCalender";
             btnSwitchCalender.Size = new Size(49, 45);
             btnSwitchCalender.TabIndex = 11;
@@ -260,7 +260,7 @@
             // 
             btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
             btnSwitchTree.Location = new Point(66, 5);
-            btnSwitchTree.Margin = new Padding(4, 4, 4, 4);
+            btnSwitchTree.Margin = new Padding(4);
             btnSwitchTree.Name = "btnSwitchTree";
             btnSwitchTree.Size = new Size(49, 45);
             btnSwitchTree.TabIndex = 12;
@@ -281,7 +281,7 @@
             Controls.Add(YearPicker);
             Controls.Add(MonthPicker);
             Controls.Add(CalenderPanels);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "CalenderMain";
             Text = "CalenderMain";
             FormClosing += CalenderMain_FormClosing;

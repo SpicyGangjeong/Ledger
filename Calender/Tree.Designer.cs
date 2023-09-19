@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeMain));
             panelHeader = new Panel();
             txtNowMonth = new TextBox();
@@ -37,10 +38,11 @@
             btnSwitchCalender = new Button();
             splitContainer1 = new SplitContainer();
             IOTree = new TreeView();
+            TreeImages = new ImageList(components);
             splitContainer2 = new SplitContainer();
             groupBoxIncome = new GroupBox();
-            groupBoxSpend = new GroupBox();
             richTextBox = new RichTextBox();
+            groupBoxSpend = new GroupBox();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -144,11 +146,23 @@
             // IOTree
             // 
             IOTree.Dock = DockStyle.Fill;
+            IOTree.ImageIndex = 0;
+            IOTree.ImageList = TreeImages;
             IOTree.Location = new Point(0, 0);
             IOTree.Margin = new Padding(4);
             IOTree.Name = "IOTree";
+            IOTree.SelectedImageIndex = 0;
             IOTree.Size = new Size(257, 529);
             IOTree.TabIndex = 0;
+            IOTree.AfterSelect += IOTree_AfterSelect;
+            // 
+            // TreeImages
+            // 
+            TreeImages.ColorDepth = ColorDepth.Depth8Bit;
+            TreeImages.ImageStream = (ImageListStreamer)resources.GetObject("TreeImages.ImageStream");
+            TreeImages.TransparentColor = Color.Transparent;
+            TreeImages.Images.SetKeyName(0, "스크린샷 2023-09-19 154946.ico");
+            TreeImages.Images.SetKeyName(1, "스크린샷 2023-09-19 155041.ico");
             // 
             // splitContainer2
             // 
@@ -182,6 +196,14 @@
             groupBoxIncome.TabStop = false;
             groupBoxIncome.Text = "수입";
             // 
+            // richTextBox
+            // 
+            richTextBox.Location = new Point(89, 103);
+            richTextBox.Name = "richTextBox";
+            richTextBox.Size = new Size(125, 120);
+            richTextBox.TabIndex = 0;
+            richTextBox.Text = "";
+            // 
             // groupBoxSpend
             // 
             groupBoxSpend.Dock = DockStyle.Fill;
@@ -193,14 +215,6 @@
             groupBoxSpend.TabIndex = 0;
             groupBoxSpend.TabStop = false;
             groupBoxSpend.Text = "지출";
-            // 
-            // richTextBox
-            // 
-            richTextBox.Location = new Point(89, 103);
-            richTextBox.Name = "richTextBox";
-            richTextBox.Size = new Size(125, 120);
-            richTextBox.TabIndex = 0;
-            richTextBox.Text = "";
             // 
             // TreeMain
             // 
@@ -242,5 +256,6 @@
         private TextBox YearPicker;
         private ComboBox MonthPicker;
         private RichTextBox richTextBox;
+        private ImageList TreeImages;
     }
 }
