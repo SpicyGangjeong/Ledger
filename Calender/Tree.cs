@@ -1,5 +1,6 @@
 ﻿using Calender;
 using Microsoft.VisualBasic;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,10 @@ namespace Ledger
 {
     public partial class TreeMain : Form
     {
+
+        public static string strConn = "Server=localhost;Port=3306;Database=jspdb;Uid=jspuser;Pwd=jsppass";
+        public static MySqlConnection conn = null;
+
         FormMain formMain;
         public TreeMain(FormMain formMain) // 처음 FormMain에서 생성될 때 사용됨
         {
@@ -25,6 +30,13 @@ namespace Ledger
         {
             InitializeComponent();
             this.formMain = formMain;
+        }
+        public void InitializeTree()
+        {
+            TreeNode root = new TreeNode();
+            string sql = "select distinct substr(f_date, 1, 4)from tb_spend";
+            MySqlCommand cmd = new MySqlCommand(sql, TreeMain.conn);
+            MySqlDataReader data = cmd.ExecuteReader();
         }
 
         private void btnSwitchCalender_Click(object sender, EventArgs e)
@@ -58,6 +70,19 @@ namespace Ledger
         private void TreeMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             formMain.Dispose();
+        }
+
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void TreeMain_Load(object sender, EventArgs e)
+        {
+            conn = new MySqlConnection(strConn);
+            conn.Open();
+            MonthPicker.SelectedIndex = 2;
+            InitializeTree();
         }
     }
 }
