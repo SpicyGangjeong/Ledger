@@ -31,7 +31,8 @@ namespace Ledger
         }
         public void InitializeTree()
         {
-            string sql = "select distinct substr(f_date, 1, 4) \"YEAR\" from tb_spend union select distinct substr(f_date, 1, 4) \"YEAR\" from tb_income";
+            string sql = "select distinct substr(f_date, 1, 4) \"YEAR\" from tb_spend " +
+                "union select distinct substr(f_date, 1, 4) \"YEAR\" from tb_income";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             //////////////////////////
@@ -95,7 +96,9 @@ namespace Ledger
         {
             TreeNode Node = IOTree.SelectedNode;
             string sql;
-            if (Node.Name.Substring(0, 1) == "Y") // Year 노드 클릭한 경우
+
+            // Year 노드 클릭한 경우
+            if (Node.Name.Substring(0, 1) == "Y") 
             {
                 Node.Nodes.Clear();
                 sql = "select distinct substr(f_date, 6, 2) \"MONTH\" from tb_spend where substr(f_date, 1, 4) = " + Node.Text +
@@ -114,7 +117,8 @@ namespace Ledger
                 Node.ImageIndex = 1;
                 Node.Expand();
             }
-            else if (Node.Name.Substring(0, 1) == "M") // Month 노드 클릭한 경우
+            // Month 노드 클릭한 경우
+            else if (Node.Name.Substring(0, 1) == "M") 
             {
                 Node.Nodes.Clear();
                 sql = "select distinct substr(f_date, 9, 2) \"DATE\" from tb_spend where substr(f_date, 1, 4) = " + Node.Parent.Text + " and substr(f_date, 6, 2) =" + Node.Text +
@@ -133,7 +137,8 @@ namespace Ledger
                 Node.ImageIndex = 1;
                 Node.Expand();
             }
-            else if (Node.Name.Substring(0, 1) == "D") // 날짜 노드를 클릭한 경우
+            // 날짜 노드를 클릭한 경우
+            else if (Node.Name.Substring(0, 1) == "D") 
             {
                 date = Node.Parent.Parent.Text + '/' + Node.Parent.Text + '/' + Node.Text;
                 AddIncomeToPanel();
