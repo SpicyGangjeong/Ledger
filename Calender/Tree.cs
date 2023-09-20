@@ -86,6 +86,7 @@ namespace Ledger
             conn.Open();
             MonthPicker.SelectedIndex = 8;
             InitializeTree();
+
         }
 
         private void IOTree_AfterSelect(object sender, TreeViewEventArgs e)
