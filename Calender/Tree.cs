@@ -80,11 +80,6 @@ namespace Ledger
             formMain.Dispose();
         }
 
-        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
         private void TreeMain_Load(object sender, EventArgs e)
         {
             conn = new MySqlConnection(strConn);
@@ -93,18 +88,46 @@ namespace Ledger
             InitializeTree();
         }
 
-        private void IOTree_AfterSelectYear(object sender, TreeViewEventArgs e)
+        private void IOTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            TreeNode node = IOTree.SelectedNode;
-            node.ImageIndex = 1;
-            string sql = "select substr(f_date, 6, 2) \"MONTH\" from tb_spend where substr(f_date, 1, 4) = " + node.Text;
-            MySqlCommand cmd = new MySqlCommand(sql, TreeMain.conn);
-            MySqlDataReader data = cmd.ExecuteReader();
-            while (data.Read())
+            TreeNode Node = IOTree.SelectedNode;
+            string sql;
+            if ( Node.Name.Substring(0,1) == "Y") // Year 노드 클릭한 경우
             {
-
+                Node.Nodes.Clear();
+                sql = "select distinct substr(f_date, 6, 2) \"MONTH\" from tb_spend where substr(f_date, 1, 4) = " + Node.Text;
+                MySqlCommand cmd = new MySqlCommand(sql, TreeMain.conn);
+                MySqlDataReader data = cmd.ExecuteReader();
+                while (data.Read())
+                {
+                    TreeNode nodeMonth = new TreeNode();
+                    nodeMonth.ImageIndex = 0;
+                    nodeMonth.Text = data["MONTH"].ToString();
+                    nodeMonth.Name = "M" + nodeMonth.Text;
+                    Node.Nodes.Add(nodeMonth);
+                }
+                data.Close();
+                Node.ImageIndex = 1;
+                Node.Expand();
             }
-            data.Close();
+            else if ( Node.Name.Substring(0, 1) == "M") // Month 노드 클릭한 경우
+            {
+                Node.Nodes.Clear();
+                sql = ;
+                MySqlCommand cmd = new MySqlCommand(sql, TreeMain.conn);
+                MySqlDataReader data = cmd.ExecuteReader();
+                while (data.Read())
+                {
+                    TreeNode nodeDate = new TreeNode();
+                    nodeDate.ImageIndex = 0;
+                    nodeDate.Text = data["MONTH"].ToString();
+                    nodeDate.Name = "D" + nodeDate.Text;
+                    Node.Nodes.Add(nodeDate);
+                }
+                data.Close();
+                Node.ImageIndex = 1;
+                Node.Expand();
+            }
         }
     }
 }

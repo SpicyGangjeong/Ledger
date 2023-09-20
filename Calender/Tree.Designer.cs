@@ -154,6 +154,7 @@
             IOTree.SelectedImageIndex = 0;
             IOTree.Size = new Size(257, 529);
             IOTree.TabIndex = 0;
+            IOTree.AfterSelect += IOTree_AfterSelect;
             // 
             // TreeImages
             // 
