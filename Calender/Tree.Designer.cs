@@ -41,8 +41,11 @@
             TreeImages = new ImageList(components);
             splitContainer2 = new SplitContainer();
             groupBoxIncome = new GroupBox();
-            richTextBox = new RichTextBox();
+            flpnl_Spend = new FlowLayoutPanel();
             groupBoxSpend = new GroupBox();
+            flpnl_Income = new FlowLayoutPanel();
+            imageList1 = new ImageList(components);
+            imageList2 = new ImageList(components);
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -53,6 +56,7 @@
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
             groupBoxIncome.SuspendLayout();
+            groupBoxSpend.SuspendLayout();
             SuspendLayout();
             // 
             // panelHeader
@@ -154,6 +158,7 @@
             IOTree.SelectedImageIndex = 0;
             IOTree.Size = new Size(257, 529);
             IOTree.TabIndex = 0;
+            IOTree.AfterCollapse += IOTree_AfterCollapse;
             IOTree.AfterSelect += IOTree_AfterSelect;
             // 
             // TreeImages
@@ -185,7 +190,7 @@
             // 
             // groupBoxIncome
             // 
-            groupBoxIncome.Controls.Add(richTextBox);
+            groupBoxIncome.Controls.Add(flpnl_Spend);
             groupBoxIncome.Dock = DockStyle.Fill;
             groupBoxIncome.Location = new Point(0, 0);
             groupBoxIncome.Margin = new Padding(4);
@@ -196,16 +201,17 @@
             groupBoxIncome.TabStop = false;
             groupBoxIncome.Text = "수입";
             // 
-            // richTextBox
+            // flpnl_Spend
             // 
-            richTextBox.Location = new Point(89, 103);
-            richTextBox.Name = "richTextBox";
-            richTextBox.Size = new Size(125, 120);
-            richTextBox.TabIndex = 0;
-            richTextBox.Text = "";
+            flpnl_Spend.Dock = DockStyle.Fill;
+            flpnl_Spend.Location = new Point(4, 24);
+            flpnl_Spend.Name = "flpnl_Spend";
+            flpnl_Spend.Size = new Size(375, 501);
+            flpnl_Spend.TabIndex = 10;
             // 
             // groupBoxSpend
             // 
+            groupBoxSpend.Controls.Add(flpnl_Income);
             groupBoxSpend.Dock = DockStyle.Fill;
             groupBoxSpend.Location = new Point(0, 0);
             groupBoxSpend.Margin = new Padding(4);
@@ -215,6 +221,30 @@
             groupBoxSpend.TabIndex = 0;
             groupBoxSpend.TabStop = false;
             groupBoxSpend.Text = "지출";
+            // 
+            // flpnl_Income
+            // 
+            flpnl_Income.Dock = DockStyle.Fill;
+            flpnl_Income.Location = new Point(4, 24);
+            flpnl_Income.Name = "flpnl_Income";
+            flpnl_Income.Size = new Size(371, 501);
+            flpnl_Income.TabIndex = 11;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth8Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "edit_icon.png");
+            imageList1.Images.SetKeyName(1, "delete_icon.png");
+            // 
+            // imageList2
+            // 
+            imageList2.ColorDepth = ColorDepth.Depth8Bit;
+            imageList2.ImageStream = (ImageListStreamer)resources.GetObject("imageList2.ImageStream");
+            imageList2.TransparentColor = Color.Transparent;
+            imageList2.Images.SetKeyName(0, "edit_icon.png");
+            imageList2.Images.SetKeyName(1, "delete_icon.png");
             // 
             // TreeMain
             // 
@@ -240,6 +270,7 @@
             ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
             splitContainer2.ResumeLayout(false);
             groupBoxIncome.ResumeLayout(false);
+            groupBoxSpend.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -255,7 +286,10 @@
         private TextBox txtNowMonth;
         private TextBox YearPicker;
         private ComboBox MonthPicker;
-        private RichTextBox richTextBox;
         private ImageList TreeImages;
+        private FlowLayoutPanel flpnl_Spend;
+        private FlowLayoutPanel flpnl_Income;
+        private ImageList imageList1;
+        private ImageList imageList2;
     }
 }

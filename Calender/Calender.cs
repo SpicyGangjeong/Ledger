@@ -5,8 +5,6 @@ namespace Calender
 {
     public partial class CalenderMain : Form
     {
-        public static string strConn = "Server=localhost;Port=3306;Database=jspdb;Uid=jspuser;Pwd=jsppass";
-        public static MySqlConnection conn = null;
         FormMain formMain;
         public CalenderMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
         {
@@ -21,8 +19,6 @@ namespace Calender
 
         private void CalenderMain_Load(object sender, EventArgs e)
         {
-            conn = new MySqlConnection(strConn);
-            conn.Open();
             MonthPicker.SelectedIndex = 8;
             Calc_day();
         }
@@ -118,7 +114,7 @@ namespace Calender
         public void OpenAccountBookList(object sender, EventArgs e)
         {
             string date = YearPicker.Text + '/' + (sender as Control).Text;
-            AccountBookList acc_list = new AccountBookList(date);
+            AccountBookList acc_list = new AccountBookList(date, formMain);
             acc_list.Show();
             acc_list.FormClosed += CloseAccountBookList;
             //자기 컨트롤 전부 비활성화
@@ -138,7 +134,6 @@ namespace Calender
 
         private void CalenderMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            conn.Close();
             formMain.Dispose();
         }
         private void btnPostMonth_Click(object sender, EventArgs e)
