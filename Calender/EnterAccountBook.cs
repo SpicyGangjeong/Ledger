@@ -1,4 +1,5 @@
-﻿using MySqlConnector;
+﻿using Ledger;
+using MySqlConnector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,27 +16,33 @@ namespace Calender
     public partial class EnterAccountBook : Form
     {
         public string date;
+        FormMain formMain;
         AccountBookList form_book;
+        TreeMain treeMain;
+        bool TreeTrigger = false;
         int no;
         string kind;
-        public EnterAccountBook(string date)
+        public EnterAccountBook(string date, FormMain fMain)
         {
             InitializeComponent();
             this.date = date;
+            this.formMain = fMain;
         }
-        public EnterAccountBook(AccountBookList _form, string date)
+        public EnterAccountBook(AccountBookList _form, string date, FormMain fMain)
         {
             InitializeComponent();
             this.date = date;
             this.form_book = _form;
+            this.formMain = fMain;
         }
-        public EnterAccountBook(AccountBookList _form, string date, int no, string kind)
+        public EnterAccountBook(AccountBookList _form, string date, int no, string kind, FormMain fMain)
         {
             //수정을 위하여 창을 열었다
             InitializeComponent();
             this.date = date;
             this.form_book = _form;
             this.no = no;
+            this.formMain = fMain;
             if (kind == "지출")
             {
                 this.Text = "지출 수정";
@@ -59,7 +66,38 @@ namespace Calender
                 tabControl1.TabPages.RemoveAt(0); //지출 태그는 삭제
             }
         }
-
+        public EnterAccountBook(TreeMain _form, string date, int no, string kind, FormMain fMain) // 누. TreeMain이 들어온 경우
+        {
+            //수정을 위하여 창을 열었다
+            InitializeComponent();
+            this.date = date;
+            this.treeMain = _form;
+            this.TreeTrigger = true;
+            this.no = no;
+            this.formMain = fMain;
+            if (kind == "지출")
+            {
+                this.Text = "지출 수정";
+                LoadDataFromSpend(no);
+                //기존의 추가 버튼을 수정 버튼으로 변경
+                btn_Add.Text = "수정";
+                btn_Add.Click -= InsertRecordSpend;
+                btn_Add.Click += UpdateRecordSpend;
+                tabControl1.TabPages[0].Text = "지출 수정";
+                tabControl1.TabPages.RemoveAt(1); //수입 태그는 삭제
+            }
+            else if (kind == "수입")
+            {
+                this.Text = "수입 수정";
+                LoadDataFromIncome(no);
+                //기존의 추가 버튼을 수정 버튼으로 변경
+                btn_Add2.Text = "수정";
+                btn_Add2.Click -= InsertRecordIncome;
+                btn_Add2.Click += UpdateRecordIncome;
+                tabControl1.TabPages[1].Text = "수입 수정";
+                tabControl1.TabPages.RemoveAt(0); //지출 태그는 삭제
+            }
+        }
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -110,7 +148,7 @@ namespace Calender
                 GetRegularIndex(pnl_Regular).ToString() + "')";
             //string sql = "insert into tb_spend values('5', '떢볶이', '2023/9/16', '1000', '카드', '음식', '0', '', '0')";
 
-            MySqlCommand cmd = new MySqlCommand(sql, CalenderMain.conn);
+            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             int n = cmd.ExecuteNonQuery(); //반환(DataSet)이 없는 SQL문
             if (n == 1)
             {
@@ -121,7 +159,15 @@ namespace Calender
                 MessageBox.Show("추가실패");
             }
             this.Close();
-            form_book.AddSpendToPanel();
+            if (TreeTrigger) // 트리에서 온 경우
+            {
+                treeMain.AddSpendToPanel();
+            }
+            else if (!TreeTrigger) // 북리스트에서 온 경우
+            {
+                form_book.AddSpendToPanel();
+            }
+            
         }
         private void InsertRecordIncome(object sender, EventArgs e)
         {
@@ -144,7 +190,7 @@ namespace Calender
                 tbx_From.Text + "', '" +
                 GetRegularIndex(pnl_Regular2).ToString() + "')";
 
-            MySqlCommand cmd = new MySqlCommand(sql, CalenderMain.conn);
+            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             int n = cmd.ExecuteNonQuery(); //반환(DataSet)이 없는 SQL문
             if (n == 1)
             {
@@ -155,7 +201,14 @@ namespace Calender
                 MessageBox.Show("추가실패");
             }
             this.Close();
-            form_book.AddIncomeToPanel();
+            if (TreeTrigger) // 트리에서 온 경우
+            {
+                treeMain.AddIncomeToPanel();
+            }
+            else if (!TreeTrigger) // 북리스트에서 온 경우
+            {
+                form_book.AddIncomeToPanel();
+            }
         }
         private void UpdateRecordSpend(object sender, EventArgs e)
         {
@@ -176,7 +229,7 @@ namespace Calender
                 tbx_Memo.Text + "', f_regular = '" +
                 GetRegularIndex(pnl_Regular).ToString() + "' where f_no = '" + no + "';";
 
-            MySqlCommand cmd = new MySqlCommand(sql, CalenderMain.conn);
+            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             int n = cmd.ExecuteNonQuery(); //반환(DataSet)이 없는 SQL문
             if (n == 1)
             {
@@ -187,7 +240,14 @@ namespace Calender
                 MessageBox.Show("수정실패");
             }
             this.Close();
-            form_book.AddSpendToPanel();
+            if (TreeTrigger) // 트리에서 온 경우
+            {
+                treeMain.AddSpendToPanel();
+            }
+            else if (!TreeTrigger) // 북리스트에서 온 경우
+            {
+                form_book.AddSpendToPanel();
+            }
         }
         private void UpdateRecordIncome(object sender, EventArgs e)
         {
@@ -206,7 +266,7 @@ namespace Calender
                 tbx_Memo2.Text + "', f_regular = '" +
                 GetRegularIndex(pnl_Regular2).ToString() + "' where f_no = '" + no + "';";
 
-            MySqlCommand cmd = new MySqlCommand(sql, CalenderMain.conn);
+            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             int n = cmd.ExecuteNonQuery(); //반환(DataSet)이 없는 SQL문
             if (n == 1)
             {
@@ -217,7 +277,14 @@ namespace Calender
                 MessageBox.Show("수정실패");
             }
             this.Close();
-            form_book.AddIncomeToPanel();
+            if (TreeTrigger) // 트리에서 온 경우
+            {
+                treeMain.AddIncomeToPanel();
+            }
+            else if (!TreeTrigger) // 북리스트에서 온 경우
+            {
+                form_book.AddIncomeToPanel();
+            }
         }
         private Control GetSelectedItem(Control control)
         {
@@ -301,7 +368,7 @@ namespace Calender
         {
             //f_no를 배정하기 위해서, 지출 테이블에서 가장 높은 f_no의 값을 불러온다.
             string query = "select f_no from tb_spend order by f_no desc limit 1"; //쿼리 작성. f_no을 내림차순으로 정렬하여 가장 먼저 오는놈 꺼내
-            MySqlCommand cmd = new MySqlCommand(query, CalenderMain.conn);
+            MySqlCommand cmd = new MySqlCommand(query, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             int no = 1; //초기값은 1
             while (data.Read())
@@ -315,7 +382,7 @@ namespace Calender
         {
             //f_no를 배정하기 위해서, 수입 테이블에서 가장 높은 f_no의 값을 불러온다.
             string query = "select f_no from tb_income order by f_no desc limit 1"; //쿼리 작성. f_no을 내림차순으로 정렬하여 가장 먼저 오는놈 꺼내
-            MySqlCommand cmd = new MySqlCommand(query, CalenderMain.conn);
+            MySqlCommand cmd = new MySqlCommand(query, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             int no = 1; //초기값은 1
             while (data.Read())
@@ -329,7 +396,7 @@ namespace Calender
         {
             //인자값과 동일한 f_no를 가지는 레코드를 추출하여 각 컨트롤에 대입
             string sql = "select * from tb_spend where f_no = '" + no.ToString() + "'";
-            MySqlCommand cmd = new MySqlCommand(sql, CalenderMain.conn);
+            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             while (data.Read())
             {
@@ -347,7 +414,7 @@ namespace Calender
         {
             //인자값과 동일한 f_no를 가지는 레코드를 추출하여 각 컨트롤에 대입
             string sql = "select * from tb_income where f_no = '" + no.ToString() + "'";
-            MySqlCommand cmd = new MySqlCommand(sql, CalenderMain.conn);
+            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             while (data.Read())
             {

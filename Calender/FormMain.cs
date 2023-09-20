@@ -1,4 +1,5 @@
 ﻿using Calender;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +14,14 @@ namespace Ledger
 {
     public partial class FormMain : Form
     {
+
+        public static string strConn = "Server=localhost;Port=3306;Database=jspdb;Uid=jspuser;Pwd=jsppass";
+        public static MySqlConnection conn = null;
         public FormMain()
         {
             InitializeComponent();
+            conn = new MySqlConnection(strConn);
+            conn.Open();
         }
 
         private void btnSwitchTree_Click(object sender, EventArgs e)

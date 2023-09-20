@@ -66,6 +66,7 @@
             // 
             // contextMenuStrip
             // 
+            contextMenuStrip.ImageScalingSize = new Size(20, 20);
             contextMenuStrip.Items.AddRange(new ToolStripItem[] { 종료ToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
             contextMenuStrip.Size = new Size(99, 26);
