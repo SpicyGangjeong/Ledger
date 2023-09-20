@@ -23,7 +23,7 @@ namespace Calender
         {
             conn = new MySqlConnection(strConn);
             conn.Open();
-            MonthPicker.SelectedIndex = 2;
+            MonthPicker.SelectedIndex = 8;
             Calc_day();
         }
         private void Calc_day()

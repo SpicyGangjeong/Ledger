@@ -89,15 +89,22 @@ namespace Ledger
         {
             conn = new MySqlConnection(strConn);
             conn.Open();
-            MonthPicker.SelectedIndex = 2;
+            MonthPicker.SelectedIndex = 8;
             InitializeTree();
         }
 
-        private void IOTree_AfterSelect(object sender, TreeViewEventArgs e)
+        private void IOTree_AfterSelectYear(object sender, TreeViewEventArgs e)
         {
             TreeNode node = IOTree.SelectedNode;
             node.ImageIndex = 1;
             string sql = "select substr(f_date, 6, 2) \"MONTH\" from tb_spend where substr(f_date, 1, 4) = " + node.Text;
+            MySqlCommand cmd = new MySqlCommand(sql, TreeMain.conn);
+            MySqlDataReader data = cmd.ExecuteReader();
+            while (data.Read())
+            {
+
+            }
+            data.Close();
         }
     }
 }
