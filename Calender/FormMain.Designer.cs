@@ -41,10 +41,9 @@
             // btnSwitchTree
             // 
             btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
-            btnSwitchTree.Location = new Point(72, 16);
-            btnSwitchTree.Margin = new Padding(4);
+            btnSwitchTree.Location = new Point(56, 12);
             btnSwitchTree.Name = "btnSwitchTree";
-            btnSwitchTree.Size = new Size(49, 45);
+            btnSwitchTree.Size = new Size(38, 34);
             btnSwitchTree.TabIndex = 14;
             btnSwitchTree.UseVisualStyleBackColor = true;
             btnSwitchTree.Click += btnSwitchTree_Click;
@@ -52,10 +51,9 @@
             // btnSwitchCalender
             // 
             btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
-            btnSwitchCalender.Location = new Point(15, 16);
-            btnSwitchCalender.Margin = new Padding(4);
+            btnSwitchCalender.Location = new Point(12, 12);
             btnSwitchCalender.Name = "btnSwitchCalender";
-            btnSwitchCalender.Size = new Size(49, 45);
+            btnSwitchCalender.Size = new Size(38, 34);
             btnSwitchCalender.TabIndex = 13;
             btnSwitchCalender.UseVisualStyleBackColor = true;
             btnSwitchCalender.Click += btnSwitchCalender_Click;
@@ -71,24 +69,23 @@
             contextMenuStrip.ImageScalingSize = new Size(20, 20);
             contextMenuStrip.Items.AddRange(new ToolStripItem[] { 종료ToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(109, 28);
+            contextMenuStrip.Size = new Size(99, 26);
             contextMenuStrip.Text = "Ledger";
             // 
             // 종료ToolStripMenuItem
             // 
             종료ToolStripMenuItem.Name = "종료ToolStripMenuItem";
-            종료ToolStripMenuItem.Size = new Size(108, 24);
+            종료ToolStripMenuItem.Size = new Size(98, 22);
             종료ToolStripMenuItem.Text = "종료";
             종료ToolStripMenuItem.Click += 종료ToolStripMenuItem_Click;
             // 
             // FormMain
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1023, 469);
+            ClientSize = new Size(796, 352);
             Controls.Add(btnSwitchTree);
             Controls.Add(btnSwitchCalender);
-            Margin = new Padding(4);
             Name = "FormMain";
             Text = "FormMain";
             contextMenuStrip.ResumeLayout(false);

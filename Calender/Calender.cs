@@ -1,8 +1,10 @@
 using Ledger;
 using MySqlConnector;
 
+
 namespace Calender
 {
+
     public partial class CalenderMain : Form
     {
         FormMain formMain;
@@ -97,7 +99,7 @@ namespace Calender
         public RichTextBox CreateRichTextBox(string text, bool able = true)
         {
             RichTextBox rtb = new RichTextBox();
-            
+
             rtb.Text = text + "\n\n";
             int indexdate = rtb.Text.Length;                // 마지막 캐럿지점
             string sql = "select sum(f_money) \"Money\" from tb_spend where f_date = '" + YearPicker.Text + "/" + text + "'";
@@ -108,7 +110,8 @@ namespace Calender
                 string spends = data["Money"].ToString();
                 if (spends.Length > 0)
                     rtb.Text += "-" + spends;
-            } data.Close();
+            }
+            data.Close();
             rtb.Text += "\n";
 
             rtb.Select(indexdate, rtb.Text.Length);         // 첫 캐럿지점부터 현재 캐럿지점까지 선택
@@ -119,7 +122,7 @@ namespace Calender
             sql = "select sum(f_money) \"Money\" from tb_income where f_date = '" + YearPicker.Text + "/" + text + "'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
-            while(data.Read())
+            while (data.Read())
             {
                 string incomes = data["Money"].ToString();
                 if (incomes.Length > 0)
@@ -132,24 +135,26 @@ namespace Calender
                     rtb.SelectionColor = System.Drawing.Color.Blue; // 수입내역 파란색으로
                     rtb.SelectionAlignment = HorizontalAlignment.Right; // 우로정렬
                 }
-            } data.Close();
+            }
+            data.Close();
             rtb.Dock = DockStyle.Fill;                      // 가득 채움
             rtb.Enabled = able;                             // 활성화 전환
-            rtb.DoubleClick += Rtb_DoubleClick;             // 더블클릭 이벤트 활성화
+            rtb.Click += Rtb_Click;             // 클릭 이벤트 활성화
             rtb.ReadOnly = true;                            // 읽기전용
             rtb.BackColor = Color.White;                    // 배경화면 하얀색
             rtb.ScrollBars = RichTextBoxScrollBars.None;    //스크롤바 비활성화
             return rtb;
         }
-
-        private void Rtb_DoubleClick(object? sender, EventArgs e)
+        private void Rtb_Click(object? sender, EventArgs e)
         {
+            if (sender is RichTextBox rtb)
+                rtb.SelectionStart = 0;
             OpenAccountBookList(sender, e);
         }
         //클릭한 셀의 지출 / 수입 목록을 확인하는 창 열기
         public void OpenAccountBookList(object sender, EventArgs e)
         {
-            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0,3);
+            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0, 4);
             AccountBookList acc_list = new AccountBookList(date, formMain);
             acc_list.Show();
             acc_list.FormClosed += CloseAccountBookList;
