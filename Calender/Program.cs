@@ -1,6 +1,6 @@
 using Ledger;
 
-namespace Calender
+namespace Ledger
 {
     internal static class Program
     {

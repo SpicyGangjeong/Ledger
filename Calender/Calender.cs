@@ -2,7 +2,7 @@ using Ledger;
 using MySqlConnector;
 
 
-namespace Calender
+namespace Ledger
 {
 
     public partial class CalenderMain : Form
