@@ -56,10 +56,6 @@ namespace Ledger
                 CalenderPanels.Controls.Add(rtb, i, row);
                 col++;
             }
-
-
-
-
             for (int i = 0; i < days[Month]; i++) // 시작일부터 말일까지 출력
             {
                 if (startday == 7)
@@ -74,7 +70,6 @@ namespace Ledger
 
                 col++;
             }
-
             for (int i = 0; CalenderPanels.Controls.Count < 49; i++) // 마지막칸까지 달력 채우기
             {
                 if (startday == 7)

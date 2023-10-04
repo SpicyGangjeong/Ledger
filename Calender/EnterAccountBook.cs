@@ -167,7 +167,7 @@ namespace Ledger
             {
                 form_book.AddSpendToPanel();
             }
-            
+
         }
         private void InsertRecordIncome(object sender, EventArgs e)
         {
