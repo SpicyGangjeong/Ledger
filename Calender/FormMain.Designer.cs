@@ -36,6 +36,7 @@
             contextMenuStrip = new ContextMenuStrip(components);
             종료ToolStripMenuItem = new ToolStripMenuItem();
             btnSwitchGraph = new Button();
+            btnSwitchUpper = new Button();
             contextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -43,7 +44,7 @@
             // 
             btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
             btnSwitchTree.Location = new Point(72, 16);
-            btnSwitchTree.Margin = new Padding(4, 4, 4, 4);
+            btnSwitchTree.Margin = new Padding(4);
             btnSwitchTree.Name = "btnSwitchTree";
             btnSwitchTree.Size = new Size(49, 45);
             btnSwitchTree.TabIndex = 14;
@@ -54,7 +55,7 @@
             // 
             btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
             btnSwitchCalender.Location = new Point(15, 16);
-            btnSwitchCalender.Margin = new Padding(4, 4, 4, 4);
+            btnSwitchCalender.Margin = new Padding(4);
             btnSwitchCalender.Name = "btnSwitchCalender";
             btnSwitchCalender.Size = new Size(49, 45);
             btnSwitchCalender.TabIndex = 13;
@@ -93,15 +94,26 @@
             btnSwitchGraph.UseVisualStyleBackColor = true;
             btnSwitchGraph.Click += btnSwitchTree_Click;
             // 
+            // btnSwitchUpper
+            // 
+            btnSwitchUpper.Location = new Point(185, 16);
+            btnSwitchUpper.Name = "btnSwitchUpper";
+            btnSwitchUpper.Size = new Size(49, 45);
+            btnSwitchUpper.TabIndex = 15;
+            btnSwitchUpper.Text = "dd";
+            btnSwitchUpper.UseVisualStyleBackColor = true;
+            btnSwitchUpper.Click += btnSwitchUpper_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1023, 469);
+            Controls.Add(btnSwitchUpper);
             Controls.Add(btnSwitchGraph);
             Controls.Add(btnSwitchTree);
             Controls.Add(btnSwitchCalender);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "FormMain";
             Text = "FormMain";
             contextMenuStrip.ResumeLayout(false);
@@ -116,5 +128,6 @@
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem 종료ToolStripMenuItem;
         private Button btnSwitchGraph;
+        private Button btnSwitchUpper;
     }
 }

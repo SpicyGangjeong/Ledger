@@ -58,7 +58,7 @@ namespace Ledger
                 //가격 레이블
                 lb_money.Font = ft;
                 lb_money.Top = (lb_money.Parent.Height) - (lb_money.Height) - 6; //위치
-                lb_money.Text = "-" + data["f_money"].ToString(); //레이블 값은 가격
+                lb_money.Text = "-" + string.Format("{0:#,###}", data["f_money"]); //레이블 값은 가격
                 lb_money.ForeColor = Color.Red; //색상은 빨간색
                 //수정 버튼
                 btn_edit.ImageList = imageList1; //이미지 리스트 선택
@@ -112,7 +112,7 @@ namespace Ledger
                 //가격 레이블
                 lb_money.Font = ft;
                 lb_money.Top = (lb_money.Parent.Height) - (lb_money.Height) - 6; //위치
-                lb_money.Text = "+" + data["f_money"].ToString(); //레이블 값은 가격
+                lb_money.Text = "+" + string.Format("{0:#,###}", data["f_money"]); //레이블 값은 가격
                 lb_money.ForeColor = Color.Blue; //색상은 빨간색
                 //수정 버튼
                 btn_edit.ImageList = imageList1; //이미지 리스트 선택

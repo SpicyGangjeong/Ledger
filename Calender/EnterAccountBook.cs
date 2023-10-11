@@ -136,8 +136,7 @@ namespace Ledger
             }
 
 
-            string sql = "insert into tb_spend values('" +
-                GetNewSpendNo().ToString() + "', '" +
+            string sql = "insert into tb_spend(f_name, f_date, f_money, f_way, f_cate, f_imp, f_text, f_regular) values('" +
                 tbx_Name.Text + "', '" +
                 date + "', '" +
                 tbx_Money.Text + "', '" +
@@ -167,7 +166,7 @@ namespace Ledger
             {
                 form_book.AddSpendToPanel();
             }
-            
+
         }
         private void InsertRecordIncome(object sender, EventArgs e)
         {
@@ -181,8 +180,7 @@ namespace Ledger
             }
 
 
-            string sql = "insert into tb_income values('" +
-                GetNewIncomeNo().ToString() + "', '" +
+            string sql = "insert into tb_income(f_name, f_date, f_money, f_text, f_from, f_regular) values('" +
                 tbx_Name2.Text + "', '" +
                 date + "', '" +
                 tbx_Money2.Text + "', '" +
@@ -364,34 +362,7 @@ namespace Ledger
                 }
             }
         }
-        private int GetNewSpendNo()
-        {
-            //f_no를 배정하기 위해서, 지출 테이블에서 가장 높은 f_no의 값을 불러온다.
-            string query = "select f_no from tb_spend order by f_no desc limit 1"; //쿼리 작성. f_no을 내림차순으로 정렬하여 가장 먼저 오는놈 꺼내
-            MySqlCommand cmd = new MySqlCommand(query, FormMain.conn);
-            MySqlDataReader data = cmd.ExecuteReader();
-            int no = 1; //초기값은 1
-            while (data.Read())
-            {
-                no = Convert.ToInt32(data["f_no"]) + 1; //가장 높은 f_no에서 1을 더함.
-            }
-            data.Close();
-            return no;
-        }
-        private int GetNewIncomeNo()
-        {
-            //f_no를 배정하기 위해서, 수입 테이블에서 가장 높은 f_no의 값을 불러온다.
-            string query = "select f_no from tb_income order by f_no desc limit 1"; //쿼리 작성. f_no을 내림차순으로 정렬하여 가장 먼저 오는놈 꺼내
-            MySqlCommand cmd = new MySqlCommand(query, FormMain.conn);
-            MySqlDataReader data = cmd.ExecuteReader();
-            int no = 1; //초기값은 1
-            while (data.Read())
-            {
-                no = Convert.ToInt32(data["f_no"]) + 1; //가장 높은 f_no에서 1을 더함.
-            }
-            data.Close();
-            return no;
-        }
+        
         private void LoadDataFromSpend(int no)
         {
             //인자값과 동일한 f_no를 가지는 레코드를 추출하여 각 컨트롤에 대입
