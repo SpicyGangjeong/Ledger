@@ -43,5 +43,13 @@ namespace Ledger
         {
             Dispose();
         }
+
+        private void btnSwitchUpper_Click(object sender, EventArgs e)
+        {
+            UpperLimit upperLimit = new UpperLimit(this);
+            upperLimit.Show();
+            this.Hide();
+            notifyIcon1.Visible = true;
+        }
     }
 }

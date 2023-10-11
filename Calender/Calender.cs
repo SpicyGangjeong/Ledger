@@ -154,7 +154,7 @@ namespace Ledger
         //클릭한 셀의 지출 / 수입 목록을 확인하는 창 열기
         public void OpenAccountBookList(object sender, EventArgs e)
         {
-            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0, 4);
+            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0, 5);
             AccountBookList acc_list = new AccountBookList(date, formMain);
             acc_list.Show();
             acc_list.FormClosed += CloseAccountBookList;
