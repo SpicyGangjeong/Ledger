@@ -154,7 +154,7 @@ namespace Ledger
                 lbText6.Text = "금일 권장액 : " + string.Format("{0:#,####}원", Convert.ToInt32(rec_money));
                 data.Close();
                 pnlCenter.Controls.Add(flpnlDate);
-                MessageBox.Show(diff.Days.ToString());
+                //MessageBox.Show(diff.Days.ToString());
                 //패널 추가 
                 for (int i = 0; i < diff.Days + 1; i++)
                 {
@@ -269,7 +269,7 @@ namespace Ledger
                     if (fp.Tag.ToString().Equals(today.ToString()))
                     {
                         int point = fp.Location.X - (this.Width / 2) + (fp.Width / 2);
-                        MessageBox.Show(point.ToString() + "포인트");
+                        //MessageBox.Show(point.ToString() + "포인트");
                         if (point < 0)
                         {
                             point = 0;
