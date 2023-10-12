@@ -59,8 +59,8 @@ namespace Ledger
 
         private void SwitchAnalysis_Click(object sender, EventArgs e)
         {
-            Analysis anal = new Analysis();
-            anal.Show();
+            Analysis anly = new Analysis(this);
+            anly.Show();
             this.Hide();
             notifyIcon1.Visible = true;
         }
