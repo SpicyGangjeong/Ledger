@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Ledger
 {
@@ -39,10 +40,14 @@ namespace Ledger
             formsPlot.Plot.XTicks(dataX.ToArray());
             formsPlot.Refresh();
             string basictext = "";
+            double sum = dataY.Sum();
             for (int i = 0; i < dataX.Count; i++)
             {
-                basictext += i+1 +"위"
-                rtbRank.Text += 
+                basictext += string.Concat((i + 1), "위\t");
+                basictext += dataX[i].ToString();
+                basictext += string.Concat("\t(", Math.Round(dataY[i]/sum*100, 1), "%)");
+                rtbRank.Text += basictext +"\n";
+                basictext = "";
             }
         }
 
