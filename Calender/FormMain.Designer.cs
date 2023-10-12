@@ -37,6 +37,7 @@
             종료ToolStripMenuItem = new ToolStripMenuItem();
             btnSwitchGraph = new Button();
             btnSwitchUpper = new Button();
+            SwitchAnalysis = new Button();
             contextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -92,7 +93,7 @@
             btnSwitchGraph.Size = new Size(49, 45);
             btnSwitchGraph.TabIndex = 14;
             btnSwitchGraph.UseVisualStyleBackColor = true;
-            btnSwitchGraph.Click += btnSwitchTree_Click;
+            btnSwitchGraph.Click += btnSwitchGraph_Click;
             // 
             // btnSwitchUpper
             // 
@@ -104,12 +105,24 @@
             btnSwitchUpper.UseVisualStyleBackColor = true;
             btnSwitchUpper.Click += btnSwitchUpper_Click;
             // 
+            // SwitchAnalysis
+            // 
+            SwitchAnalysis.Image = (Image)resources.GetObject("SwitchAnalysis.Image");
+            SwitchAnalysis.Location = new Point(241, 16);
+            SwitchAnalysis.Margin = new Padding(4);
+            SwitchAnalysis.Name = "SwitchAnalysis";
+            SwitchAnalysis.Size = new Size(49, 45);
+            SwitchAnalysis.TabIndex = 14;
+            SwitchAnalysis.UseVisualStyleBackColor = true;
+            SwitchAnalysis.Click += SwitchAnalysis_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1023, 469);
             Controls.Add(btnSwitchUpper);
+            Controls.Add(SwitchAnalysis);
             Controls.Add(btnSwitchGraph);
             Controls.Add(btnSwitchTree);
             Controls.Add(btnSwitchCalender);
@@ -129,5 +142,6 @@
         private ToolStripMenuItem 종료ToolStripMenuItem;
         private Button btnSwitchGraph;
         private Button btnSwitchUpper;
+        private Button SwitchAnalysis;
     }
 }

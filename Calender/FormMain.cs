@@ -51,5 +51,18 @@ namespace Ledger
             this.Hide();
             notifyIcon1.Visible = true;
         }
+
+        private void btnSwitchGraph_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SwitchAnalysis_Click(object sender, EventArgs e)
+        {
+            Analysis anal = new Analysis();
+            anal.Show();
+            this.Hide();
+            notifyIcon1.Visible = true;
+        }
     }
 }
