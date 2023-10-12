@@ -209,5 +209,12 @@ namespace Ledger
         {
             // 필요없음
         }
+
+        private void btnSwitchUpper_Click(object sender, EventArgs e)
+        {
+            UpperLimit upperForm = new UpperLimit(formMain);
+            upperForm.Show();
+            this.Hide();
+        }
     }
 }

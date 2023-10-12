@@ -97,7 +97,7 @@ namespace Ledger
             string sql;
 
             // Year 노드 클릭한 경우
-            if (Node.Name.Substring(0, 1) == "Y") 
+            if (Node.Name.Substring(0, 1) == "Y")
             {
                 Node.Nodes.Clear();
                 sql = "select distinct substr(f_date, 6, 2) \"MONTH\" from tb_spend where substr(f_date, 1, 4) = " + Node.Text +
@@ -117,7 +117,7 @@ namespace Ledger
                 Node.Expand();
             }
             // Month 노드 클릭한 경우
-            else if (Node.Name.Substring(0, 1) == "M") 
+            else if (Node.Name.Substring(0, 1) == "M")
             {
                 Node.Nodes.Clear();
                 sql = "select distinct substr(f_date, 9, 2) \"DATE\" from tb_spend where substr(f_date, 1, 4) = " + Node.Parent.Text + " and substr(f_date, 6, 2) =" + Node.Text +
@@ -137,14 +137,14 @@ namespace Ledger
                 Node.Expand();
             }
             // 날짜 노드를 클릭한 경우
-            else if (Node.Name.Substring(0, 1) == "D") 
+            else if (Node.Name.Substring(0, 1) == "D")
             {
                 date = Node.Parent.Parent.Text + '/' + Node.Parent.Text + '/' + Node.Text;
                 AddIncomeToPanel();
                 AddSpendToPanel();
             }
         }
-#region 패널추가 코드
+        #region 패널추가 코드
 
         public void LoadSpendDatabase(string date)
         {
@@ -312,11 +312,18 @@ namespace Ledger
             };
         }
 
-#endregion 패널추가 종료
+        #endregion 패널추가 종료
         private void IOTree_AfterCollapse(object sender, TreeViewEventArgs e)
         {
             TreeNode node = IOTree.SelectedNode;
             node.ImageIndex = 0;
+        }
+
+        private void btnSwitchUpper_Click(object sender, EventArgs e)
+        {
+            UpperLimit upperForm = new UpperLimit(formMain);
+            upperForm.Show();
+            this.Hide();
         }
     }
 }
