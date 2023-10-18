@@ -51,6 +51,8 @@ namespace Ledger
                 DateTime today = DateTime.Today;
                 TimeSpan diff = endday.Date - today.Date;
                 TimeSpan diff_start_to_today = today.Date - startday.Date;
+                TimeSpan start_to_end = endday.Date - startday.Date;
+                MessageBox.Show(diff_start_to_today.Days.ToString());
                 
                 
                 if (DateTime.Compare(today, endday) > 0) {
@@ -74,37 +76,49 @@ namespace Ledger
                 lbText4.Text = "초기 금액 : " + string.Format("{0:#,###}", money) + "원";
 
                 //DB에 접근
-                string sql = "select f_date, sum(f_money) \"f_money\" from tb_spend where f_date between '" + startDate
+                string sql;
+                if (DateTime.Compare(today, endday) > 0)
+                {
+                    sql = "select f_date, sum(f_money) \"f_money\" from tb_spend where f_date between '" + startDate
+                    + "' and '" + endDate + "' group by f_date order by f_date";
+                    
+                } else
+                {
+                    sql = "select f_date, sum(f_money) \"f_money\" from tb_spend where f_date between '" + startDate
                     + "' and '" + today + "' and f_date != '" + today + "' group by f_date order by f_date";
+                }
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 MySqlDataReader data = cmd.ExecuteReader();
                 object[,] datas = new object[diff_start_to_today.Days + 1, 2];
                 DateTime tempTime = DateTime.Parse(startDate);
-                
 
+                int INT = 0;
                 //레코드를 가져와서 객체를 배열에 저장
                 while (data.Read())
                 {
                     DateTime tempNow = Convert.ToDateTime(data["f_date"]);
-                    TimeSpan tempSpan = tempTime.Date - tempNow.Date; //시작일 - 순회일
+                    TimeSpan tempSpan = tempNow.Date - tempTime.Date; //시작일 - 순회일
 
-                    if (DateTime.Compare(today, endday) > 0)
-                    {
-                        tempSpan = endday.Date - startday.Date;
-                    }
-
+                    ///if (DateTime.Compare(today, endday) > 0)
+                    //{
+                    //    tempSpan = endday.Date - startday.Date;
+                    //}
+                    //MessageBox.Show("시작일 : " + tempTime.Date.Day.ToString() + ", 순회일 : " + tempNow.Date.Day.ToString() + ", " + tempSpan.Days.ToString());
                     datas[tempSpan.Days, 0] = data["f_date"];
                     datas[tempSpan.Days, 1] = data["f_money"];
-
+                    //INT++;
+                    //MessageBox.Show(datas[tempSpan.Days, 1].ToString());
                 }
+                //MessageBox.Show(INT.ToString());
 
                 //잔여 금액
                 int left_money = money;
                 //권장 금액
                 int rec_money = money;
                 int[] rec_m = new int[diff_start_to_today.Days + 1];
-                for (int i = 0; i < diff_start_to_today.Days + 1; i++)  //diff_start_to_today.Days + 1 = 2, [0, 1]
+                for (int i = 0; i < start_to_end.Days + 1; i++)  //diff_start_to_today.Days + 1 = 2, [0, 1]
                 {
+                    if (i > diff_start_to_today.Days) { break;  }
                     TimeSpan tempSpan = endday - (startday.AddDays(i));
                     if (tempSpan.Days + 1 - i != 0)
                     {
@@ -150,13 +164,13 @@ namespace Ledger
                 }
                 sw.Close();
 
-                lbText5.Text = "잔여금액ㅋ : " + string.Format("{0:#,####}원", left_money);
+                lbText5.Text = "잔여금액 : " + string.Format("{0:#,####}원", left_money);
                 lbText6.Text = "금일 권장액 : " + string.Format("{0:#,####}원", Convert.ToInt32(rec_money));
                 data.Close();
                 pnlCenter.Controls.Add(flpnlDate);
                 //MessageBox.Show(diff.Days.ToString());
                 //패널 추가 
-                for (int i = 0; i < diff.Days + 1; i++)
+                for (int i = 0; i < start_to_end.Days + 1; i++)
                 {
                     FlowLayoutPanel fnl = new FlowLayoutPanel();
                     fnl.Size = new Size(160, 247);
@@ -194,7 +208,13 @@ namespace Ledger
                     {
                         //이미지
                         PictureBox pic = new PictureBox();
-                        pic.Image = Properties.Resources.success_icon;
+                        if (rec_m[i] >= Convert.ToInt32(datas[i, 1]))
+                        {
+                            pic.Image = Properties.Resources.success_icon;
+                        } else
+                        {
+                            pic.Image = Properties.Resources.fail_icon;
+                        }
                         pic.Size = new Size(60, 60);
                         pic.SizeMode = PictureBoxSizeMode.StretchImage;
                         pic.Location = new Point(pn.Width / 2 - pic.Width / 2, 40);
@@ -290,7 +310,7 @@ namespace Ledger
                     lbText5.Text = "";
                     btnGiveUp.Text = "챌린지 초기화";
                     //만약 잔여금액이 0 이상일 경우 성공
-                    if (left_money >= 0)
+                    if (left_money < 0)
                     {
                         PictureBox picSuc = new PictureBox();
                         picSuc.Image = Properties.Resources.suc_chall_icon;
