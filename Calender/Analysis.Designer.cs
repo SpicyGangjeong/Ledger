@@ -33,35 +33,43 @@
             button_f_cate = new Button();
             button_f_way = new Button();
             button_f_impulse = new Button();
-            button_stats = new Button();
-            groupBox1 = new GroupBox();
+            button_Days = new Button();
             rtbRank = new RichTextBox();
-            groupBox1.SuspendLayout();
+            btnPostMonth = new Button();
+            btnPreMonth = new Button();
+            txtNowMonth = new TextBox();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // formsPlot
             // 
             formsPlot.Dock = DockStyle.Fill;
-            formsPlot.Location = new Point(3, 19);
+            formsPlot.Location = new Point(0, 0);
             formsPlot.Margin = new Padding(4, 3, 4, 3);
             formsPlot.Name = "formsPlot";
-            formsPlot.Size = new Size(560, 450);
+            formsPlot.Size = new Size(535, 626);
             formsPlot.TabIndex = 0;
             // 
             // Title
             // 
-            Title.BackColor = SystemColors.ControlLightLight;
+            Title.BackColor = SystemColors.AppWorkspace;
             Title.BorderStyle = BorderStyle.None;
+            Title.Dock = DockStyle.Top;
             Title.Font = new Font("맑은 고딕", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
-            Title.Location = new Point(605, 20);
+            Title.Location = new Point(0, 0);
             Title.Name = "Title";
-            Title.Size = new Size(223, 39);
+            Title.Size = new Size(331, 39);
             Title.TabIndex = 1;
             Title.Text = "분야별 소비 순위";
             // 
             // button_f_cate
             // 
-            button_f_cate.Location = new Point(33, 500);
+            button_f_cate.Location = new Point(20, 19);
             button_f_cate.Name = "button_f_cate";
             button_f_cate.Size = new Size(75, 23);
             button_f_cate.TabIndex = 2;
@@ -71,7 +79,7 @@
             // 
             // button_f_way
             // 
-            button_f_way.Location = new Point(193, 500);
+            button_f_way.Location = new Point(101, 19);
             button_f_way.Name = "button_f_way";
             button_f_way.Size = new Size(75, 23);
             button_f_way.TabIndex = 2;
@@ -81,7 +89,7 @@
             // 
             // button_f_impulse
             // 
-            button_f_impulse.Location = new Point(294, 500);
+            button_f_impulse.Location = new Point(182, 19);
             button_f_impulse.Name = "button_f_impulse";
             button_f_impulse.Size = new Size(75, 23);
             button_f_impulse.TabIndex = 2;
@@ -89,56 +97,124 @@
             button_f_impulse.UseVisualStyleBackColor = true;
             button_f_impulse.Click += button_f_impulse_Click;
             // 
-            // button_stats
+            // button_Days
             // 
-            button_stats.Location = new Point(384, 500);
-            button_stats.Name = "button_stats";
-            button_stats.Size = new Size(75, 23);
-            button_stats.TabIndex = 2;
-            button_stats.Text = "소비유형별";
-            button_stats.UseVisualStyleBackColor = true;
-            button_stats.Click += button_stats_Click;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(formsPlot);
-            groupBox1.Location = new Point(12, 12);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(566, 472);
-            groupBox1.TabIndex = 3;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
+            button_Days.Location = new Point(263, 19);
+            button_Days.Name = "button_Days";
+            button_Days.Size = new Size(75, 23);
+            button_Days.TabIndex = 2;
+            button_Days.Text = "날짜별";
+            button_Days.UseVisualStyleBackColor = true;
+            button_Days.Click += button_Days_Click;
             // 
             // rtbRank
             // 
             rtbRank.BackColor = SystemColors.ControlLightLight;
             rtbRank.BorderStyle = BorderStyle.None;
+            rtbRank.Dock = DockStyle.Fill;
             rtbRank.Font = new Font("맑은 고딕", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            rtbRank.Location = new Point(605, 65);
+            rtbRank.Location = new Point(0, 0);
             rtbRank.Name = "rtbRank";
-            rtbRank.Size = new Size(223, 416);
+            rtbRank.Size = new Size(331, 626);
             rtbRank.TabIndex = 4;
             rtbRank.Text = "";
+            // 
+            // btnPostMonth
+            // 
+            btnPostMonth.BackColor = SystemColors.ControlLightLight;
+            btnPostMonth.BackgroundImageLayout = ImageLayout.None;
+            btnPostMonth.FlatAppearance.BorderSize = 0;
+            btnPostMonth.FlatStyle = FlatStyle.Flat;
+            btnPostMonth.Location = new Point(530, 17);
+            btnPostMonth.Name = "btnPostMonth";
+            btnPostMonth.Size = new Size(42, 23);
+            btnPostMonth.TabIndex = 13;
+            btnPostMonth.Text = "→ ";
+            btnPostMonth.UseVisualStyleBackColor = false;
+            btnPostMonth.Visible = false;
+            // 
+            // btnPreMonth
+            // 
+            btnPreMonth.BackColor = SystemColors.ControlLightLight;
+            btnPreMonth.BackgroundImageLayout = ImageLayout.None;
+            btnPreMonth.FlatAppearance.BorderSize = 0;
+            btnPreMonth.FlatStyle = FlatStyle.Flat;
+            btnPreMonth.Location = new Point(375, 17);
+            btnPreMonth.Name = "btnPreMonth";
+            btnPreMonth.Size = new Size(43, 23);
+            btnPreMonth.TabIndex = 12;
+            btnPreMonth.Text = "←";
+            btnPreMonth.UseVisualStyleBackColor = false;
+            btnPreMonth.Visible = false;
+            // 
+            // txtNowMonth
+            // 
+            txtNowMonth.BackColor = SystemColors.ControlLightLight;
+            txtNowMonth.BorderStyle = BorderStyle.None;
+            txtNowMonth.Enabled = false;
+            txtNowMonth.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txtNowMonth.Location = new Point(424, 18);
+            txtNowMonth.Name = "txtNowMonth";
+            txtNowMonth.Size = new Size(100, 22);
+            txtNowMonth.TabIndex = 11;
+            txtNowMonth.TextAlign = HorizontalAlignment.Center;
+            txtNowMonth.Visible = false;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.AppWorkspace;
+            panel1.Controls.Add(txtNowMonth);
+            panel1.Controls.Add(btnPostMonth);
+            panel1.Controls.Add(button_f_cate);
+            panel1.Controls.Add(btnPreMonth);
+            panel1.Controls.Add(button_f_way);
+            panel1.Controls.Add(button_f_impulse);
+            panel1.Controls.Add(button_Days);
+            panel1.Dock = DockStyle.Bottom;
+            panel1.Location = new Point(0, 626);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(866, 56);
+            panel1.TabIndex = 14;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = SystemColors.ActiveCaption;
+            panel2.Controls.Add(Title);
+            panel2.Controls.Add(rtbRank);
+            panel2.Dock = DockStyle.Right;
+            panel2.Location = new Point(535, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(331, 626);
+            panel2.TabIndex = 15;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = SystemColors.ButtonShadow;
+            panel3.Controls.Add(formsPlot);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(535, 626);
+            panel3.TabIndex = 16;
             // 
             // Analysis
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(858, 545);
-            Controls.Add(rtbRank);
-            Controls.Add(groupBox1);
-            Controls.Add(button_stats);
-            Controls.Add(button_f_impulse);
-            Controls.Add(button_f_way);
-            Controls.Add(button_f_cate);
-            Controls.Add(Title);
+            ClientSize = new Size(866, 682);
+            Controls.Add(panel3);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
             Margin = new Padding(2);
             Name = "Analysis";
             Text = "Analysis";
-            groupBox1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -148,8 +224,13 @@
         private Button button_f_cate;
         private Button button_f_way;
         private Button button_f_impulse;
-        private Button button_stats;
-        private GroupBox groupBox1;
+        private Button button_Days;
         private RichTextBox rtbRank;
+        private Button btnPostMonth;
+        private Button btnPreMonth;
+        private TextBox txtNowMonth;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
     }
 }
