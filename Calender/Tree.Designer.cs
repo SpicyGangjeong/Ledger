@@ -46,6 +46,7 @@
             flpnl_Income = new FlowLayoutPanel();
             imageList1 = new ImageList(components);
             imageList2 = new ImageList(components);
+            btnSwitchUpper = new Button();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -61,6 +62,7 @@
             // 
             // panelHeader
             // 
+            panelHeader.Controls.Add(btnSwitchUpper);
             panelHeader.Controls.Add(txtNowMonth);
             panelHeader.Controls.Add(YearPicker);
             panelHeader.Controls.Add(MonthPicker);
@@ -246,6 +248,16 @@
             imageList2.Images.SetKeyName(0, "edit_icon.png");
             imageList2.Images.SetKeyName(1, "delete_icon.png");
             // 
+            // btnSwitchUpper
+            // 
+            btnSwitchUpper.Location = new Point(125, 16);
+            btnSwitchUpper.Name = "btnSwitchUpper";
+            btnSwitchUpper.Size = new Size(49, 45);
+            btnSwitchUpper.TabIndex = 21;
+            btnSwitchUpper.Text = "dd";
+            btnSwitchUpper.UseVisualStyleBackColor = true;
+            btnSwitchUpper.Click += btnSwitchUpper_Click;
+            // 
             // TreeMain
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -291,5 +303,6 @@
         private FlowLayoutPanel flpnl_Income;
         private ImageList imageList1;
         private ImageList imageList2;
+        private Button btnSwitchUpper;
     }
 }
