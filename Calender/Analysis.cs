@@ -10,19 +10,23 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
 using ScottPlot.Ticks.DateTimeTickUnits;
+using ScottPlot;
 
 namespace Ledger
 {
     public partial class Analysis : Form
     {
+        string[] title = { "분야별 소비 순위", "수단별 소비 순위", "충동별 소비 순위", "날짜별 소비 순위" };
         FormMain formMain;
         MySqlCommand cmd;
         MySqlDataReader data;
+        string[] Month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
+        int idxMonth = 10;
         public Analysis(FormMain fMain)
         {
             InitializeComponent();
             this.formMain = fMain;
-
+            txtNowMonth.Text = Month[idxMonth];
             button_f_cate_Click(null, null);
         }
 
@@ -30,6 +34,7 @@ namespace Ledger
         {
             btnhide();
             formsPlot.Plot.Clear();
+            rtbRank.Enabled = false;
             List<string> dataX = new List<string>();
             List<double> dataY = new List<double>();
             string sql = "select * from f_cate_analysis";
@@ -46,7 +51,7 @@ namespace Ledger
             formsPlot.Plot.XTicks(dataX.ToArray());
             formsPlot.Refresh();
             string basictext = "";
-            rtbRank.Text = "";
+            rtbRank.Text = "\n\n";
             double sum = dataY.Sum();
             for (int i = 0; i < dataX.Count; i++)
             {
@@ -56,26 +61,94 @@ namespace Ledger
                 rtbRank.Text += basictext + "\n";
                 basictext = "";
             }
+            Title.Text = title[0];
         }
 
         private void button_f_way_Click(object sender, EventArgs e)
         {
+            rtbRank.Text = "\n";
+            formsPlot.Plot.Clear();
             btnhide();
-        }
+            Title.Text = title[1];
 
-        private void button_f_impulse_Click(object sender, EventArgs e)
-        {
-            btnhide();
+            string sql = "select * from f_way_analysis";
+            cmd = new MySqlCommand(sql, FormMain.conn);
+            data = cmd.ExecuteReader();
+            double card_Nopulse_Sum = 0;
+            double card_Pulse_Sum = 0;
+            double card_Sum = 0;
+            double cash_Nopulse_Sum = 0;
+            double cash_Pulse_Sum = 0;
+            double cash_Sum = 0;
+            double all_Sum = 0;
+            while (data.Read())
+            {
+                switch (data[0].ToString())
+                {
+                    case "&_합계":
+                        all_Sum = Convert.ToDouble(data[3]);
+                        break;
+                    default:
+                        switch (data[1].ToString())
+                        {
+                            case "&카드_합계":
+                                card_Sum = Convert.ToDouble(data[3]);
+                                break;
+                            case "&현금_합계":
+                                cash_Sum = Convert.ToDouble(data[3]);
+                                break;
+                            default: 
+                                switch (data[2].ToString())
+                                {
+                                    case "&카드_비충동_합계":
+                                        card_Nopulse_Sum = Convert.ToDouble(data[3]);
+                                        break;
+                                    case "&카드_충동_합계":
+                                        card_Pulse_Sum = Convert.ToDouble(data[3]);
+                                        break;
+                                    case "&현금_비충동_합계":
+                                        cash_Nopulse_Sum = Convert.ToDouble(data[3]);
+                                        break;
+                                    case "&현금_충동_합계":
+                                        cash_Pulse_Sum = Convert.ToDouble(data[3]);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                        }
+                        break;
+                }
+                rtbRank.Text += data[0].ToString() + '\t';
+                rtbRank.Text += data[1].ToString() + '\t';
+                rtbRank.Text += data[2].ToString() + '\t';
+                rtbRank.Text += data[3].ToString() + "\n";
+            }
+            double[] values = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum, card_Sum, card_Pulse_Sum, card_Nopulse_Sum }; 
+            double[] values1 = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum };
+            double[] values2 = { card_Sum, card_Pulse_Sum, card_Nopulse_Sum };
+            string[] labels = { "cash_Sum", "cash_Pulse_Sum", "cash_Nopulse_Sum", "card_Sum", "card_Pulse_Sum", "card_Nopulse_Sum" };
+            formsPlot.Plot.AddCoxcomb(values);
+            formsPlot.Plot.Legend(Enabled = true);
+            formsPlot.Refresh();
+            rtbRank.Enabled = true;
+            data.Close();
+            formsPlot.Refresh();
         }
 
         private void button_Days_Click(object sender, EventArgs e)
         {
+            rtbRank.Text = "\n\n";
             btnPostMonth.Enabled = true;
             btnPreMonth.Enabled = true;
             txtNowMonth.Enabled = true;
-            txtNowMonth.Text = "09";
+            btnPreMonth.Show();
+            btnPostMonth.Show();
+            txtNowMonth.Show();
+            txtNowMonth.Text = Month[idxMonth];
             formsPlot.Plot.Clear();
             int year = 2023;
+            rtbRank.Enabled = false;
             List<string> dataIncomeX = new List<string>();
             List<string> dataSpendX = new List<string>();
             List<double> dataIncomeY = new List<double>();
@@ -143,12 +216,72 @@ namespace Ledger
             formsPlot.Plot.AddBar(dataSPY, dataSpendPosition.ToArray());
             formsPlot.Plot.XTicks(basicPosition.ToArray(), barX.ToArray());
             formsPlot.Refresh();
+            Title.Text = title[3];
+            int maxsIndex = 0;
+            double maxsValue = dataSpendY[0];
+            for (int i = 1; i < dataSpendY.Count; i++)
+            {
+                if (dataSpendY[i] > maxsValue)
+                {
+                    maxsValue = dataSpendY[i];
+                    maxsIndex = i;
+                }
+            }
+            int maxiIndex = 0;
+            double maxiValue = dataIncomeY[0];
+            for (int i = 1; i < dataIncomeY.Count; i++)
+            {
+                if (dataIncomeY[i] > maxiValue)
+                {
+                    maxiValue = dataIncomeY[i];
+                    maxiIndex = i;
+                }
+            }
+            string basictext = "";
+            rtbRank.Text = "\n\n";
+            basictext += "제일 많은 소비날짜 = " + dataSpendX[maxsIndex] + "\n";
+            basictext += "소비 금액 = " + maxsValue + "\n\n";
+            basictext += "제일 많은 수입날짜 = " + dataIncomeX[maxiIndex] + "\n";
+            basictext += "수입 금액 = " + maxiValue + "\n";
+            rtbRank.Text += basictext;
         }
         private void btnhide()
         {
-            btnPreMonth.Enabled = false;
-            btnPostMonth.Enabled = false;
-            txtNowMonth.Enabled = false;
+            btnPreMonth.Hide();
+            btnPostMonth.Hide();
+            txtNowMonth.Hide();
+        }
+
+        private void Analysis_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            formMain.Dispose();
+        }
+
+        private void btnPostMonth_Click(object sender, EventArgs e)
+        {
+            if (idxMonth == 0)
+            {
+                idxMonth = 11;
+            }
+            else
+            {
+                idxMonth--;
+            }
+            button_Days_Click(sender, e);
+        }
+
+        private void btnPreMonth_Click(object sender, EventArgs e)
+        {
+
+            if (idxMonth == 11)
+            {
+                idxMonth = 1;
+            }
+            else
+            {
+                idxMonth++;
+            }
+            button_Days_Click(sender, e);
         }
     }
 }
