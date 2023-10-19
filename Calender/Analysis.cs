@@ -21,7 +21,7 @@ namespace Ledger
         MySqlCommand cmd;
         MySqlDataReader data;
         string[] Month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
-        int idxMonth = 8;
+        int idxMonth = 10;
         public Analysis(FormMain fMain)
         {
             InitializeComponent();
@@ -124,11 +124,11 @@ namespace Ledger
                 rtbRank.Text += data[2].ToString() + '\t';
                 rtbRank.Text += data[3].ToString() + "\n";
             }
-            double[] values = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum, card_Sum, card_Pulse_Sum, card_Nopulse_Sum };
+            double[] values = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum, card_Sum, card_Pulse_Sum, card_Nopulse_Sum }; 
             double[] values1 = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum };
             double[] values2 = { card_Sum, card_Pulse_Sum, card_Nopulse_Sum };
             string[] labels = { "cash_Sum", "cash_Pulse_Sum", "cash_Nopulse_Sum", "card_Sum", "card_Pulse_Sum", "card_Nopulse_Sum" };
-            formsPlot.Plot.AddCoxcomb(values2);
+            formsPlot.Plot.AddCoxcomb(values);
             formsPlot.Plot.Legend(Enabled = true);
             formsPlot.Refresh();
             rtbRank.Enabled = true;
