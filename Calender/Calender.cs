@@ -216,5 +216,28 @@ namespace Ledger
             upperForm.Show();
             this.Hide();
         }
+
+        private void btnSwitchGraph_Click(object sender, EventArgs e)
+        {
+            foreach (Form openForm in Application.OpenForms)
+            {
+                // 폼 중복 열기 방지
+                if (openForm.Name == "Analysis") // 열린 폼의 이름 검사
+                {
+                    if (openForm.WindowState == FormWindowState.Minimized)
+                    {   // 폼이 active 인지 검사
+                        openForm.WindowState = FormWindowState.Normal;
+                        openForm.Location = new Point(this.Location.X, this.Location.Y);
+                    }
+                    openForm.Activate();
+                    openForm.Show();
+                    this.Hide();
+                    return;
+                }
+            }
+            Analysis Analysis = new Analysis(formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
+            Analysis.Show();
+            this.Hide();
+        }
     }
 }
