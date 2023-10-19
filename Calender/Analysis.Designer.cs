@@ -118,13 +118,14 @@
             rtbRank.BackColor = SystemColors.ControlLightLight;
             rtbRank.BorderStyle = BorderStyle.None;
             rtbRank.Dock = DockStyle.Fill;
+            rtbRank.Enabled = false;
             rtbRank.Font = new Font("맑은 고딕", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             rtbRank.Location = new Point(0, 0);
             rtbRank.Margin = new Padding(4, 4, 4, 4);
             rtbRank.Name = "rtbRank";
             rtbRank.Size = new Size(426, 834);
             rtbRank.TabIndex = 4;
-            rtbRank.Text = "";
+            rtbRank.Text = " ";
             // 
             // btnPostMonth
             // 
