@@ -305,6 +305,7 @@
             Controls.Add(MonthPicker);
             Controls.Add(btnSwitchGraph);
             Controls.Add(CalenderPanels);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             Name = "CalenderMain";
             Text = "CalenderMain";

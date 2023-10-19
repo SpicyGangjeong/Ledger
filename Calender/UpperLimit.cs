@@ -53,9 +53,10 @@ namespace Ledger
                 TimeSpan diff_start_to_today = today.Date - startday.Date;
                 TimeSpan start_to_end = endday.Date - startday.Date;
                 MessageBox.Show(diff_start_to_today.Days.ToString());
-                
-                
-                if (DateTime.Compare(today, endday) > 0) {
+
+
+                if (DateTime.Compare(today, endday) > 0)
+                {
                     diff_start_to_today = endday.Date - startday.Date;
                     diff = endday.Date - startday.Date;
                 }
@@ -81,8 +82,9 @@ namespace Ledger
                 {
                     sql = "select f_date, sum(f_money) \"f_money\" from tb_spend where f_date between '" + startDate
                     + "' and '" + endDate + "' group by f_date order by f_date";
-                    
-                } else
+
+                }
+                else
                 {
                     sql = "select f_date, sum(f_money) \"f_money\" from tb_spend where f_date between '" + startDate
                     + "' and '" + today + "' and f_date != '" + today + "' group by f_date order by f_date";
@@ -118,7 +120,7 @@ namespace Ledger
                 int[] rec_m = new int[diff_start_to_today.Days + 1];
                 for (int i = 0; i < start_to_end.Days + 1; i++)  //diff_start_to_today.Days + 1 = 2, [0, 1]
                 {
-                    if (i > diff_start_to_today.Days) { break;  }
+                    if (i > diff_start_to_today.Days) { break; }
                     TimeSpan tempSpan = endday - (startday.AddDays(i));
                     if (tempSpan.Days + 1 - i != 0)
                     {
@@ -203,7 +205,7 @@ namespace Ledger
                     lb2.Location = new Point(pn.Width / 2 - lb2.Width / 2, 2);
                     lb2.BackColor = Color.Transparent;
                     //lb2.BackColor = Color.Yellow;
-                    
+
                     if (i < diff_start_to_today.Days || DateTime.Compare(today, endday) > 0)
                     {
                         //이미지
@@ -211,7 +213,8 @@ namespace Ledger
                         if (rec_m[i] >= Convert.ToInt32(datas[i, 1]))
                         {
                             pic.Image = Properties.Resources.success_icon;
-                        } else
+                        }
+                        else
                         {
                             pic.Image = Properties.Resources.fail_icon;
                         }
@@ -302,7 +305,7 @@ namespace Ledger
                         break;
                     }
                 }
-                
+
                 // 지출 챌린지 종료일자를 넘겼을 경우
                 if (DateTime.Compare(today, endday) > 0)
                 {

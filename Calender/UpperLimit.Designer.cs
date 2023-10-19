@@ -354,6 +354,7 @@
             Controls.Add(pnlCenter);
             Controls.Add(pnlBottom);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "UpperLimit";
             Text = "UpperLimit";
             FormClosing += UpperLimit_FormClosing;

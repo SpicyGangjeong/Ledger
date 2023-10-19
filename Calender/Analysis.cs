@@ -97,7 +97,7 @@ namespace Ledger
             data = cmd.ExecuteReader();
             while (data.Read())
             {
-                dataSpendX.Add(data["f_date"].ToString().Substring(0,10));
+                dataSpendX.Add(data["f_date"].ToString().Substring(0, 10));
                 dataSpendY.Add(Convert.ToInt32(data["f_money"]));
             }
             data.Close();
@@ -137,7 +137,7 @@ namespace Ledger
             double[] dataSPY = dataSpendY.ToArray();
             double[] dataICY = dataIncomeY.ToArray();
             double[] dataICY2 = new double[dataICY.Length];
-            for(int i = 0; i < dataICY.Length; i++)
+            for (int i = 0; i < dataICY.Length; i++)
                 dataICY2[i] = dataSPY[i] + dataICY[i];
             formsPlot.Plot.AddBar(dataICY2, dataIncomePosition.ToArray());
             formsPlot.Plot.AddBar(dataSPY, dataSpendPosition.ToArray());
