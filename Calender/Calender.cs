@@ -140,7 +140,7 @@ namespace Ledger
             rtb.ScrollBars = RichTextBoxScrollBars.None;    //스크롤바 비활성화
             return rtb;
         }
-        private void Rtb_Click(object? sender, EventArgs e)
+        private void Rtb_Click(object sender, EventArgs e)
         {
             if (sender is RichTextBox rtb)
                 rtb.SelectionStart = 0;
@@ -208,6 +208,13 @@ namespace Ledger
         private void btnSwitchCalender_Click(object sender, EventArgs e)
         {
             // 필요없음
+        }
+
+        private void btnSwitchUpper_Click(object sender, EventArgs e)
+        {
+            UpperLimit upperForm = new UpperLimit(formMain);
+            upperForm.Show();
+            this.Hide();
         }
     }
 }

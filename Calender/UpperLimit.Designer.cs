@@ -28,10 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpperLimit));
             panel1 = new Panel();
+            lbYearTop = new Label();
+            btnSwitchUpper = new Button();
+            btnSwitchGraph = new Button();
+            btnSwitchTree = new Button();
+            btnSwitchCalender = new Button();
             pnlBottom = new Panel();
             btnGiveUp = new Button();
-            btnChangeMoney = new Button();
             lbText6 = new Label();
             lbText5 = new Label();
             lbText4 = new Label();
@@ -53,6 +58,7 @@
             tbYear = new TextBox();
             btnStart = new Button();
             lbNoChallenge = new Label();
+            panel1.SuspendLayout();
             pnlBottom.SuspendLayout();
             pnlCenter.SuspendLayout();
             pnlNoChallenge.SuspendLayout();
@@ -60,16 +66,71 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(lbYearTop);
+            panel1.Controls.Add(btnSwitchUpper);
+            panel1.Controls.Add(btnSwitchGraph);
+            panel1.Controls.Add(btnSwitchTree);
+            panel1.Controls.Add(btnSwitchCalender);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(846, 95);
             panel1.TabIndex = 1;
             // 
+            // lbYearTop
+            // 
+            lbYearTop.AutoSize = true;
+            lbYearTop.Font = new Font("Cascadia Mono", 30F, FontStyle.Bold, GraphicsUnit.Point);
+            lbYearTop.Location = new Point(699, 13);
+            lbYearTop.Name = "lbYearTop";
+            lbYearTop.Size = new Size(144, 66);
+            lbYearTop.TabIndex = 20;
+            lbYearTop.Text = "2023";
+            // 
+            // btnSwitchUpper
+            // 
+            btnSwitchUpper.Location = new Point(186, 13);
+            btnSwitchUpper.Name = "btnSwitchUpper";
+            btnSwitchUpper.Size = new Size(49, 45);
+            btnSwitchUpper.TabIndex = 19;
+            btnSwitchUpper.Text = "dd";
+            btnSwitchUpper.UseVisualStyleBackColor = true;
+            // 
+            // btnSwitchGraph
+            // 
+            btnSwitchGraph.Image = (Image)resources.GetObject("btnSwitchGraph.Image");
+            btnSwitchGraph.Location = new Point(130, 13);
+            btnSwitchGraph.Margin = new Padding(4);
+            btnSwitchGraph.Name = "btnSwitchGraph";
+            btnSwitchGraph.Size = new Size(49, 45);
+            btnSwitchGraph.TabIndex = 17;
+            btnSwitchGraph.UseVisualStyleBackColor = true;
+            // 
+            // btnSwitchTree
+            // 
+            btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
+            btnSwitchTree.Location = new Point(73, 13);
+            btnSwitchTree.Margin = new Padding(4);
+            btnSwitchTree.Name = "btnSwitchTree";
+            btnSwitchTree.Size = new Size(49, 45);
+            btnSwitchTree.TabIndex = 18;
+            btnSwitchTree.UseVisualStyleBackColor = true;
+            btnSwitchTree.Click += btnSwitchTree_Click;
+            // 
+            // btnSwitchCalender
+            // 
+            btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
+            btnSwitchCalender.Location = new Point(16, 13);
+            btnSwitchCalender.Margin = new Padding(4);
+            btnSwitchCalender.Name = "btnSwitchCalender";
+            btnSwitchCalender.Size = new Size(49, 45);
+            btnSwitchCalender.TabIndex = 16;
+            btnSwitchCalender.UseVisualStyleBackColor = true;
+            btnSwitchCalender.Click += btnSwitchCalender_Click;
+            // 
             // pnlBottom
             // 
             pnlBottom.BorderStyle = BorderStyle.Fixed3D;
             pnlBottom.Controls.Add(btnGiveUp);
-            pnlBottom.Controls.Add(btnChangeMoney);
             pnlBottom.Controls.Add(lbText6);
             pnlBottom.Controls.Add(lbText5);
             pnlBottom.Controls.Add(lbText4);
@@ -93,15 +154,7 @@
             btnGiveUp.TabIndex = 10;
             btnGiveUp.Text = "챌린지 포기";
             btnGiveUp.UseVisualStyleBackColor = true;
-            // 
-            // btnChangeMoney
-            // 
-            btnChangeMoney.Location = new Point(716, 52);
-            btnChangeMoney.Name = "btnChangeMoney";
-            btnChangeMoney.Size = new Size(118, 29);
-            btnChangeMoney.TabIndex = 9;
-            btnChangeMoney.Text = "초기 금액 변경";
-            btnChangeMoney.UseVisualStyleBackColor = true;
+            btnGiveUp.Click += btnGiveUp_Click;
             // 
             // lbText6
             // 
@@ -301,10 +354,13 @@
             Controls.Add(pnlCenter);
             Controls.Add(pnlBottom);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "UpperLimit";
             Text = "UpperLimit";
             FormClosing += UpperLimit_FormClosing;
             Load += UpperLimit_Load;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             pnlBottom.ResumeLayout(false);
             pnlBottom.PerformLayout();
             pnlCenter.ResumeLayout(false);
@@ -327,7 +383,6 @@
         private Label lbText6;
         private Label lbText5;
         private Button btnGiveUp;
-        private Button btnChangeMoney;
         private Panel pnlNoChallenge;
         private Label lbMoney;
         private Label lbDay;
@@ -339,5 +394,10 @@
         private TextBox tbYear;
         private Button btnStart;
         private Label lbNoChallenge;
+        private Button btnSwitchUpper;
+        private Button btnSwitchGraph;
+        private Button btnSwitchTree;
+        private Button btnSwitchCalender;
+        private Label lbYearTop;
     }
 }

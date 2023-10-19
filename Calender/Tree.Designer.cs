@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeMain));
             panelHeader = new Panel();
+            btnSwitchUpper = new Button();
             txtNowMonth = new TextBox();
             YearPicker = new TextBox();
             MonthPicker = new ComboBox();
@@ -61,6 +62,7 @@
             // 
             // panelHeader
             // 
+            panelHeader.Controls.Add(btnSwitchUpper);
             panelHeader.Controls.Add(txtNowMonth);
             panelHeader.Controls.Add(YearPicker);
             panelHeader.Controls.Add(MonthPicker);
@@ -72,6 +74,16 @@
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(1029, 71);
             panelHeader.TabIndex = 4;
+            // 
+            // btnSwitchUpper
+            // 
+            btnSwitchUpper.Location = new Point(125, 16);
+            btnSwitchUpper.Name = "btnSwitchUpper";
+            btnSwitchUpper.Size = new Size(49, 45);
+            btnSwitchUpper.TabIndex = 21;
+            btnSwitchUpper.Text = "dd";
+            btnSwitchUpper.UseVisualStyleBackColor = true;
+            btnSwitchUpper.Click += btnSwitchUpper_Click;
             // 
             // txtNowMonth
             // 
@@ -254,6 +266,7 @@
             ClientSize = new Size(1029, 600);
             Controls.Add(splitContainer1);
             Controls.Add(panelHeader);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             Name = "TreeMain";
             Text = "TreeMain";
@@ -291,5 +304,6 @@
         private FlowLayoutPanel flpnl_Income;
         private ImageList imageList1;
         private ImageList imageList2;
+        private Button btnSwitchUpper;
     }
 }
