@@ -21,7 +21,7 @@ namespace Ledger
         MySqlCommand cmd;
         MySqlDataReader data;
         string[] Month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
-        int idxMonth = 10;
+        int idxMonth = 8;
         public Analysis(FormMain fMain)
         {
             InitializeComponent();
