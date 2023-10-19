@@ -14,7 +14,7 @@ namespace Ledger
     public partial class FormMain : Form
     {
 
-        public static string strConn = "Server=localhost;Port=3306;Database=jspdb;Uid=jspuser;Pwd=jsppass";
+        public static string strConn = "Server=ledgerdb.ctsyekhyqkwe.ap-northeast-2.rds.amazonaws.com;Port=3306;Database=ledgerdb;Uid=root;Pwd=rootpass";
         public static MySqlConnection conn = null;
         public FormMain()
         {

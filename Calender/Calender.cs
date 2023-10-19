@@ -140,7 +140,7 @@ namespace Ledger
             rtb.ScrollBars = RichTextBoxScrollBars.None;    //스크롤바 비활성화
             return rtb;
         }
-        private void Rtb_Click(object? sender, EventArgs e)
+        private void Rtb_Click(object sender, EventArgs e)
         {
             if (sender is RichTextBox rtb)
                 rtb.SelectionStart = 0;
