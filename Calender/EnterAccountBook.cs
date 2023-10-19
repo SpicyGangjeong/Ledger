@@ -362,7 +362,7 @@ namespace Ledger
                 }
             }
         }
-        
+
         private void LoadDataFromSpend(int no)
         {
             //인자값과 동일한 f_no를 가지는 레코드를 추출하여 각 컨트롤에 대입
