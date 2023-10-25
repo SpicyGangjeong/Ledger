@@ -48,6 +48,8 @@
             cbCard_Sum = new CheckBox();
             cbCash_Sum = new CheckBox();
             panel3 = new Panel();
+            cbImPulse_Sum = new CheckBox();
+            cbNoImpulseSum = new CheckBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             rbt_GroupBox.SuspendLayout();
@@ -192,7 +194,9 @@
             // 
             // rbt_GroupBox
             // 
+            rbt_GroupBox.Controls.Add(cbNoImpulseSum);
             rbt_GroupBox.Controls.Add(cbCard_NoImpulseSum);
+            rbt_GroupBox.Controls.Add(cbImPulse_Sum);
             rbt_GroupBox.Controls.Add(cbCash_NoImpulseSum);
             rbt_GroupBox.Controls.Add(cbCard_ImpulseSum);
             rbt_GroupBox.Controls.Add(cbCash_ImpulseSum);
@@ -281,6 +285,28 @@
             panel3.Size = new Size(652, 818);
             panel3.TabIndex = 16;
             // 
+            // cbImPulse_Sum
+            // 
+            cbImPulse_Sum.AutoSize = true;
+            cbImPulse_Sum.Location = new Point(291, 21);
+            cbImPulse_Sum.Name = "cbImPulse_Sum";
+            cbImPulse_Sum.Size = new Size(93, 19);
+            cbImPulse_Sum.TabIndex = 6;
+            cbImPulse_Sum.Text = "ImPulseSum";
+            cbImPulse_Sum.UseVisualStyleBackColor = true;
+            cbImPulse_Sum.CheckedChanged += cb_CheckedChanged;
+            // 
+            // cbNoImpulseSum
+            // 
+            cbNoImpulseSum.AutoSize = true;
+            cbNoImpulseSum.Location = new Point(291, 46);
+            cbNoImpulseSum.Name = "cbNoImpulseSum";
+            cbNoImpulseSum.Size = new Size(109, 19);
+            cbNoImpulseSum.TabIndex = 6;
+            cbNoImpulseSum.Text = "NoImpulseSum";
+            cbNoImpulseSum.UseVisualStyleBackColor = true;
+            cbNoImpulseSum.CheckedChanged += cb_CheckedChanged;
+            // 
             // Analysis
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -326,5 +352,7 @@
         private CheckBox cbCard_ImpulseSum;
         private CheckBox cbCash_ImpulseSum;
         private CheckBox cbCard_Sum;
+        private CheckBox cbNoImpulseSum;
+        private CheckBox cbImPulse_Sum;
     }
 }

@@ -30,6 +30,8 @@ namespace Ledger
         double cash_Pulse_Sum = 0;
         double cash_Sum = 0;
         double all_Sum = 0;
+        double ImPulseSum = 0;
+        double NoImPulseSum = 0;
         public Analysis(FormMain fMain)
         {
             InitializeComponent();
@@ -123,10 +125,14 @@ namespace Ledger
                         }
                         break;
                 }
+                ImPulseSum = card_Pulse_Sum + cash_Pulse_Sum;
+                NoImPulseSum = card_Nopulse_Sum + cash_Nopulse_Sum;
                 rtbRank.Text += data[0].ToString() + '\t';
                 rtbRank.Text += data[1].ToString() + '\t';
                 rtbRank.Text += data[2].ToString() + '\t';
                 rtbRank.Text += data[3].ToString() + "\n";
+                rtbRank.Text += "충동구매 합계: " + ImPulseSum + "\n";
+                rtbRank.Text += "비충동구매 합계: " + NoImPulseSum + "\n";
             }
             data.Close();
             rtbRank.Enabled = true;
@@ -284,9 +290,9 @@ namespace Ledger
         }
         private void cb_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox[] checkBoxes = { cbCash_Sum, cbCash_ImpulseSum, cbCash_NoImpulseSum, cbCard_Sum, cbCard_ImpulseSum, cbCard_NoImpulseSum };
-            double[] readValues = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum, card_Sum, card_Pulse_Sum, card_Nopulse_Sum };
-            string[] labels = { "cash_Sum", "cash_ImPulse_Sum", "cash_No Impulse_Sum", "card_Sum", "card_ImPulse_Sum", "card_No Impulse_Sum" };
+            CheckBox[] checkBoxes = { cbCash_Sum, cbCash_ImpulseSum, cbCash_NoImpulseSum, cbCard_Sum, cbCard_ImpulseSum, cbCard_NoImpulseSum, cbImPulse_Sum, cbNoImpulseSum };
+            double[] readValues = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum, card_Sum, card_Pulse_Sum, card_Nopulse_Sum, ImPulseSum, NoImPulseSum };
+            string[] labels = { "cash_Sum", "cash_ImPulse_Sum", "cash_No Impulse_Sum", "card_Sum", "card_ImPulse_Sum", "card_No Impulse_Sum", "ImPulseSum", "NoImPulseSum" };
             List<double> showValues = new List<double>();
             List<string> showLabels = new List<string>();
             int check = 0;
@@ -310,7 +316,7 @@ namespace Ledger
                 pie.ShowLabels = true;
                 formsPlot.Plot.Add(pie);
                 formsPlot.Plot.Grid(false);
-                double[] positions = { 0};
+                double[] positions = { 0 };
                 string[] xlabel = { "0" };
                 formsPlot.Plot.XTicks(positions, xlabel);
             }
