@@ -131,9 +131,9 @@ namespace Ledger
                 rtbRank.Text += data[1].ToString() + '\t';
                 rtbRank.Text += data[2].ToString() + '\t';
                 rtbRank.Text += data[3].ToString() + "\n";
-                rtbRank.Text += "충동구매 합계: " + ImPulseSum + "\n";
-                rtbRank.Text += "비충동구매 합계: " + NoImPulseSum + "\n";
             }
+            rtbRank.Text += "충동구매 합계: " + ImPulseSum + "\n";
+            rtbRank.Text += "비충동구매 합계: " + NoImPulseSum + "\n\n\n\n\n\n\n";
             data.Close();
             rtbRank.Enabled = true;
             formsPlot.Refresh();
