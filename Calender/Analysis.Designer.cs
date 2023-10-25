@@ -40,9 +40,17 @@
             txtNowMonth = new TextBox();
             panel1 = new Panel();
             panel2 = new Panel();
+            rbt_GroupBox = new GroupBox();
+            cbCard_NoImpulseSum = new CheckBox();
+            cbCash_NoImpulseSum = new CheckBox();
+            cbCard_ImpulseSum = new CheckBox();
+            cbCash_ImpulseSum = new CheckBox();
+            cbCard_Sum = new CheckBox();
+            cbCash_Sum = new CheckBox();
             panel3 = new Panel();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            rbt_GroupBox.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -173,6 +181,7 @@
             // panel2
             // 
             panel2.BackColor = SystemColors.ActiveCaption;
+            panel2.Controls.Add(rbt_GroupBox);
             panel2.Controls.Add(Title);
             panel2.Controls.Add(rtbRank);
             panel2.Dock = DockStyle.Right;
@@ -180,6 +189,87 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(513, 818);
             panel2.TabIndex = 15;
+            // 
+            // rbt_GroupBox
+            // 
+            rbt_GroupBox.Controls.Add(cbCard_NoImpulseSum);
+            rbt_GroupBox.Controls.Add(cbCash_NoImpulseSum);
+            rbt_GroupBox.Controls.Add(cbCard_ImpulseSum);
+            rbt_GroupBox.Controls.Add(cbCash_ImpulseSum);
+            rbt_GroupBox.Controls.Add(cbCard_Sum);
+            rbt_GroupBox.Controls.Add(cbCash_Sum);
+            rbt_GroupBox.Dock = DockStyle.Bottom;
+            rbt_GroupBox.Location = new Point(0, 718);
+            rbt_GroupBox.Name = "rbt_GroupBox";
+            rbt_GroupBox.Size = new Size(513, 100);
+            rbt_GroupBox.TabIndex = 6;
+            rbt_GroupBox.TabStop = false;
+            // 
+            // cbCard_NoImpulseSum
+            // 
+            cbCard_NoImpulseSum.AutoSize = true;
+            cbCard_NoImpulseSum.Location = new Point(153, 71);
+            cbCard_NoImpulseSum.Name = "cbCard_NoImpulseSum";
+            cbCard_NoImpulseSum.Size = new Size(139, 19);
+            cbCard_NoImpulseSum.TabIndex = 6;
+            cbCard_NoImpulseSum.Text = "Card_NoImpulseSum";
+            cbCard_NoImpulseSum.UseVisualStyleBackColor = true;
+            cbCard_NoImpulseSum.CheckedChanged += cb_CheckedChanged;
+            // 
+            // cbCash_NoImpulseSum
+            // 
+            cbCash_NoImpulseSum.AutoSize = true;
+            cbCash_NoImpulseSum.Location = new Point(7, 71);
+            cbCash_NoImpulseSum.Name = "cbCash_NoImpulseSum";
+            cbCash_NoImpulseSum.Size = new Size(140, 19);
+            cbCash_NoImpulseSum.TabIndex = 6;
+            cbCash_NoImpulseSum.Text = "Cash_NoImpulseSum";
+            cbCash_NoImpulseSum.UseVisualStyleBackColor = true;
+            cbCash_NoImpulseSum.CheckedChanged += cb_CheckedChanged;
+            // 
+            // cbCard_ImpulseSum
+            // 
+            cbCard_ImpulseSum.AutoSize = true;
+            cbCard_ImpulseSum.Location = new Point(153, 46);
+            cbCard_ImpulseSum.Name = "cbCard_ImpulseSum";
+            cbCard_ImpulseSum.Size = new Size(132, 19);
+            cbCard_ImpulseSum.TabIndex = 6;
+            cbCard_ImpulseSum.Text = "Card_Impulse_Sum ";
+            cbCard_ImpulseSum.UseVisualStyleBackColor = true;
+            cbCard_ImpulseSum.CheckedChanged += cb_CheckedChanged;
+            // 
+            // cbCash_ImpulseSum
+            // 
+            cbCash_ImpulseSum.AutoSize = true;
+            cbCash_ImpulseSum.Location = new Point(7, 46);
+            cbCash_ImpulseSum.Name = "cbCash_ImpulseSum";
+            cbCash_ImpulseSum.Size = new Size(124, 19);
+            cbCash_ImpulseSum.TabIndex = 6;
+            cbCash_ImpulseSum.Text = "Cash_ImpulseSum";
+            cbCash_ImpulseSum.UseVisualStyleBackColor = true;
+            cbCash_ImpulseSum.CheckedChanged += cb_CheckedChanged;
+            // 
+            // cbCard_Sum
+            // 
+            cbCard_Sum.AutoSize = true;
+            cbCard_Sum.Location = new Point(153, 22);
+            cbCard_Sum.Name = "cbCard_Sum";
+            cbCard_Sum.Size = new Size(81, 19);
+            cbCard_Sum.TabIndex = 6;
+            cbCard_Sum.Text = "Card_Sum";
+            cbCard_Sum.UseVisualStyleBackColor = true;
+            cbCard_Sum.CheckedChanged += cb_CheckedChanged;
+            // 
+            // cbCash_Sum
+            // 
+            cbCash_Sum.AutoSize = true;
+            cbCash_Sum.Location = new Point(7, 22);
+            cbCash_Sum.Name = "cbCash_Sum";
+            cbCash_Sum.Size = new Size(82, 19);
+            cbCash_Sum.TabIndex = 6;
+            cbCash_Sum.Text = "Cash_Sum";
+            cbCash_Sum.UseVisualStyleBackColor = true;
+            cbCash_Sum.CheckedChanged += cb_CheckedChanged;
             // 
             // panel3
             // 
@@ -209,6 +299,8 @@
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            rbt_GroupBox.ResumeLayout(false);
+            rbt_GroupBox.PerformLayout();
             panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -227,5 +319,12 @@
         private Panel panel1;
         private Panel panel2;
         private Panel panel3;
+        private GroupBox rbt_GroupBox;
+        private CheckBox cbCash_Sum;
+        private CheckBox cbCard_NoImpulseSum;
+        private CheckBox cbCash_NoImpulseSum;
+        private CheckBox cbCard_ImpulseSum;
+        private CheckBox cbCash_ImpulseSum;
+        private CheckBox cbCard_Sum;
     }
 }
