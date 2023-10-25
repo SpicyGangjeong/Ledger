@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeMain));
             panelHeader = new Panel();
+            btnSwitchGraph = new Button();
             btnSwitchUpper = new Button();
             txtNowMonth = new TextBox();
             YearPicker = new TextBox();
@@ -62,6 +63,7 @@
             // 
             // panelHeader
             // 
+            panelHeader.Controls.Add(btnSwitchGraph);
             panelHeader.Controls.Add(btnSwitchUpper);
             panelHeader.Controls.Add(txtNowMonth);
             panelHeader.Controls.Add(YearPicker);
@@ -70,16 +72,26 @@
             panelHeader.Controls.Add(btnSwitchCalender);
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
-            panelHeader.Margin = new Padding(4);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1029, 71);
+            panelHeader.Size = new Size(800, 53);
             panelHeader.TabIndex = 4;
+            // 
+            // btnSwitchGraph
+            // 
+            btnSwitchGraph.Image = (Image)resources.GetObject("btnSwitchGraph.Image");
+            btnSwitchGraph.Location = new Point(98, 14);
+            btnSwitchGraph.Name = "btnSwitchGraph";
+            btnSwitchGraph.Size = new Size(38, 34);
+            btnSwitchGraph.TabIndex = 16;
+            btnSwitchGraph.UseVisualStyleBackColor = true;
+            btnSwitchGraph.Click += btnSwitchGraph_Click;
             // 
             // btnSwitchUpper
             // 
-            btnSwitchUpper.Location = new Point(125, 16);
+            btnSwitchUpper.Location = new Point(141, 12);
+            btnSwitchUpper.Margin = new Padding(2);
             btnSwitchUpper.Name = "btnSwitchUpper";
-            btnSwitchUpper.Size = new Size(49, 45);
+            btnSwitchUpper.Size = new Size(38, 34);
             btnSwitchUpper.TabIndex = 21;
             btnSwitchUpper.Text = "dd";
             btnSwitchUpper.UseVisualStyleBackColor = true;
@@ -90,20 +102,18 @@
             txtNowMonth.BorderStyle = BorderStyle.None;
             txtNowMonth.Enabled = false;
             txtNowMonth.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtNowMonth.Location = new Point(460, 34);
-            txtNowMonth.Margin = new Padding(4);
+            txtNowMonth.Location = new Point(358, 26);
             txtNowMonth.Name = "txtNowMonth";
-            txtNowMonth.Size = new Size(129, 27);
+            txtNowMonth.Size = new Size(100, 22);
             txtNowMonth.TabIndex = 17;
             txtNowMonth.TextAlign = HorizontalAlignment.Center;
             // 
             // YearPicker
             // 
             YearPicker.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            YearPicker.Location = new Point(503, 4);
-            YearPicker.Margin = new Padding(4);
+            YearPicker.Location = new Point(391, 3);
             YearPicker.Name = "YearPicker";
-            YearPicker.Size = new Size(52, 34);
+            YearPicker.Size = new Size(41, 29);
             YearPicker.TabIndex = 16;
             YearPicker.Text = "2023";
             YearPicker.TextAlign = HorizontalAlignment.Center;
@@ -112,19 +122,17 @@
             // 
             MonthPicker.FormattingEnabled = true;
             MonthPicker.Items.AddRange(new object[] { "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" });
-            MonthPicker.Location = new Point(953, 10);
-            MonthPicker.Margin = new Padding(4);
+            MonthPicker.Location = new Point(741, 8);
             MonthPicker.Name = "MonthPicker";
-            MonthPicker.Size = new Size(63, 28);
+            MonthPicker.Size = new Size(50, 23);
             MonthPicker.TabIndex = 15;
             // 
             // btnSwitchTree
             // 
             btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
-            btnSwitchTree.Location = new Point(69, 16);
-            btnSwitchTree.Margin = new Padding(4);
+            btnSwitchTree.Location = new Point(54, 12);
             btnSwitchTree.Name = "btnSwitchTree";
-            btnSwitchTree.Size = new Size(49, 45);
+            btnSwitchTree.Size = new Size(38, 34);
             btnSwitchTree.TabIndex = 14;
             btnSwitchTree.UseVisualStyleBackColor = true;
             btnSwitchTree.Click += btnSwitchTree_Click;
@@ -132,10 +140,9 @@
             // btnSwitchCalender
             // 
             btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
-            btnSwitchCalender.Location = new Point(13, 16);
-            btnSwitchCalender.Margin = new Padding(4);
+            btnSwitchCalender.Location = new Point(10, 12);
             btnSwitchCalender.Name = "btnSwitchCalender";
-            btnSwitchCalender.Size = new Size(49, 45);
+            btnSwitchCalender.Size = new Size(38, 34);
             btnSwitchCalender.TabIndex = 13;
             btnSwitchCalender.UseVisualStyleBackColor = true;
             btnSwitchCalender.Click += btnSwitchCalender_Click;
@@ -143,8 +150,7 @@
             // splitContainer1
             // 
             splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 71);
-            splitContainer1.Margin = new Padding(4);
+            splitContainer1.Location = new Point(0, 53);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -154,9 +160,8 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(splitContainer2);
-            splitContainer1.Size = new Size(1029, 529);
-            splitContainer1.SplitterDistance = 257;
-            splitContainer1.SplitterWidth = 5;
+            splitContainer1.Size = new Size(800, 397);
+            splitContainer1.SplitterDistance = 199;
             splitContainer1.TabIndex = 5;
             // 
             // IOTree
@@ -165,10 +170,9 @@
             IOTree.ImageIndex = 0;
             IOTree.ImageList = TreeImages;
             IOTree.Location = new Point(0, 0);
-            IOTree.Margin = new Padding(4);
             IOTree.Name = "IOTree";
             IOTree.SelectedImageIndex = 0;
-            IOTree.Size = new Size(257, 529);
+            IOTree.Size = new Size(199, 397);
             IOTree.TabIndex = 0;
             IOTree.AfterCollapse += IOTree_AfterCollapse;
             IOTree.AfterSelect += IOTree_AfterSelect;
@@ -185,7 +189,6 @@
             // 
             splitContainer2.Dock = DockStyle.Fill;
             splitContainer2.Location = new Point(0, 0);
-            splitContainer2.Margin = new Padding(4);
             splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -195,9 +198,8 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(groupBoxSpend);
-            splitContainer2.Size = new Size(767, 529);
-            splitContainer2.SplitterDistance = 383;
-            splitContainer2.SplitterWidth = 5;
+            splitContainer2.Size = new Size(597, 397);
+            splitContainer2.SplitterDistance = 298;
             splitContainer2.TabIndex = 0;
             // 
             // groupBoxIncome
@@ -205,10 +207,8 @@
             groupBoxIncome.Controls.Add(flpnl_Spend);
             groupBoxIncome.Dock = DockStyle.Fill;
             groupBoxIncome.Location = new Point(0, 0);
-            groupBoxIncome.Margin = new Padding(4);
             groupBoxIncome.Name = "groupBoxIncome";
-            groupBoxIncome.Padding = new Padding(4);
-            groupBoxIncome.Size = new Size(383, 529);
+            groupBoxIncome.Size = new Size(298, 397);
             groupBoxIncome.TabIndex = 0;
             groupBoxIncome.TabStop = false;
             groupBoxIncome.Text = "수입";
@@ -216,9 +216,10 @@
             // flpnl_Spend
             // 
             flpnl_Spend.Dock = DockStyle.Fill;
-            flpnl_Spend.Location = new Point(4, 24);
+            flpnl_Spend.Location = new Point(3, 19);
+            flpnl_Spend.Margin = new Padding(2);
             flpnl_Spend.Name = "flpnl_Spend";
-            flpnl_Spend.Size = new Size(375, 501);
+            flpnl_Spend.Size = new Size(292, 375);
             flpnl_Spend.TabIndex = 10;
             // 
             // groupBoxSpend
@@ -226,10 +227,8 @@
             groupBoxSpend.Controls.Add(flpnl_Income);
             groupBoxSpend.Dock = DockStyle.Fill;
             groupBoxSpend.Location = new Point(0, 0);
-            groupBoxSpend.Margin = new Padding(4);
             groupBoxSpend.Name = "groupBoxSpend";
-            groupBoxSpend.Padding = new Padding(4);
-            groupBoxSpend.Size = new Size(379, 529);
+            groupBoxSpend.Size = new Size(295, 397);
             groupBoxSpend.TabIndex = 0;
             groupBoxSpend.TabStop = false;
             groupBoxSpend.Text = "지출";
@@ -237,9 +236,10 @@
             // flpnl_Income
             // 
             flpnl_Income.Dock = DockStyle.Fill;
-            flpnl_Income.Location = new Point(4, 24);
+            flpnl_Income.Location = new Point(3, 19);
+            flpnl_Income.Margin = new Padding(2);
             flpnl_Income.Name = "flpnl_Income";
-            flpnl_Income.Size = new Size(371, 501);
+            flpnl_Income.Size = new Size(289, 375);
             flpnl_Income.TabIndex = 11;
             // 
             // imageList1
@@ -260,14 +260,13 @@
             // 
             // TreeMain
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(1029, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(splitContainer1);
             Controls.Add(panelHeader);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4);
             Name = "TreeMain";
             Text = "TreeMain";
             FormClosing += TreeMain_FormClosing;
@@ -305,5 +304,6 @@
         private ImageList imageList1;
         private ImageList imageList2;
         private Button btnSwitchUpper;
+        private Button btnSwitchGraph;
     }
 }

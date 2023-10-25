@@ -41,15 +41,19 @@
             panel1 = new Panel();
             panel2 = new Panel();
             rbt_GroupBox = new GroupBox();
+            cbNoImpulseSum = new CheckBox();
             cbCard_NoImpulseSum = new CheckBox();
+            cbImPulse_Sum = new CheckBox();
             cbCash_NoImpulseSum = new CheckBox();
             cbCard_ImpulseSum = new CheckBox();
             cbCash_ImpulseSum = new CheckBox();
             cbCard_Sum = new CheckBox();
             cbCash_Sum = new CheckBox();
             panel3 = new Panel();
-            cbImPulse_Sum = new CheckBox();
-            cbNoImpulseSum = new CheckBox();
+            btnSwitchUpper = new Button();
+            btnSwitchTree = new Button();
+            btnSwitchCalender = new Button();
+            btnSwitchGraph = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             rbt_GroupBox.SuspendLayout();
@@ -58,7 +62,6 @@
             // 
             // formsPlot
             // 
-            formsPlot.Dock = DockStyle.Fill;
             formsPlot.Location = new Point(0, 0);
             formsPlot.Margin = new Padding(4, 3, 4, 3);
             formsPlot.Name = "formsPlot";
@@ -168,6 +171,10 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.AppWorkspace;
+            panel1.Controls.Add(btnSwitchUpper);
+            panel1.Controls.Add(btnSwitchTree);
+            panel1.Controls.Add(btnSwitchCalender);
+            panel1.Controls.Add(btnSwitchGraph);
             panel1.Controls.Add(txtNowMonth);
             panel1.Controls.Add(btnPostMonth);
             panel1.Controls.Add(button_f_cate);
@@ -209,6 +216,17 @@
             rbt_GroupBox.TabIndex = 6;
             rbt_GroupBox.TabStop = false;
             // 
+            // cbNoImpulseSum
+            // 
+            cbNoImpulseSum.AutoSize = true;
+            cbNoImpulseSum.Location = new Point(291, 46);
+            cbNoImpulseSum.Name = "cbNoImpulseSum";
+            cbNoImpulseSum.Size = new Size(109, 19);
+            cbNoImpulseSum.TabIndex = 6;
+            cbNoImpulseSum.Text = "NoImpulseSum";
+            cbNoImpulseSum.UseVisualStyleBackColor = true;
+            cbNoImpulseSum.CheckedChanged += cb_CheckedChanged;
+            // 
             // cbCard_NoImpulseSum
             // 
             cbCard_NoImpulseSum.AutoSize = true;
@@ -219,6 +237,17 @@
             cbCard_NoImpulseSum.Text = "Card_NoImpulseSum";
             cbCard_NoImpulseSum.UseVisualStyleBackColor = true;
             cbCard_NoImpulseSum.CheckedChanged += cb_CheckedChanged;
+            // 
+            // cbImPulse_Sum
+            // 
+            cbImPulse_Sum.AutoSize = true;
+            cbImPulse_Sum.Location = new Point(291, 21);
+            cbImPulse_Sum.Name = "cbImPulse_Sum";
+            cbImPulse_Sum.Size = new Size(93, 19);
+            cbImPulse_Sum.TabIndex = 6;
+            cbImPulse_Sum.Text = "ImPulseSum";
+            cbImPulse_Sum.UseVisualStyleBackColor = true;
+            cbImPulse_Sum.CheckedChanged += cb_CheckedChanged;
             // 
             // cbCash_NoImpulseSum
             // 
@@ -285,27 +314,46 @@
             panel3.Size = new Size(652, 818);
             panel3.TabIndex = 16;
             // 
-            // cbImPulse_Sum
+            // btnSwitchUpper
             // 
-            cbImPulse_Sum.AutoSize = true;
-            cbImPulse_Sum.Location = new Point(291, 21);
-            cbImPulse_Sum.Name = "cbImPulse_Sum";
-            cbImPulse_Sum.Size = new Size(93, 19);
-            cbImPulse_Sum.TabIndex = 6;
-            cbImPulse_Sum.Text = "ImPulseSum";
-            cbImPulse_Sum.UseVisualStyleBackColor = true;
-            cbImPulse_Sum.CheckedChanged += cb_CheckedChanged;
+            btnSwitchUpper.Location = new Point(1116, 11);
+            btnSwitchUpper.Margin = new Padding(2);
+            btnSwitchUpper.Name = "btnSwitchUpper";
+            btnSwitchUpper.Size = new Size(38, 34);
+            btnSwitchUpper.TabIndex = 24;
+            btnSwitchUpper.Text = "dd";
+            btnSwitchUpper.UseVisualStyleBackColor = true;
+            btnSwitchUpper.Click += btnSwitchUpper_Click;
             // 
-            // cbNoImpulseSum
+            // btnSwitchTree
             // 
-            cbNoImpulseSum.AutoSize = true;
-            cbNoImpulseSum.Location = new Point(291, 46);
-            cbNoImpulseSum.Name = "cbNoImpulseSum";
-            cbNoImpulseSum.Size = new Size(109, 19);
-            cbNoImpulseSum.TabIndex = 6;
-            cbNoImpulseSum.Text = "NoImpulseSum";
-            cbNoImpulseSum.UseVisualStyleBackColor = true;
-            cbNoImpulseSum.CheckedChanged += cb_CheckedChanged;
+            btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
+            btnSwitchTree.Location = new Point(1028, 11);
+            btnSwitchTree.Name = "btnSwitchTree";
+            btnSwitchTree.Size = new Size(38, 34);
+            btnSwitchTree.TabIndex = 22;
+            btnSwitchTree.UseVisualStyleBackColor = true;
+            btnSwitchTree.Click += btnSwitchTree_Click;
+            // 
+            // btnSwitchCalender
+            // 
+            btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
+            btnSwitchCalender.Location = new Point(984, 11);
+            btnSwitchCalender.Name = "btnSwitchCalender";
+            btnSwitchCalender.Size = new Size(38, 34);
+            btnSwitchCalender.TabIndex = 21;
+            btnSwitchCalender.UseVisualStyleBackColor = true;
+            btnSwitchCalender.Click += btnSwitchCalender_Click;
+            // 
+            // btnSwitchGraph
+            // 
+            btnSwitchGraph.Image = (Image)resources.GetObject("btnSwitchGraph.Image");
+            btnSwitchGraph.Location = new Point(1073, 11);
+            btnSwitchGraph.Name = "btnSwitchGraph";
+            btnSwitchGraph.Size = new Size(38, 34);
+            btnSwitchGraph.TabIndex = 23;
+            btnSwitchGraph.UseVisualStyleBackColor = true;
+            btnSwitchGraph.Click += btnSwitchGraph_Click;
             // 
             // Analysis
             // 
@@ -354,5 +402,9 @@
         private CheckBox cbCard_Sum;
         private CheckBox cbNoImpulseSum;
         private CheckBox cbImPulse_Sum;
+        private Button btnSwitchUpper;
+        private Button btnSwitchTree;
+        private Button btnSwitchCalender;
+        private Button btnSwitchGraph;
     }
 }

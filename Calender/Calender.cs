@@ -13,11 +13,6 @@ namespace Ledger
             formMain = _formMain;
             InitializeComponent();
         }
-        public CalenderMain(TreeMain tree, FormMain _formMain) // Tree에서 생성될 때 사용
-        {
-            formMain = _formMain;
-            InitializeComponent();
-        }
 
         private void CalenderMain_Load(object sender, EventArgs e)
         {
@@ -200,7 +195,7 @@ namespace Ledger
                     return;
                 }
             }
-            TreeMain TreeMain = new TreeMain(this, formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
+            TreeMain TreeMain = new TreeMain(formMain); // 폼을 만들고 기존의 값들을 넘겨줌.
             TreeMain.Show();
             this.Hide();
         }
@@ -212,6 +207,22 @@ namespace Ledger
 
         private void btnSwitchUpper_Click(object sender, EventArgs e)
         {
+            foreach (Form openForm in Application.OpenForms)
+            {
+                // 폼 중복 열기 방지
+                if (openForm.Name == "UpperLimit") // 열린 폼의 이름 검사
+                {
+                    if (openForm.WindowState == FormWindowState.Minimized)
+                    {   // 폼이 active 인지 검사
+                        openForm.WindowState = FormWindowState.Normal;
+                        openForm.Location = new Point(this.Location.X, this.Location.Y);
+                    }
+                    openForm.Activate();
+                    openForm.Show();
+                    this.Hide();
+                    return;
+                }
+            }
             UpperLimit upperForm = new UpperLimit(formMain);
             upperForm.Show();
             this.Hide();
@@ -235,7 +246,7 @@ namespace Ledger
                     return;
                 }
             }
-            Analysis Analysis = new Analysis(formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
+            Analysis Analysis = new Analysis(formMain); //폼을 만들고 기존의 값들을 넘겨줌.
             Analysis.Show();
             this.Hide();
         }
