@@ -43,7 +43,7 @@
             // 
             // btn_Close
             // 
-            btn_Close.Location = new Point(588, 443);
+            btn_Close.Location = new Point(652, 447);
             btn_Close.Name = "btn_Close";
             btn_Close.Size = new Size(66, 29);
             btn_Close.TabIndex = 0;
@@ -54,7 +54,7 @@
             // label1
             // 
             label1.BorderStyle = BorderStyle.Fixed3D;
-            label1.Location = new Point(334, 52);
+            label1.Location = new Point(365, 53);
             label1.Name = "label1";
             label1.Size = new Size(3, 400);
             label1.TabIndex = 1;
@@ -71,7 +71,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(347, 43);
+            label3.Location = new Point(374, 43);
             label3.Name = "label3";
             label3.Size = new Size(39, 20);
             label3.TabIndex = 3;
@@ -79,7 +79,7 @@
             // 
             // btn_Add
             // 
-            btn_Add.Location = new Point(518, 443);
+            btn_Add.Location = new Point(582, 447);
             btn_Add.Name = "btn_Add";
             btn_Add.Size = new Size(64, 29);
             btn_Add.TabIndex = 4;
@@ -100,7 +100,7 @@
             // 
             flpnl_Spend.Location = new Point(12, 65);
             flpnl_Spend.Name = "flpnl_Spend";
-            flpnl_Spend.Size = new Size(307, 372);
+            flpnl_Spend.Size = new Size(347, 372);
             flpnl_Spend.TabIndex = 8;
             // 
             // imageList1
@@ -113,16 +113,16 @@
             // 
             // flpnl_Income
             // 
-            flpnl_Income.Location = new Point(347, 65);
+            flpnl_Income.Location = new Point(374, 65);
             flpnl_Income.Name = "flpnl_Income";
-            flpnl_Income.Size = new Size(307, 372);
+            flpnl_Income.Size = new Size(344, 372);
             flpnl_Income.TabIndex = 9;
             // 
             // AccountBookList
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(666, 484);
+            ClientSize = new Size(730, 484);
             ControlBox = false;
             Controls.Add(flpnl_Income);
             Controls.Add(flpnl_Spend);
