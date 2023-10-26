@@ -245,6 +245,17 @@ namespace Ledger
                 return;
             }
 
+            //총 지출량
+            sql = "select sum(f_money) from tb_spend where year(f_date) = " + year.ToString();
+            sql += " and month(f_date) = " + month.ToString();
+            cmd = new MySqlCommand(sql, FormMain.conn);
+            data = cmd.ExecuteReader();
+
+            data.Read();
+            int all_cost = 0;
+            all_cost = Convert.ToInt32(data["sum(f_money)"]);
+            data.Close();
+
             //충동구매 비율
             sql = "select (count(f_no) / (select count(f_no) from tb_spend where year(f_date) = " + year.ToString() + " and month(f_date) = ";
             sql += month.ToString() + ")) as imp_ratio ";
@@ -292,19 +303,23 @@ namespace Ledger
             Graphics g = e.Graphics;
 
             Font ft = new Font(fontCollection.Families[0], 13);
+
+            string str_all = "이번 달은 총 " + all_cost.ToString("#,###") + "원 쓰셨습니다.";
+            g.DrawString(str_all, ft, Brushes.Black, new Point(20, 20));
+
             string str_imp = (imp_ratio == 0.0) ? "충동구매가 없습니다." :
                 string.Format("충동구매 횟수 비율은 {0:0.00}% 입니다.", imp_ratio);
-            g.DrawString(str_imp, ft, Brushes.Black, new Point(20, 40));
+            g.DrawString(str_imp, ft, Brushes.Black, new Point(20, 60));
 
             g.DrawString(string.Format("가장 많이 쓴 날은 {0}로, {1:0,000}원 입니다.", biggest_date, biggest_cost),
-                ft, Brushes.Black, new Point(20, 80));
+                ft, Brushes.Black, new Point(20, 100));
 
             string str_reg = (sum_regular == 0) ? "이번 달 정기 지출이 없습니다." :
                 string.Format("정기지출로 {0:0,000}원을 소비하셨습니다.", sum_regular);
-            g.DrawString(str_reg, ft, Brushes.Black, new Point(20, 120));
+            g.DrawString(str_reg, ft, Brushes.Black, new Point(20, 140));
             string str_way = string.Format("현금 비율은 {0:0.00}%, 카드 비율은 {1:0.00} %입니다.",
                 cash_ratio, card_ratio);
-            g.DrawString(str_way, ft, Brushes.Black, new Point(20, 160));
+            g.DrawString(str_way, ft, Brushes.Black, new Point(20, 180));
 
             //폰트 메모리 해체
             Marshal.FreeCoTaskMem(fontPtr);
