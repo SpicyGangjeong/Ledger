@@ -72,6 +72,7 @@
             // panel1
             // 
             panel1.BackColor = Color.WhiteSmoke;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.Controls.Add(btnChallange);
             panel1.Controls.Add(btnMonthly);
             panel1.Controls.Add(btnSpendanal);
@@ -87,77 +88,86 @@
             // 
             // btnChallange
             // 
+            btnChallange.BackColor = Color.Transparent;
             btnChallange.Image = (Image)resources.GetObject("btnChallange.Image");
             btnChallange.Location = new Point(26, 467);
             btnChallange.Name = "btnChallange";
             btnChallange.Size = new Size(60, 55);
             btnChallange.TabIndex = 7;
-            btnChallange.UseVisualStyleBackColor = true;
+            btnChallange.UseVisualStyleBackColor = false;
             btnChallange.Click += btnChallange_Click;
             // 
             // btnMonthly
             // 
+            btnMonthly.BackColor = Color.Transparent;
             btnMonthly.Image = (Image)resources.GetObject("btnMonthly.Image");
             btnMonthly.Location = new Point(26, 393);
             btnMonthly.Name = "btnMonthly";
             btnMonthly.Size = new Size(60, 55);
             btnMonthly.TabIndex = 6;
-            btnMonthly.UseVisualStyleBackColor = true;
+            btnMonthly.UseVisualStyleBackColor = false;
             btnMonthly.Click += btnMonthly_Click;
             // 
             // btnSpendanal
             // 
+            btnSpendanal.BackColor = Color.Transparent;
             btnSpendanal.Image = (Image)resources.GetObject("btnSpendanal.Image");
             btnSpendanal.Location = new Point(26, 319);
             btnSpendanal.Name = "btnSpendanal";
             btnSpendanal.Size = new Size(60, 55);
             btnSpendanal.TabIndex = 5;
-            btnSpendanal.UseVisualStyleBackColor = true;
+            btnSpendanal.UseVisualStyleBackColor = false;
             btnSpendanal.Click += btnSpendanal_Click;
             // 
             // btnSearch
             // 
+            btnSearch.BackColor = Color.Transparent;
             btnSearch.Image = (Image)resources.GetObject("btnSearch.Image");
             btnSearch.Location = new Point(26, 245);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(60, 55);
             btnSearch.TabIndex = 4;
-            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.UseVisualStyleBackColor = false;
             btnSearch.Click += btnSearch_Click;
             // 
             // btnGraph
             // 
+            btnGraph.BackColor = Color.Transparent;
             btnGraph.Image = (Image)resources.GetObject("btnGraph.Image");
             btnGraph.Location = new Point(26, 171);
             btnGraph.Name = "btnGraph";
             btnGraph.Size = new Size(60, 55);
             btnGraph.TabIndex = 3;
-            btnGraph.UseVisualStyleBackColor = true;
+            btnGraph.UseVisualStyleBackColor = false;
             btnGraph.Click += btnGraph_Click;
             // 
             // btnTree
             // 
+            btnTree.BackColor = Color.Transparent;
             btnTree.Image = (Image)resources.GetObject("btnTree.Image");
             btnTree.Location = new Point(26, 97);
             btnTree.Name = "btnTree";
             btnTree.Size = new Size(60, 55);
             btnTree.TabIndex = 2;
-            btnTree.UseVisualStyleBackColor = true;
+            btnTree.UseVisualStyleBackColor = false;
             btnTree.Click += btnTree_Click;
             // 
             // btnCalendar
             // 
+            btnCalendar.BackColor = Color.Transparent;
             btnCalendar.Image = (Image)resources.GetObject("btnCalendar.Image");
             btnCalendar.Location = new Point(26, 23);
             btnCalendar.Name = "btnCalendar";
             btnCalendar.Size = new Size(60, 55);
             btnCalendar.TabIndex = 1;
-            btnCalendar.UseVisualStyleBackColor = true;
+            btnCalendar.UseVisualStyleBackColor = false;
             btnCalendar.Click += btnCalendar_Click;
             // 
             // panel2
             // 
             panel2.BackColor = Color.White;
+            panel2.BackgroundImage = (Image)resources.GetObject("panel2.BackgroundImage");
+            panel2.BackgroundImageLayout = ImageLayout.Stretch;
             panel2.Controls.Add(ContentLayout);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(112, 0);
@@ -167,6 +177,7 @@
             // 
             // ContentLayout
             // 
+            ContentLayout.BackColor = Color.Transparent;
             ContentLayout.Location = new Point(22, 17);
             ContentLayout.Name = "ContentLayout";
             ContentLayout.Size = new Size(673, 510);
