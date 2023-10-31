@@ -264,21 +264,20 @@ namespace Ledger
             msForm.Show();
             msForm.Dock = DockStyle.Fill;
         }
-        //현재 월이 해당 월보다 지나있으면 월간정산 버튼 활성화
+        //월간정산 버튼 활성화
         private void ActiveSettle()
         {
             //지금 보고 있는 캘린더의 DateTime 객체 반환
             DateTime see = new DateTime(Convert.ToInt32(YearPicker.Text), Convert.ToInt32(MonthPicker.SelectedIndex + 1), 1);
+
             //현재 날짜를 반환
             DateTime now = DateTime.Now;
+
             //연도가 크거나, 연도가 같고 월이 클 경우
-            if ((now.Year > see.Year) || (now.Year == see.Year && now.Month > see.Month))
-            {
-                btnSettle.Show();
-            }
-            else
-            {
-                btnSettle.Hide();
+            if ((now.Year > see.Year) || (now.Year == see.Year && now.Month > see.Month)) {
+                btnSettle.Show(); //보임
+            } else {
+                btnSettle.Hide(); //숨김
             }
 
         }

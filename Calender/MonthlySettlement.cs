@@ -269,7 +269,8 @@ namespace Ledger
             data.Close();
 
             //정기지출로 쓴 총 금액
-            sql = "select sum(f_money) from tb_spend where year(f_date) = " + year.ToString() + " and month(f_date) = " + month.ToString() + " and f_regular = 2";
+            sql = "select sum(f_money) from tb_spend where year(f_date) = " + year.ToString();
+            sql += " and month(f_date) = " + month.ToString() + " and f_regular = 2";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
 
