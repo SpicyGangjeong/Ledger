@@ -16,7 +16,8 @@ namespace Ledger
 
         private void CalenderMain_Load(object sender, EventArgs e)
         {
-            MonthPicker.SelectedIndex = 8;
+            MonthPicker.SelectedIndex = DateTime.Now.Month - 1;
+            YearPicker.Text = DateTime.Now.Year.ToString();
             Calc_day();
         }
         private void Calc_day()
@@ -36,6 +37,7 @@ namespace Ledger
             }
             startday = startday % 7;
             Filling(startday, Month, days);
+            ActiveSettle();
         }
         private void Filling(int startday, int Month, int[] days)
         {
@@ -249,6 +251,46 @@ namespace Ledger
             Analysis Analysis = new Analysis(formMain); //폼을 만들고 기존의 값들을 넘겨줌.
             Analysis.Show();
             this.Hide();
+        }
+
+        private void btnSettle_click(object sender, EventArgs e)
+        {
+            int Year = Convert.ToInt32(YearPicker.Text);
+            int Month = MonthPicker.SelectedIndex + 1;
+
+            //패널 안에 폼 추가
+            Panel msPanel = new Panel();
+            msPanel.Size = new Size(this.Width, this.Height);
+
+            MonthlySettlement msForm = new MonthlySettlement(this, Year, Month);
+            msForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            //캘린더 폼 내의 모든 컨트롤을 숨김
+            foreach (Control control in this.Controls)
+            {
+                control.Hide();
+            }
+            msForm.TopLevel = false;
+            msPanel.Controls.Add(msForm);
+            this.Controls.Add(msPanel);
+            msForm.Show();
+            msForm.Dock = DockStyle.Fill;
+        }
+        //월간정산 버튼 활성화
+        private void ActiveSettle()
+        {
+            //지금 보고 있는 캘린더의 DateTime 객체 반환
+            DateTime see = new DateTime(Convert.ToInt32(YearPicker.Text), Convert.ToInt32(MonthPicker.SelectedIndex + 1), 1);
+
+            //현재 날짜를 반환
+            DateTime now = DateTime.Now;
+
+            //연도가 크거나, 연도가 같고 월이 클 경우
+            if ((now.Year > see.Year) || (now.Year == see.Year && now.Month > see.Month)) {
+                btnSettle.Show(); //보임
+            } else {
+                btnSettle.Hide(); //숨김
+            }
+
         }
     }
 }

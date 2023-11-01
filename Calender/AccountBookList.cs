@@ -38,7 +38,7 @@ namespace Ledger
                 //패널안에 텍스트와 가격, 수정, 삭제 버튼이 들어간다.
                 Panel pnl = new Panel(); //패널 생성
                 pnl.BorderStyle = BorderStyle.Fixed3D; //외곽선 추가
-                pnl.Size = new Size(flpnl_Spend.Width - 5, 60);
+                pnl.Size = new Size(flpnl_Spend.Width - 30, 60);
 
                 Label lb_name = new Label(); //이름 레이블
                 Label lb_money = new Label(); //가격 레이블
@@ -50,11 +50,17 @@ namespace Ledger
                 pnl.Controls.Add(btn_edit); //패널에 수정 버튼 추가
                 pnl.Controls.Add(btn_delete); //패널에 삭제 버튼 추가
                 flpnl_Spend.Controls.Add(pnl);
+
+                if (pnl.Bottom > flpnl_Spend.ClientSize.Height)
+                {
+                    flpnl_Spend.AutoScroll = true;
+                }
                 //이름 레이블
                 Font ft = new Font(lb_name.Font.Name, 10);
                 lb_name.Font = ft; //폰트 크기
                 lb_name.Text = data["f_name"].ToString(); //레이블 값은 제목
                 lb_name.Top = 4;
+                lb_name.Size = new Size(220, 22);
                 //가격 레이블
                 lb_money.Font = ft;
                 lb_money.Top = (lb_money.Parent.Height) - (lb_money.Height) - 6; //위치
@@ -92,7 +98,7 @@ namespace Ledger
                 //패널안에 텍스트와 가격, 수정, 삭제 버튼이 들어간다.
                 Panel pnl = new Panel(); //패널 생성
                 pnl.BorderStyle = BorderStyle.Fixed3D; //외곽선 추가
-                pnl.Size = new Size(flpnl_Spend.Width - 5, 60);
+                pnl.Size = new Size(flpnl_Income.Width - 30, 60);
 
                 Label lb_name = new Label(); //이름 레이블
                 Label lb_money = new Label(); //가격 레이블
@@ -104,11 +110,17 @@ namespace Ledger
                 pnl.Controls.Add(btn_edit); //패널에 수정 버튼 추가
                 pnl.Controls.Add(btn_delete); //패널에 삭제 버튼 추가
                 flpnl_Income.Controls.Add(pnl);
+
+                if (pnl.Bottom > flpnl_Income.ClientSize.Height)
+                {
+                    flpnl_Income.AutoScroll = true;
+                }
                 //이름 레이블
                 Font ft = new Font(lb_name.Font.Name, 10);
                 lb_name.Font = ft; //폰트 크기
                 lb_name.Text = data["f_name"].ToString(); //레이블 값은 제목
                 lb_name.Top = 4;
+                lb_name.Size = new Size(220, 22);
                 //가격 레이블
                 lb_money.Font = ft;
                 lb_money.Top = (lb_money.Parent.Height) - (lb_money.Height) - 6; //위치

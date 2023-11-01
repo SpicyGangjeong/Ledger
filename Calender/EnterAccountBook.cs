@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -135,6 +136,14 @@ namespace Ledger
                 return;
             }
 
+            //숫자만 입력받겠다
+            Regex regex = new Regex("^[0-9]*$");
+
+            if (!regex.IsMatch(tbx_Money.Text)) {
+                MessageBox.Show("입력이 올바르지 않습니다.");
+                return;
+            }
+            
 
             string sql = "insert into tb_spend(f_name, f_date, f_money, f_way, f_cate, f_imp, f_text, f_regular) values('" +
                 tbx_Name.Text + "', '" +
@@ -178,6 +187,14 @@ namespace Ledger
                 MessageBox.Show("제목 또는 가격을 입력하지 않았습니다.");
                 return;
             }
+            //숫자만 입력받겠다
+            Regex regex = new Regex("^[0-9]*$");
+
+            if (!regex.IsMatch(tbx_Money.Text))
+            {
+                MessageBox.Show("입력이 올바르지 않습니다.");
+                return;
+            }
 
 
             string sql = "insert into tb_income(f_name, f_date, f_money, f_text, f_from, f_regular) values('" +
@@ -218,6 +235,14 @@ namespace Ledger
                 MessageBox.Show("제목 또는 가격을 입력하지 않았습니다.");
                 return;
             }
+            //숫자만 입력받겠다
+            Regex regex = new Regex("^[0-9]*$");
+
+            if (!regex.IsMatch(tbx_Money.Text))
+            {
+                MessageBox.Show("입력이 올바르지 않습니다.");
+                return;
+            }
             string sql = "update tb_spend set f_name = '" +
                 tbx_Name.Text + "', f_way = '" +
                 GetSelectedItem(pnl_Way).Text + "', f_money = '" +
@@ -255,6 +280,14 @@ namespace Ledger
             if (string.IsNullOrWhiteSpace(tbx_Name2.Text) || string.IsNullOrWhiteSpace(tbx_Money2.Text))
             {
                 MessageBox.Show("제목 또는 가격을 입력하지 않았습니다.");
+                return;
+            }
+            //숫자만 입력받겠다
+            Regex regex = new Regex("^[0-9]*$");
+
+            if (!regex.IsMatch(tbx_Money.Text))
+            {
+                MessageBox.Show("입력이 올바르지 않습니다.");
                 return;
             }
             string sql = "update tb_income set f_name = '" +
