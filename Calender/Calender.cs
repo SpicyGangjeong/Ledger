@@ -28,7 +28,18 @@ namespace Ledger
             else Month = Convert.ToInt32(MonthPicker.Text.Substring(0, 1)) - 1;
             int[] days = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
             int startday = (year + (year / 4 - year / 100 + year / 400)) % 7; // 첫 날짜 확인, 일요일 = 0
-            if ((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0))) days[1] = 29; // 윤년 판단
+            if ((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0)))
+            {
+                days[1] = 29; // 윤년 판단
+                if (startday < 1)
+                {
+                    startday = startday + 6;
+                }
+                else
+                {
+                    startday--;
+                }
+            }
             else days[1] = 28;
 
             for (int i = 0; i < Month; i++)
@@ -49,7 +60,16 @@ namespace Ledger
             int col = 0;
             for (int i = 0; i < startday; i++) // 첫 주 시작일까지 공백 출력
             {
-                RichTextBox rtb = CreateRichTextBox(Month + "/" + (days[Month - 1] - startday + i + 1), false);
+                int inday;
+                if (Month - 1 < 0)
+                {
+                    inday = 11;
+                }
+                else
+                {
+                    inday = days[Month - 1];
+                }
+                RichTextBox rtb = CreateRichTextBox(Month + "/" + (inday - startday + i + 1), false);
                 CalenderPanels.Controls.Add(rtb, i, row);
                 col++;
             }
@@ -76,7 +96,15 @@ namespace Ledger
                     row++;
                 }
                 startday++;
-                RichTextBox rtb = CreateRichTextBox((Month + 2) + "/" + (i + 1), false);
+                RichTextBox rtb;
+                if (Month + 2 > 12)
+                {
+                    rtb = CreateRichTextBox(1 + "/" + (i + 1), false);
+                }
+                else
+                {
+                    rtb = CreateRichTextBox((Month + 2) + "/" + (i + 1), false);
+                }
                 CalenderPanels.Controls.Add(rtb, col, row);
                 col++;
             }
@@ -171,12 +199,30 @@ namespace Ledger
         }
         private void btnPostMonth_Click(object sender, EventArgs e)
         {
-            MonthPicker.SelectedIndex++;
+            if (MonthPicker.SelectedIndex == 11)
+            {
+                string yeardate = YearPicker.Text;
+                YearPicker.Text = (int.Parse(yeardate) + 1).ToString();
+                MonthPicker.SelectedIndex = 0;
+            }
+            else
+            {
+                MonthPicker.SelectedIndex++;
+            }
         }
 
         private void btnPreMonth_Click(object sender, EventArgs e)
         {
-            MonthPicker.SelectedIndex--;
+            if (MonthPicker.SelectedIndex == 0)
+            {
+                string yeardate = YearPicker.Text;
+                YearPicker.Text = (int.Parse(yeardate) - 1).ToString();
+                MonthPicker.SelectedIndex = 11;
+            }
+            else
+            {
+                MonthPicker.SelectedIndex--;
+            }
         }
 
         private void btnSwitchTree_Click(object sender, EventArgs e)
@@ -285,9 +331,12 @@ namespace Ledger
             DateTime now = DateTime.Now;
 
             //연도가 크거나, 연도가 같고 월이 클 경우
-            if ((now.Year > see.Year) || (now.Year == see.Year && now.Month > see.Month)) {
+            if ((now.Year > see.Year) || (now.Year == see.Year && now.Month > see.Month))
+            {
                 btnSettle.Show(); //보임
-            } else {
+            }
+            else
+            {
                 btnSettle.Hide(); //숨김
             }
 
