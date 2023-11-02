@@ -260,6 +260,7 @@ namespace Ledger
         private void Analysis_FormClosing(object sender, FormClosingEventArgs e)
         {
             formMain.Show();
+            e.Cancel = true;
             this.Hide();
         }
 

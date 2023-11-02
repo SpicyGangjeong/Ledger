@@ -196,6 +196,7 @@ namespace Ledger
         private void CalenderMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             formMain.Show();
+            e.Cancel = true;
             this.Hide();
         }
         private void btnPostMonth_Click(object sender, EventArgs e)

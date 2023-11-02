@@ -49,6 +49,7 @@ namespace Ledger
         private void TreeMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
+            e.Cancel = true;
             formMain.Show();
         }
 
