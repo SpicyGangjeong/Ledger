@@ -1,4 +1,7 @@
-﻿using MySqlConnector;
+﻿using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FireSharp.Response;
+using Microsoft.VisualBasic.Logging;
 
 namespace Ledger
 {
@@ -16,11 +21,24 @@ namespace Ledger
     {
         public static string strConn = "Server=ledgerdb.ctsyekhyqkwe.ap-northeast-2.rds.amazonaws.com;Port=3306;Database=ledgerdb;Uid=root;Pwd=rootpass";
         public static MySqlConnection conn = null;
+
+        private const string basePath = "https://ledger-cc069-default-rtdb.firebaseio.com";
+        private const string baseSecret = "4AT6nTl88LXsImHpFGRXEn3LKcFkgNTyZCAJpNVW";
+        private static FirebaseClient client;
+
         public FormMain()
         {
-            InitializeComponent();
             conn = new MySqlConnection(strConn);
             conn.Open();
+
+            IFirebaseConfig config = new FirebaseConfig
+            {
+                AuthSecret = baseSecret,
+                BasePath = basePath
+            };
+            client = new FirebaseClient(config);
+
+            InitializeComponent();
             LoadLatestSpend();
         }
 
@@ -86,95 +104,111 @@ namespace Ledger
                 data1.Close();
             }
 
-
-            if (File.Exists("UpperLimit.txt"))
+            FirebaseResponse response = client.Get("UPPER");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                // 지출 챌린지 현황 알림판
-                Panel upper_panel = new Panel();
-                upper_panel.BorderStyle = BorderStyle.Fixed3D;
-                upper_panel.BackColor = Color.White;
-                upper_panel.Size = new Size(ContentLayout.Width - 5, 150);
-                ContentLayout.Controls.Add(upper_panel);
-
-                // 지출 챌린지 정보를 가져오기 위한 코드
-                StreamReader sr = new StreamReader(
-                        new FileStream("UpperLimit.txt", FileMode.Open));
-                string startDate = sr.ReadLine();
-                string endDate = sr.ReadLine();
-                int money = Convert.ToInt32(sr.ReadLine());
-
-                DateTime startDay = DateTime.Parse(startDate);
-                DateTime endday = DateTime.Parse(endDate);
-                DateTime today = DateTime.Today;
-                TimeSpan total_day = endday.Date - startDay.Date;
-                TimeSpan primary_day = today.Date - startDay.Date;
-
-                Label upperTitle = new Label(); // 제목
-                upperTitle.Text = "현재 " + String.Format("{0:n0}", money) +
-                    "원 지출 챌린지 진행중!";
-                upperTitle.Font = new Font("맑은 고딕", 14, FontStyle.Bold);
-                upperTitle.ForeColor = Color.IndianRed;
-                upperTitle.Size = new Size(upper_panel.Width - 5, 40);
-                upperTitle.Padding = new Padding(15, 8, 0, 2);
-                upper_panel.Controls.Add(upperTitle);
-
-                Label lineText2 = new Label(); // 구분선
-                lineText2.Text = "-------------------------------------------------------------------------------";
-                lineText2.ForeColor = Color.Gray;
-                lineText2.Font = new Font("맑은 고딕", 12, FontStyle.Bold);
-                lineText2.Size = new Size(upper_panel.Width - 5, 30);
-                lineText2.Padding = new Padding(0, 5, 0, 2);
-                lineText2.Location = new Point(10, 30);
-                upper_panel.Controls.Add(lineText2);
-
-                Label upperTime = new Label(); // 챌린지 진행 기간
-                upperTime.Text = "기간 : " + startDate + " ~ " + endDate + " (총 "
-                    + total_day.Days.ToString() + "일)";
-                upperTime.Font = new Font("맑은 고딕", 10, FontStyle.Bold);
-                upperTime.Size = new Size(upper_panel.Width - 5, 30);
-                upperTime.Padding = new Padding(9, 5, 0, 2);
-                upperTime.Location = new Point(10, 55);
-                upper_panel.Controls.Add(upperTime);
-
-                Label primaryday = new Label(); // 며칠째인지 표시
-                primaryday.Text = "TODAY - " + primary_day.Days.ToString() + "일차";
-                primaryday.Font = new Font("맑은 고딕", 10, FontStyle.Bold);
-                primaryday.ForeColor = Color.DarkGray;
-                primaryday.Size = new Size(upper_panel.Width - 5, 30);
-                primaryday.Padding = new Padding(9, 5, 0, 2);
-                primaryday.Location = new Point(10, 80);
-                upper_panel.Controls.Add(primaryday);
-
-
-                String sql2 = "select sum(f_money) from tb_spend where f_date between '" + startDate
-                    + "' and '" + today + "' group by f_date order by f_date";
-                MySqlCommand cmd2 = new MySqlCommand(sql2, conn);
-                Object rsm = cmd2.ExecuteScalar();
-
-                if (rsm != null)
+                if (!string.IsNullOrEmpty(response.Body))
                 {
-                    int rsmText = Convert.ToInt32(rsm);
-                    Label recentSpend = new Label(); // 현재까지의 소비 금액 표시
-                    recentSpend.Text = "현재까지 사용한 금액 : " + String.Format("{0:n0}", rsmText) + "원";
-                    recentSpend.Font = new Font("맑은 고딕", 10, FontStyle.Bold | FontStyle.Underline);
-                    recentSpend.ForeColor = Color.Red;
-                    recentSpend.Size = new Size(upper_panel.Width - 5, 30);
-                    recentSpend.Padding = new Padding(9, 5, 0, 2);
-                    recentSpend.Location = new Point(10, 105);
-                    upper_panel.Controls.Add(recentSpend);
+                    // 지출 챌린지 정보를 가져오기 위한 코드
+                    FirebaseResponse responseStart = client.Get("UPPER/START");
+                    FirebaseResponse responseEnd = client.Get("UPPER/END");
+                    FirebaseResponse responseMoney = client.Get("UPPER/MONEY");
+
+                    if (responseStart.StatusCode == System.Net.HttpStatusCode.OK &&
+                        responseEnd.StatusCode == System.Net.HttpStatusCode.OK &&
+                        responseMoney.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string startDate = responseStart.ResultAs<String>();
+                        string endDate = responseEnd.ResultAs<String>();
+
+                        if (startDate != null && endDate != null)
+                        {
+                            // 지출 챌린지 현황 알림판
+                            Panel upper_panel = new Panel();
+                            upper_panel.BorderStyle = BorderStyle.Fixed3D;
+                            upper_panel.BackColor = Color.White;
+                            upper_panel.Size = new Size(ContentLayout.Width - 5, 150);
+                            ContentLayout.Controls.Add(upper_panel);
+
+                            DateTime startDay = DateTime.Parse(startDate);
+                            DateTime endday = DateTime.Parse(endDate);
+                            DateTime today = DateTime.Today;
+                            TimeSpan total_day = endday.Date - startDay.Date;
+                            TimeSpan primary_day = today.Date - startDay.Date;
+
+                            if (responseMoney != null)
+                            {
+                                int money = responseMoney.ResultAs<int>();
+
+                                Label upperTitle = new Label(); // 제목
+                                upperTitle.Text = "현재 " + String.Format("{0:n0}", money) +
+                                    "원 지출 챌린지 진행중!";
+                                upperTitle.Font = new Font("맑은 고딕", 14, FontStyle.Bold);
+                                upperTitle.ForeColor = Color.IndianRed;
+                                upperTitle.Size = new Size(upper_panel.Width - 5, 40);
+                                upperTitle.Padding = new Padding(15, 8, 0, 2);
+                                upper_panel.Controls.Add(upperTitle);
+                            }
+
+                            Label lineText2 = new Label(); // 구분선
+                            lineText2.Text = "-------------------------------------------------------------------------------";
+                            lineText2.ForeColor = Color.Gray;
+                            lineText2.Font = new Font("맑은 고딕", 12, FontStyle.Bold);
+                            lineText2.Size = new Size(upper_panel.Width - 5, 30);
+                            lineText2.Padding = new Padding(0, 5, 0, 2);
+                            lineText2.Location = new Point(10, 30);
+                            upper_panel.Controls.Add(lineText2);
+
+                            Label upperTime = new Label(); // 챌린지 진행 기간
+                            upperTime.Text = "기간 : " + startDate + " ~ " + endDate + " (총 "
+                                + total_day.Days.ToString() + "일)";
+                            upperTime.Font = new Font("맑은 고딕", 10, FontStyle.Bold);
+                            upperTime.Size = new Size(upper_panel.Width - 5, 30);
+                            upperTime.Padding = new Padding(9, 5, 0, 2);
+                            upperTime.Location = new Point(10, 55);
+                            upper_panel.Controls.Add(upperTime);
+
+                            Label primaryday = new Label(); // 며칠째인지 표시
+                            primaryday.Text = "TODAY - " + primary_day.Days.ToString() + "일차";
+                            primaryday.Font = new Font("맑은 고딕", 10, FontStyle.Bold);
+                            primaryday.ForeColor = Color.DarkGray;
+                            primaryday.Size = new Size(upper_panel.Width - 5, 30);
+                            primaryday.Padding = new Padding(9, 5, 0, 2);
+                            primaryday.Location = new Point(10, 80);
+                            upper_panel.Controls.Add(primaryday);
+
+
+                            String sql2 = "select sum(f_money) from tb_spend where f_date between '" + startDate
+                                + "' and '" + today + "' group by f_date order by f_date";
+                            MySqlCommand cmd2 = new MySqlCommand(sql2, conn);
+                            Object rsm = cmd2.ExecuteScalar();
+
+                            if (rsm != null)
+                            {
+                                int rsmText = Convert.ToInt32(rsm);
+                                Label recentSpend = new Label(); // 현재까지의 소비 금액 표시
+                                recentSpend.Text = "현재까지 사용한 금액 : " + String.Format("{0:n0}", rsmText) + "원";
+                                recentSpend.Font = new Font("맑은 고딕", 10, FontStyle.Bold | FontStyle.Underline);
+                                recentSpend.ForeColor = Color.Red;
+                                recentSpend.Size = new Size(upper_panel.Width - 5, 30);
+                                recentSpend.Padding = new Padding(9, 5, 0, 2);
+                                recentSpend.Location = new Point(10, 105);
+                                upper_panel.Controls.Add(recentSpend);
+                            }
+                            else
+                            {
+                                Label recentSpend = new Label(); // 현재까지의 소비 금액 표시
+                                recentSpend.Text = "현재까지 어떠한 돈도 사용하지 않았어요! 대단해요!";
+                                recentSpend.Font = new Font("맑은 고딕", 10, FontStyle.Bold | FontStyle.Underline);
+                                recentSpend.ForeColor = Color.Blue;
+                                recentSpend.Size = new Size(upper_panel.Width - 5, 30);
+                                recentSpend.Padding = new Padding(9, 5, 0, 2);
+                                recentSpend.Location = new Point(10, 105);
+                                upper_panel.Controls.Add(recentSpend);
+                            }
+                        }
+                    }
                 }
-                else
-                {
-                    Label recentSpend = new Label(); // 현재까지의 소비 금액 표시
-                    recentSpend.Text = "현재까지 어떠한 돈도 사용하지 않았어요! 대단해요!";
-                    recentSpend.Font = new Font("맑은 고딕", 10, FontStyle.Bold | FontStyle.Underline);
-                    recentSpend.ForeColor = Color.Blue;
-                    recentSpend.Size = new Size(upper_panel.Width - 5, 30);
-                    recentSpend.Padding = new Padding(9, 5, 0, 2);
-                    recentSpend.Location = new Point(10, 105);
-                    upper_panel.Controls.Add(recentSpend);
-                }
-                sr.Close();
             }
 
             if (spendCount > 0)
@@ -321,7 +355,10 @@ namespace Ledger
 
         private void btnMonthly_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning); ;
+            Login login = new Login(this);
+            login.Show();
+            this.Hide();
+            notifyIcon1.Visible = true;
         }
 
         private void btnChallange_Click(object sender, EventArgs e)

@@ -20,7 +20,6 @@ namespace Ledger
         private const string baseSecret = "4AT6nTl88LXsImHpFGRXEn3LKcFkgNTyZCAJpNVW";
         private static FirebaseClient _client;
 
-        string path = "UpperLimit.txt";
         public UpperLimit(FormMain formMain)
         {
             this.formMain = formMain;
