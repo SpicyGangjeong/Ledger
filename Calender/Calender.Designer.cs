@@ -42,10 +42,6 @@
             txtNowMonth = new TextBox();
             btnPreMonth = new Button();
             btnPostMonth = new Button();
-            btnSwitchCalender = new Button();
-            btnSwitchTree = new Button();
-            btnSwitchGraph = new Button();
-            btnSwitchUpper = new Button();
             btnSettle = new Button();
             CalenderPanels.SuspendLayout();
             SuspendLayout();
@@ -243,47 +239,6 @@
             btnPostMonth.UseVisualStyleBackColor = true;
             btnPostMonth.Click += btnPostMonth_Click;
             // 
-            // btnSwitchCalender
-            // 
-            btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
-            btnSwitchCalender.Location = new Point(7, 4);
-            btnSwitchCalender.Name = "btnSwitchCalender";
-            btnSwitchCalender.Size = new Size(38, 34);
-            btnSwitchCalender.TabIndex = 11;
-            btnSwitchCalender.UseVisualStyleBackColor = true;
-            btnSwitchCalender.Click += btnSwitchCalender_Click;
-            // 
-            // btnSwitchTree
-            // 
-            btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
-            btnSwitchTree.Location = new Point(51, 4);
-            btnSwitchTree.Name = "btnSwitchTree";
-            btnSwitchTree.Size = new Size(38, 34);
-            btnSwitchTree.TabIndex = 12;
-            btnSwitchTree.UseVisualStyleBackColor = true;
-            btnSwitchTree.Click += btnSwitchTree_Click;
-            // 
-            // btnSwitchGraph
-            // 
-            btnSwitchGraph.Image = (Image)resources.GetObject("btnSwitchGraph.Image");
-            btnSwitchGraph.Location = new Point(96, 4);
-            btnSwitchGraph.Name = "btnSwitchGraph";
-            btnSwitchGraph.Size = new Size(38, 34);
-            btnSwitchGraph.TabIndex = 15;
-            btnSwitchGraph.UseVisualStyleBackColor = true;
-            btnSwitchGraph.Click += btnSwitchGraph_Click;
-            // 
-            // btnSwitchUpper
-            // 
-            btnSwitchUpper.Location = new Point(139, 4);
-            btnSwitchUpper.Margin = new Padding(2);
-            btnSwitchUpper.Name = "btnSwitchUpper";
-            btnSwitchUpper.Size = new Size(38, 34);
-            btnSwitchUpper.TabIndex = 20;
-            btnSwitchUpper.Text = "dd";
-            btnSwitchUpper.UseVisualStyleBackColor = true;
-            btnSwitchUpper.Click += btnSwitchUpper_Click;
-            // 
             // btnSettle
             // 
             btnSettle.Location = new Point(611, 6);
@@ -302,15 +257,11 @@
             BackColor = SystemColors.Window;
             ClientSize = new Size(752, 603);
             Controls.Add(btnSettle);
-            Controls.Add(btnSwitchUpper);
-            Controls.Add(btnSwitchTree);
-            Controls.Add(btnSwitchCalender);
             Controls.Add(btnPostMonth);
             Controls.Add(btnPreMonth);
             Controls.Add(txtNowMonth);
             Controls.Add(YearPicker);
             Controls.Add(MonthPicker);
-            Controls.Add(btnSwitchGraph);
             Controls.Add(CalenderPanels);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CalenderMain";
@@ -337,10 +288,6 @@
         private TextBox txtNowMonth;
         private Button btnPreMonth;
         private Button btnPostMonth;
-        private Button btnSwitchCalender;
-        private Button btnSwitchTree;
-        private Button btnSwitchGraph;
-        private Button btnSwitchUpper;
         private Button btnSettle;
     }
 }

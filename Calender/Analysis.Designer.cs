@@ -50,10 +50,6 @@
             cbCard_Sum = new CheckBox();
             cbCash_Sum = new CheckBox();
             panel3 = new Panel();
-            btnSwitchUpper = new Button();
-            btnSwitchTree = new Button();
-            btnSwitchCalender = new Button();
-            btnSwitchGraph = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             rbt_GroupBox.SuspendLayout();
@@ -171,10 +167,6 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.AppWorkspace;
-            panel1.Controls.Add(btnSwitchUpper);
-            panel1.Controls.Add(btnSwitchTree);
-            panel1.Controls.Add(btnSwitchCalender);
-            panel1.Controls.Add(btnSwitchGraph);
             panel1.Controls.Add(txtNowMonth);
             panel1.Controls.Add(btnPostMonth);
             panel1.Controls.Add(button_f_cate);
@@ -314,47 +306,6 @@
             panel3.Size = new Size(652, 818);
             panel3.TabIndex = 16;
             // 
-            // btnSwitchUpper
-            // 
-            btnSwitchUpper.Location = new Point(1116, 11);
-            btnSwitchUpper.Margin = new Padding(2);
-            btnSwitchUpper.Name = "btnSwitchUpper";
-            btnSwitchUpper.Size = new Size(38, 34);
-            btnSwitchUpper.TabIndex = 24;
-            btnSwitchUpper.Text = "dd";
-            btnSwitchUpper.UseVisualStyleBackColor = true;
-            btnSwitchUpper.Click += btnSwitchUpper_Click;
-            // 
-            // btnSwitchTree
-            // 
-            btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
-            btnSwitchTree.Location = new Point(1028, 11);
-            btnSwitchTree.Name = "btnSwitchTree";
-            btnSwitchTree.Size = new Size(38, 34);
-            btnSwitchTree.TabIndex = 22;
-            btnSwitchTree.UseVisualStyleBackColor = true;
-            btnSwitchTree.Click += btnSwitchTree_Click;
-            // 
-            // btnSwitchCalender
-            // 
-            btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
-            btnSwitchCalender.Location = new Point(984, 11);
-            btnSwitchCalender.Name = "btnSwitchCalender";
-            btnSwitchCalender.Size = new Size(38, 34);
-            btnSwitchCalender.TabIndex = 21;
-            btnSwitchCalender.UseVisualStyleBackColor = true;
-            btnSwitchCalender.Click += btnSwitchCalender_Click;
-            // 
-            // btnSwitchGraph
-            // 
-            btnSwitchGraph.Image = (Image)resources.GetObject("btnSwitchGraph.Image");
-            btnSwitchGraph.Location = new Point(1073, 11);
-            btnSwitchGraph.Name = "btnSwitchGraph";
-            btnSwitchGraph.Size = new Size(38, 34);
-            btnSwitchGraph.TabIndex = 23;
-            btnSwitchGraph.UseVisualStyleBackColor = true;
-            btnSwitchGraph.Click += btnSwitchGraph_Click;
-            // 
             // Analysis
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -402,9 +353,5 @@
         private CheckBox cbCard_Sum;
         private CheckBox cbNoImpulseSum;
         private CheckBox cbImPulse_Sum;
-        private Button btnSwitchUpper;
-        private Button btnSwitchTree;
-        private Button btnSwitchCalender;
-        private Button btnSwitchGraph;
     }
 }

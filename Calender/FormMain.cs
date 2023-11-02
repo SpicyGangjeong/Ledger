@@ -209,8 +209,8 @@ namespace Ledger
                 cateCount["trafficCount"] = 0; cateCount["stockCount"] = 0;
                 cateCount["medicalCount"] = 0; cateCount["gameCount"] = 0;
                 cateCount["etcCount"] = 0;
-                
-                for (int i=0; i<f_cateList.Count; i++)
+
+                for (int i = 0; i < f_cateList.Count; i++)
                 {
                     if (f_cateList[i].ToString() == "식사")
                         cateCount["mealCount"]++;
@@ -287,6 +287,7 @@ namespace Ledger
 
         private void btnCalendar_Click(object sender, EventArgs e)
         {
+            if (isthisOpenedForm("CalenderMain")) return;
             CalenderMain calenderMain = new CalenderMain(this);
             calenderMain.Show();
             this.Hide();
@@ -295,6 +296,7 @@ namespace Ledger
 
         private void btnTree_Click(object sender, EventArgs e)
         {
+            if (isthisOpenedForm("TreeMain")) return;
             TreeMain tree = new TreeMain(this);
             tree.Show();
             this.Hide();
@@ -303,6 +305,7 @@ namespace Ledger
 
         private void btnGraph_Click(object sender, EventArgs e)
         {
+            if (isthisOpenedForm("Analysis")) return;
             Analysis anly = new Analysis(this);
             anly.Show();
             this.Hide();
@@ -326,10 +329,35 @@ namespace Ledger
 
         private void btnChallange_Click(object sender, EventArgs e)
         {
+            if (isthisOpenedForm("UpperLimit")) return;
             UpperLimit upperLimit = new UpperLimit(this);
             upperLimit.Show();
             this.Hide();
             notifyIcon1.Visible = true;
+        }
+        private bool isthisOpenedForm(string formname)
+        {
+            foreach (Form openForm in Application.OpenForms)
+            {
+                // 폼 중복 열기 방지
+                if (openForm.Name == formname) // 열린 폼의 이름 검사
+                {
+                    if (openForm.WindowState == FormWindowState.Minimized)
+                    {   // 폼이 active 인지 검사
+                        openForm.WindowState = FormWindowState.Normal;
+                        openForm.Location = new Point(this.Location.X, this.Location.Y);
+                    }
+                    openForm.Show();
+                    this.Hide();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void FormMain_Activated(object sender, EventArgs e)
+        {
+            notifyIcon1.Visible = false;
         }
     }
 }

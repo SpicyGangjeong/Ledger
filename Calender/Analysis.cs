@@ -259,7 +259,8 @@ namespace Ledger
 
         private void Analysis_FormClosing(object sender, FormClosingEventArgs e)
         {
-            formMain.Dispose();
+            formMain.Show();
+            this.Hide();
         }
 
         private void btnPostMonth_Click(object sender, EventArgs e)
@@ -321,80 +322,6 @@ namespace Ledger
                 formsPlot.Plot.XTicks(positions, xlabel);
             }
             formsPlot.Refresh();
-        }
-
-        private void btnSwitchCalender_Click(object sender, EventArgs e)
-        {
-            foreach (Form openForm in Application.OpenForms)
-            {
-                // 폼 중복 열기 방지
-                if (openForm.Name == "CalenderMain") // 열린 폼의 이름 검사
-                {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
-                        openForm.WindowState = FormWindowState.Normal;
-                        openForm.Location = new Point(this.Location.X, this.Location.Y);
-                    }
-                    openForm.Activate();
-                    openForm.Show();
-                    this.Hide();
-                    return;
-                }
-            }
-            CalenderMain calenderMain = new CalenderMain(formMain);
-            calenderMain.Show();
-            this.Hide();
-        }
-
-        private void btnSwitchTree_Click(object sender, EventArgs e)
-        {
-            foreach (Form openForm in Application.OpenForms)
-            {
-                // 폼 중복 열기 방지
-                if (openForm.Name == "TreeMain") // 열린 폼의 이름 검사
-                {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
-                        openForm.WindowState = FormWindowState.Normal;
-                        openForm.Location = new Point(this.Location.X, this.Location.Y);
-                    }
-                    openForm.Activate();
-                    openForm.Show();
-                    this.Hide();
-                    return;
-                }
-            }
-            TreeMain TreeMain = new TreeMain(formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
-            TreeMain.Show();
-            this.Hide();
-        }
-
-        private void btnSwitchGraph_Click(object sender, EventArgs e)
-        {
-            // 필요없음
-        }
-
-        private void btnSwitchUpper_Click(object sender, EventArgs e)
-        {
-            foreach (Form openForm in Application.OpenForms)
-            {
-                // 폼 중복 열기 방지
-                if (openForm.Name == "UpperLimit") // 열린 폼의 이름 검사
-                {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
-                        openForm.WindowState = FormWindowState.Normal;
-                        openForm.Location = new Point(this.Location.X, this.Location.Y);
-                    }
-                    openForm.Activate();
-                    openForm.Show();
-                    this.Hide();
-                    return;
-                }
-            }
-            UpperLimit upperForm = new UpperLimit(formMain);
-            upperForm.Show();
-            this.Hide();
         }
     }
 }

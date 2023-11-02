@@ -67,7 +67,8 @@ namespace Ledger
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //비어있으면 안됨.
-                    if (string.IsNullOrEmpty(response.Body)) {
+                    if (string.IsNullOrEmpty(response.Body))
+                    {
                         return false;
                     }
                     LoadChallengeInterface();
@@ -86,7 +87,7 @@ namespace Ledger
         }
         private string[] ReadDataFromFirebase(FirebaseClient client)
         {
-            
+
             string[] ret = new string[3];
             try
             {
@@ -150,7 +151,7 @@ namespace Ledger
 
             //권장 금액을 담을 배열
             int[] rec_array = new int[start_to_last.Days + 1];
-            for(int i = 0; i < rec_array.Length; i++)
+            for (int i = 0; i < rec_array.Length; i++)
             {
                 rec_array[i] = 0;
             }
@@ -175,7 +176,7 @@ namespace Ledger
                 TimeSpan _span = lastDT - DateTime.Parse(data["f_date"].ToString());
                 int _ind = start_to_last.Days - _span.Days;
 
-                spend_array[_ind] = _spend; 
+                spend_array[_ind] = _spend;
             }
             data.Close();
             //권장 금액을 계산하여 rec_array에 저장
@@ -385,7 +386,8 @@ namespace Ledger
 
         private void UpperLimit_FormClosing(object sender, FormClosingEventArgs e)
         {
-            formMain.Dispose();
+            this.Hide();
+            formMain.Show();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -453,51 +455,6 @@ namespace Ledger
 
             return bmpOut;
         }
-        private void btnSwitchCalender_Click(object sender, EventArgs e)
-        {
-            foreach (Form openForm in Application.OpenForms)
-            {
-                // 폼 중복 열기 방지
-                if (openForm.Name == "CalenderMain") // 열린 폼의 이름 검사
-                {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
-                        openForm.WindowState = FormWindowState.Normal;
-                        openForm.Location = new Point(this.Location.X, this.Location.Y);
-                    }
-                    openForm.Activate();
-                    openForm.Show();
-                    this.Hide();
-                    return;
-                }
-            }
-            CalenderMain calenderMain = new CalenderMain(formMain); // 캘린더 폼을 만들고 기존의 값들을 넘겨줌.
-            calenderMain.Show();
-            this.Hide();
-        }
-        private void btnSwitchTree_Click(object sender, EventArgs e)
-        {
-            foreach (Form openForm in Application.OpenForms)
-            {
-                // 폼 중복 열기 방지
-                if (openForm.Name == "TreeMain") // 열린 폼의 이름 검사
-                {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
-                        openForm.WindowState = FormWindowState.Normal;
-                        openForm.Location = new Point(this.Location.X, this.Location.Y);
-                    }
-                    openForm.Activate();
-                    openForm.Show();
-                    this.Hide();
-                    return;
-                }
-            }
-            TreeMain TreeMain = new TreeMain(formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
-            TreeMain.Show();
-            this.Hide();
-        }
-
         private void btnGiveUp_Click(object sender, EventArgs e)
         {
             //파이어 베이스에서 UPPER 노드 삭제
@@ -529,29 +486,6 @@ namespace Ledger
                 pnlCenter.Controls.Remove(panelToRemove);
                 panelToRemove.Dispose(); // 메모리 누수 방지를 위해 Dispose 호출
             }
-        }
-
-        private void btnSwitchGraph_Click(object sender, EventArgs e)
-        {
-            foreach (Form openForm in Application.OpenForms)
-            {
-                // 폼 중복 열기 방지
-                if (openForm.Name == "Analysis") // 열린 폼의 이름 검사
-                {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
-                        openForm.WindowState = FormWindowState.Normal;
-                        openForm.Location = new Point(this.Location.X, this.Location.Y);
-                    }
-                    openForm.Activate();
-                    openForm.Show();
-                    this.Hide();
-                    return;
-                }
-            }
-            Analysis Analysis = new Analysis(formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
-            Analysis.Show();
-            this.Hide();
         }
     }
 }

@@ -31,13 +31,9 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeMain));
             panelHeader = new Panel();
-            btnSwitchGraph = new Button();
-            btnSwitchUpper = new Button();
             txtNowMonth = new TextBox();
             YearPicker = new TextBox();
             MonthPicker = new ComboBox();
-            btnSwitchTree = new Button();
-            btnSwitchCalender = new Button();
             splitContainer1 = new SplitContainer();
             IOTree = new TreeView();
             TreeImages = new ImageList(components);
@@ -63,39 +59,14 @@
             // 
             // panelHeader
             // 
-            panelHeader.Controls.Add(btnSwitchGraph);
-            panelHeader.Controls.Add(btnSwitchUpper);
             panelHeader.Controls.Add(txtNowMonth);
             panelHeader.Controls.Add(YearPicker);
             panelHeader.Controls.Add(MonthPicker);
-            panelHeader.Controls.Add(btnSwitchTree);
-            panelHeader.Controls.Add(btnSwitchCalender);
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(800, 53);
             panelHeader.TabIndex = 4;
-            // 
-            // btnSwitchGraph
-            // 
-            btnSwitchGraph.Image = (Image)resources.GetObject("btnSwitchGraph.Image");
-            btnSwitchGraph.Location = new Point(98, 14);
-            btnSwitchGraph.Name = "btnSwitchGraph";
-            btnSwitchGraph.Size = new Size(38, 34);
-            btnSwitchGraph.TabIndex = 16;
-            btnSwitchGraph.UseVisualStyleBackColor = true;
-            btnSwitchGraph.Click += btnSwitchGraph_Click;
-            // 
-            // btnSwitchUpper
-            // 
-            btnSwitchUpper.Location = new Point(141, 12);
-            btnSwitchUpper.Margin = new Padding(2);
-            btnSwitchUpper.Name = "btnSwitchUpper";
-            btnSwitchUpper.Size = new Size(38, 34);
-            btnSwitchUpper.TabIndex = 21;
-            btnSwitchUpper.Text = "dd";
-            btnSwitchUpper.UseVisualStyleBackColor = true;
-            btnSwitchUpper.Click += btnSwitchUpper_Click;
             // 
             // txtNowMonth
             // 
@@ -126,26 +97,6 @@
             MonthPicker.Name = "MonthPicker";
             MonthPicker.Size = new Size(50, 23);
             MonthPicker.TabIndex = 15;
-            // 
-            // btnSwitchTree
-            // 
-            btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
-            btnSwitchTree.Location = new Point(54, 12);
-            btnSwitchTree.Name = "btnSwitchTree";
-            btnSwitchTree.Size = new Size(38, 34);
-            btnSwitchTree.TabIndex = 14;
-            btnSwitchTree.UseVisualStyleBackColor = true;
-            btnSwitchTree.Click += btnSwitchTree_Click;
-            // 
-            // btnSwitchCalender
-            // 
-            btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
-            btnSwitchCalender.Location = new Point(10, 12);
-            btnSwitchCalender.Name = "btnSwitchCalender";
-            btnSwitchCalender.Size = new Size(38, 34);
-            btnSwitchCalender.TabIndex = 13;
-            btnSwitchCalender.UseVisualStyleBackColor = true;
-            btnSwitchCalender.Click += btnSwitchCalender_Click;
             // 
             // splitContainer1
             // 
@@ -293,8 +244,6 @@
         private SplitContainer splitContainer2;
         private GroupBox groupBoxIncome;
         private GroupBox groupBoxSpend;
-        private Button btnSwitchTree;
-        private Button btnSwitchCalender;
         private TextBox txtNowMonth;
         private TextBox YearPicker;
         private ComboBox MonthPicker;
@@ -303,7 +252,5 @@
         private FlowLayoutPanel flpnl_Income;
         private ImageList imageList1;
         private ImageList imageList2;
-        private Button btnSwitchUpper;
-        private Button btnSwitchGraph;
     }
 }
