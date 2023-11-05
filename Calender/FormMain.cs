@@ -348,7 +348,23 @@ namespace Ledger
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning); ;
+            //MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //패널 안에 폼 추가
+            Panel msPanel = new Panel();
+            msPanel.Size = new Size(this.Width, this.Height);
+
+            Search searchForm = new Search();
+            searchForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            //캘린더 폼 내의 모든 컨트롤을 숨김
+            foreach (Control control in this.Controls) {
+                control.Hide();
+            }
+            searchForm.TopLevel = false;
+            msPanel.Controls.Add(searchForm);
+            this.Controls.Add(msPanel);
+            searchForm.Show();
+            searchForm.Dock = DockStyle.Fill;
+            this.Text = searchForm.Text;
         }
 
         private void btnSpendanal_Click(object sender, EventArgs e)
