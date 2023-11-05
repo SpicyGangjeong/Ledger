@@ -50,8 +50,10 @@ namespace Ledger
             Filling(startday, Month, days);
             ActiveSettle();
         }
-        private void Filling(int startday, int Month, int[] days)
+        private void Filling(int startday, int Month, int[] days, int year)
         {
+            List<int[]> arrays = MonthQuery(year, Month + 1, days[Month]);
+
             while (CalenderPanels.Controls.Count > 7)
             {
                 CalenderPanels.Controls[7].Dispose();
@@ -69,7 +71,7 @@ namespace Ledger
                 {
                     inday = days[Month - 1];
                 }
-                RichTextBox rtb = CreateRichTextBox(Month + "/" + (inday - startday + i + 1), false);
+                RichTextBox rtb = CreateRichTextBox(Month + "/" + (inday - startday + i + 1));
                 CalenderPanels.Controls.Add(rtb, i, row);
                 col++;
             }
@@ -82,7 +84,7 @@ namespace Ledger
                     row++;
                 }
                 startday++;
-                RichTextBox rtb = CreateRichTextBox((Month + 1) + "/" + (i + 1));
+                RichTextBox rtb = CreateRichTextBox((Month + 1) + "/" + (i + 1), true, arrays[0][i].ToString(), arrays[1][i].ToString(), arrays[2][i].ToString());
                 CalenderPanels.Controls.Add(rtb, col, row);
 
                 col++;
@@ -99,16 +101,65 @@ namespace Ledger
                 RichTextBox rtb;
                 if (Month + 2 > 12)
                 {
-                    rtb = CreateRichTextBox(1 + "/" + (i + 1), false);
+                    rtb = CreateRichTextBox(1 + "/" + (i + 1));
                 }
                 else
                 {
-                    rtb = CreateRichTextBox((Month + 2) + "/" + (i + 1), false);
+                    rtb = CreateRichTextBox((Month + 2) + "/" + (i + 1));
                 }
                 CalenderPanels.Controls.Add(rtb, col, row);
                 col++;
             }
+        }
+        private List<int[]> MonthQuery(int year, int Month, int days)
+        {
+            int[] spend = new int[days + 1];
+            int[] income = new int[days + 1];
+            int[] regular = new int[days + 1];
+            for (int i = 0; i < days; i++)
+            {
+                spend[i] = 0; income[i] = 0; regular[i] = 0;
+            }
+            string nowMonthFirst = year + "/" + Month + "/01";
+            string nowMonthLast = year + "/" + Month + "/" + days;
+            string sql = "select f_date, f_money, f_regular from tb_spend where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + "' order by f_date";
 
+
+            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
+            MySqlDataReader data = cmd.ExecuteReader();
+            while (data.Read())                             // 지출내용이 있다면 - spends 추가
+            {
+                string f_date = data["f_date"].ToString();
+                spend[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+            }
+            data.Close();
+
+            sql = "select f_date, f_money, f_regular from tb_income where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + "' order by f_date";
+            cmd = new MySqlCommand(sql, FormMain.conn);
+            data = cmd.ExecuteReader();
+            while (data.Read())
+            {
+                string f_date = data["f_date"].ToString();
+                income[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+            }
+            data.Close();
+
+            sql = "select f_date, f_money, f_regular from tb_spend where f_regular = 2 union all select f_date, f_money, f_regular from tb_income where f_regular = 2;";
+            cmd = new MySqlCommand(sql, FormMain.conn);
+            data = cmd.ExecuteReader();
+            while (data.Read())
+            {
+                string f_date = data["f_date"].ToString();
+                regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+            }
+            data.Close();
+
+            List<int[]> arrayOfArrays = new List<int[]>();
+            arrayOfArrays.Add(spend);
+            arrayOfArrays.Add(income);
+            arrayOfArrays.Add(regular);
+
+            return arrayOfArrays;
         }
         private void MonthPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -116,47 +167,30 @@ namespace Ledger
             Calc_day();
         }
 
-        public RichTextBox CreateRichTextBox(string text, bool able = true)
+        public RichTextBox CreateRichTextBox(string text, bool able = false, string spend = "", string income = "", string regular = "")
         {
             RichTextBox rtb = new RichTextBox();
 
-            rtb.Text = text + "\n\n";
-            int indexdate = rtb.Text.Length;                // 마지막 캐럿지점
-            string sql = "select sum(f_money) \"Money\" from tb_spend where f_date = '" + YearPicker.Text + "/" + text + "'";
-            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
-            MySqlDataReader data = cmd.ExecuteReader();
-            while (data.Read())                             // 지출내용이 있다면 - spends 추가
+            rtb.Text = text + "\n";
+            if (able)
             {
-                string spends = data["Money"].ToString();
-                if (spends.Length > 0)
-                    rtb.Text += "-" + spends;
-            }
-            data.Close();
-            rtb.Text += "\n";
+                int indexRegular = rtb.Text.Length; // 레귤러 시작 지점
+                rtb.Text += "±" + regular + "\n";
+                int indexspend = rtb.Text.Length; // spend 시작 지점
+                rtb.Text += "-" + spend + "\n";
+                int indexincome = rtb.Text.Length; // income 시작 지점
+                rtb.Text += "+" + income + "\n";
 
-            rtb.Select(indexdate, rtb.Text.Length);         // 첫 캐럿지점부터 현재 캐럿지점까지 선택
-            rtb.SelectionColor = System.Drawing.Color.Red;  // 선택지점 색 변경
-            rtb.SelectionAlignment = HorizontalAlignment.Right; // 우로정렬
-            int indexspends = rtb.Text.Length;              // 지출지점 마지막 인덱스
-
-            sql = "select sum(f_money) \"Money\" from tb_income where f_date = '" + YearPicker.Text + "/" + text + "'";
-            cmd = new MySqlCommand(sql, FormMain.conn);
-            data = cmd.ExecuteReader();
-            while (data.Read())
-            {
-                string incomes = data["Money"].ToString();
-                if (incomes.Length > 0)
-                {
-                    rtb.Text += "+" + incomes;              // 수입내역이 있다면 color가 깨짐
-                    rtb.Select(indexdate, indexspends);     // 그래서 다시 만들어줌
-                    rtb.SelectionColor = System.Drawing.Color.Red;  // 지출내역부터 다시 빨간색으로
-                    rtb.SelectionAlignment = HorizontalAlignment.Right; // 우로정렬
-                    rtb.Select(indexspends, rtb.Text.Length);       // 수입내역선택
-                    rtb.SelectionColor = System.Drawing.Color.Blue; // 수입내역 파란색으로
-                    rtb.SelectionAlignment = HorizontalAlignment.Right; // 우로정렬
-                }
+                rtb.Select(indexRegular, indexspend);
+                rtb.SelectionColor = System.Drawing.Color.Green;
+                rtb.SelectionAlignment = HorizontalAlignment.Right;
+                rtb.Select(indexspend, indexincome);
+                rtb.SelectionColor = System.Drawing.Color.Red;
+                rtb.SelectionAlignment = HorizontalAlignment.Right;
+                rtb.Select(indexincome, rtb.Text.Length);
+                rtb.SelectionColor = System.Drawing.Color.Blue;
+                rtb.SelectionAlignment = HorizontalAlignment.Right;
             }
-            data.Close();
             rtb.Dock = DockStyle.Fill;                      // 가득 채움
             rtb.Enabled = able;                             // 활성화 전환
             rtb.Click += Rtb_Click;             // 클릭 이벤트 활성화
