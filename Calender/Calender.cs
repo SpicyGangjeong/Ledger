@@ -47,7 +47,7 @@ namespace Ledger
                 startday += days[i];
             }
             startday = startday % 7;
-            Filling(startday, Month, days);
+            Filling(startday, Month, days, year);
             ActiveSettle();
         }
         private void Filling(int startday, int Month, int[] days, int year)
