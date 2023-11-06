@@ -15,10 +15,8 @@ using System.Windows.Forms;
 using FireSharp.Response;
 using Microsoft.VisualBasic.Logging;
 
-namespace Ledger
-{
-    public partial class FormMain : Form
-    {
+namespace Ledger {
+    public partial class FormMain : Form {
         public static string strConn = "Server=ledgerdb.ctsyekhyqkwe.ap-northeast-2.rds.amazonaws.com;Port=3306;Database=ledgerdb;Uid=root;Pwd=rootpass";
         public static MySqlConnection conn = null;
 
@@ -26,13 +24,15 @@ namespace Ledger
         private const string baseSecret = "4AT6nTl88LXsImHpFGRXEn3LKcFkgNTyZCAJpNVW";
         private static FirebaseClient client;
 
-        public FormMain()
-        {
+        //검색 폼 변수 선언
+        private Panel msPanel;
+
+
+        public FormMain() {
             conn = new MySqlConnection(strConn);
             conn.Open();
 
-            IFirebaseConfig config = new FirebaseConfig
-            {
+            IFirebaseConfig config = new FirebaseConfig {
                 AuthSecret = baseSecret,
                 BasePath = basePath
             };
@@ -42,15 +42,13 @@ namespace Ledger
             LoadLatestSpend();
         }
 
-        public void LoadLatestSpend()
-        {
+        public void LoadLatestSpend() {
             String sql = "select count(*) from tb_spend";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             Object data = cmd.ExecuteScalar();
             int spendCount = Convert.ToInt32(data);
 
-            if (spendCount > 0)
-            {
+            if (spendCount > 0) {
                 // 최근 지출 알림판
                 Panel panel = new Panel();
                 panel.BorderStyle = BorderStyle.Fixed3D;
@@ -105,10 +103,8 @@ namespace Ledger
             }
 
             FirebaseResponse response = client.Get("UPPER");
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                if (!string.IsNullOrEmpty(response.Body))
-                {
+            if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                if (!string.IsNullOrEmpty(response.Body)) {
                     // 지출 챌린지 정보를 가져오기 위한 코드
                     FirebaseResponse responseStart = client.Get("UPPER/START");
                     FirebaseResponse responseEnd = client.Get("UPPER/END");
@@ -116,13 +112,11 @@ namespace Ledger
 
                     if (responseStart.StatusCode == System.Net.HttpStatusCode.OK &&
                         responseEnd.StatusCode == System.Net.HttpStatusCode.OK &&
-                        responseMoney.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
+                        responseMoney.StatusCode == System.Net.HttpStatusCode.OK) {
                         string startDate = responseStart.ResultAs<String>();
                         string endDate = responseEnd.ResultAs<String>();
 
-                        if (startDate != null && endDate != null)
-                        {
+                        if (startDate != null && endDate != null) {
                             // 지출 챌린지 현황 알림판
                             Panel upper_panel = new Panel();
                             upper_panel.BorderStyle = BorderStyle.Fixed3D;
@@ -136,8 +130,7 @@ namespace Ledger
                             TimeSpan total_day = endday.Date - startDay.Date;
                             TimeSpan primary_day = today.Date - startDay.Date;
 
-                            if (responseMoney != null)
-                            {
+                            if (responseMoney != null) {
                                 int money = responseMoney.ResultAs<int>();
 
                                 Label upperTitle = new Label(); // 제목
@@ -183,8 +176,7 @@ namespace Ledger
                             MySqlCommand cmd2 = new MySqlCommand(sql2, conn);
                             Object rsm = cmd2.ExecuteScalar();
 
-                            if (rsm != null)
-                            {
+                            if (rsm != null) {
                                 int rsmText = Convert.ToInt32(rsm);
                                 Label recentSpend = new Label(); // 현재까지의 소비 금액 표시
                                 recentSpend.Text = "현재까지 사용한 금액 : " + String.Format("{0:n0}", rsmText) + "원";
@@ -195,8 +187,7 @@ namespace Ledger
                                 recentSpend.Location = new Point(10, 105);
                                 upper_panel.Controls.Add(recentSpend);
                             }
-                            else
-                            {
+                            else {
                                 Label recentSpend = new Label(); // 현재까지의 소비 금액 표시
                                 recentSpend.Text = "현재까지 어떠한 돈도 사용하지 않았어요! 대단해요!";
                                 recentSpend.Font = new Font("맑은 고딕", 10, FontStyle.Bold | FontStyle.Underline);
@@ -211,8 +202,7 @@ namespace Ledger
                 }
             }
 
-            if (spendCount > 0)
-            {
+            if (spendCount > 0) {
                 // 가장 많이 소비한 분야 알림판
                 Panel MostCate = new Panel();
                 MostCate.BorderStyle = BorderStyle.Fixed3D;
@@ -229,8 +219,7 @@ namespace Ledger
 
                 List<String> f_cateList = new List<String>();
 
-                while (data3.Read())
-                {
+                while (data3.Read()) {
                     String f_cate = data3["f_cate"].ToString();
                     f_cateList.Add(f_cate);
                 }
@@ -244,8 +233,7 @@ namespace Ledger
                 cateCount["medicalCount"] = 0; cateCount["gameCount"] = 0;
                 cateCount["etcCount"] = 0;
 
-                for (int i = 0; i < f_cateList.Count; i++)
-                {
+                for (int i = 0; i < f_cateList.Count; i++) {
                     if (f_cateList[i].ToString() == "식사")
                         cateCount["mealCount"]++;
                     else if (f_cateList[i].ToString() == "간식")
@@ -314,13 +302,11 @@ namespace Ledger
             }
         }
 
-        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e) {
             Dispose();
         }
 
-        private void btnCalendar_Click(object sender, EventArgs e)
-        {
+        private void btnCalendar_Click(object sender, EventArgs e) {
             if (isthisOpenedForm("CalenderMain")) return;
             CalenderMain calenderMain = new CalenderMain(this);
             calenderMain.Show();
@@ -328,8 +314,7 @@ namespace Ledger
             notifyIcon1.Visible = true;
         }
 
-        private void btnTree_Click(object sender, EventArgs e)
-        {
+        private void btnTree_Click(object sender, EventArgs e) {
             if (isthisOpenedForm("TreeMain")) return;
             TreeMain tree = new TreeMain(this);
             tree.Show();
@@ -337,8 +322,7 @@ namespace Ledger
             notifyIcon1.Visible = true;
         }
 
-        private void btnGraph_Click(object sender, EventArgs e)
-        {
+        private void btnGraph_Click(object sender, EventArgs e) {
             if (isthisOpenedForm("Analysis")) return;
             Analysis anly = new Analysis(this);
             anly.Show();
@@ -346,11 +330,10 @@ namespace Ledger
             notifyIcon1.Visible = true;
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
+        private void btnSearch_Click(object sender, EventArgs e) {
             //MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //패널 안에 폼 추가
-            Panel msPanel = new Panel();
+            msPanel = new Panel();
             msPanel.Size = new Size(this.Width, this.Height);
 
             Search searchForm = new Search();
@@ -367,36 +350,30 @@ namespace Ledger
             this.Text = searchForm.Text;
         }
 
-        private void btnSpendanal_Click(object sender, EventArgs e)
-        {
+        private void btnSpendanal_Click(object sender, EventArgs e) {
             MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning); ;
         }
 
-        private void btnMonthly_Click(object sender, EventArgs e)
-        {
+        private void btnMonthly_Click(object sender, EventArgs e) {
             Login login = new Login(this);
             login.Show();
             this.Hide();
             notifyIcon1.Visible = true;
         }
 
-        private void btnChallange_Click(object sender, EventArgs e)
-        {
+        private void btnChallange_Click(object sender, EventArgs e) {
             if (isthisOpenedForm("UpperLimit")) return;
             UpperLimit upperLimit = new UpperLimit(this);
             upperLimit.Show();
             this.Hide();
             notifyIcon1.Visible = true;
         }
-        private bool isthisOpenedForm(string formname)
-        {
-            foreach (Form openForm in Application.OpenForms)
-            {
+        private bool isthisOpenedForm(string formname) {
+            foreach (Form openForm in Application.OpenForms) {
                 // 폼 중복 열기 방지
                 if (openForm.Name == formname) // 열린 폼의 이름 검사
                 {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
+                    if (openForm.WindowState == FormWindowState.Minimized) {   // 폼이 active 인지 검사
                         openForm.WindowState = FormWindowState.Normal;
                         openForm.Location = new Point(this.Location.X, this.Location.Y);
                     }
@@ -408,9 +385,23 @@ namespace Ledger
             return false;
         }
 
-        private void FormMain_Activated(object sender, EventArgs e)
-        {
+        private void FormMain_Activated(object sender, EventArgs e) {
             notifyIcon1.Visible = false;
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e) {
+            if (msPanel != null && Controls.Contains(msPanel)) {
+
+                foreach (Control control in this.Controls) {
+                    control.Show();
+                }
+                // Remove the pnl_1 panel from the form's Controls collection
+                Controls.Remove(msPanel);
+                // Optionally, you can also dispose of the pnl_1 panel
+                msPanel.Dispose();
+                this.Text = "HOME";
+                e.Cancel = true;
+            }
         }
     }
 }
