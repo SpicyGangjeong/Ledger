@@ -42,6 +42,7 @@ namespace Ledger
             LoadLatestSpend();
         }
 
+        #region LoadLatestSpend
         public void LoadLatestSpend()
         {
             String sql = "select count(*) from tb_spend";
@@ -314,11 +315,9 @@ namespace Ledger
             }
         }
 
-        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Dispose();
-        }
+        #endregion 
 
+        #region btnFormClick
         private void btnCalendar_Click(object sender, EventArgs e)
         {
             if (isthisOpenedForm("CalenderMain")) return;
@@ -407,10 +406,15 @@ namespace Ledger
             }
             return false;
         }
+        #endregion
 
         private void FormMain_Activated(object sender, EventArgs e)
         {
             notifyIcon1.Visible = false;
+        }
+        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Dispose();
         }
     }
 }

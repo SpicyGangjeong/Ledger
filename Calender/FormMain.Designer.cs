@@ -174,7 +174,7 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
-            panel2.BackgroundImage = (Image)resources.GetObject("panel2.BackgroundImage");
+            panel2.BackgroundImage = Properties.Resources.panel2_BackgroundImage;
             panel2.BackgroundImageLayout = ImageLayout.Stretch;
             panel2.Controls.Add(ContentLayout);
             panel2.Dock = DockStyle.Fill;

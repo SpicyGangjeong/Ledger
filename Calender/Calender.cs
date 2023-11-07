@@ -18,7 +18,6 @@ namespace Ledger
         {
             MonthPicker.SelectedIndex = DateTime.Now.Month - 1;
             YearPicker.Text = DateTime.Now.Year.ToString();
-            Calc_day();
         }
         private void Calc_day()
         {
@@ -175,11 +174,20 @@ namespace Ledger
             if (able)
             {
                 int indexRegular = rtb.Text.Length; // 레귤러 시작 지점
-                rtb.Text += "±" + regular + "\n";
+                if ( regular != "0")
+                {
+                    rtb.Text += "±" + regular + "\n";
+                }
                 int indexspend = rtb.Text.Length; // spend 시작 지점
-                rtb.Text += "-" + spend + "\n";
+                if (spend != "0")
+                {
+                    rtb.Text += "-" + spend + "\n";
+                }
                 int indexincome = rtb.Text.Length; // income 시작 지점
-                rtb.Text += "+" + income + "\n";
+                if (income != "0")
+                {
+                    rtb.Text += "+" + income + "\n";
+                }
 
                 rtb.Select(indexRegular, indexspend);
                 rtb.SelectionColor = System.Drawing.Color.Green;
@@ -195,7 +203,8 @@ namespace Ledger
             rtb.Enabled = able;                             // 활성화 전환
             rtb.Click += Rtb_Click;             // 클릭 이벤트 활성화
             rtb.ReadOnly = true;                            // 읽기전용
-            rtb.BackColor = Color.White;                    // 배경화면 하얀색
+            rtb.BackColor = Color.White;                    // 배경화면 투명
+            rtb.Padding = new Padding(3, 3, 3, 3);
             rtb.ScrollBars = RichTextBoxScrollBars.None;    //스크롤바 비활성화
             return rtb;
         }
