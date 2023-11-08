@@ -42,7 +42,9 @@ namespace Ledger {
             LoadLatestSpend();
         }
 
-        public void LoadLatestSpend() {
+        #region LoadLatestSpend
+        public void LoadLatestSpend()
+        {
             String sql = "select count(*) from tb_spend";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             Object data = cmd.ExecuteScalar();
@@ -212,8 +214,7 @@ namespace Ledger {
 
                 // 가장 많이 소비한 분야를 뽑아내기 위한 코드
                 DateTime today = DateTime.Today;
-                String sql3 = "select f_cate from tb_spend where f_date <= '" + today.ToString() +
-                    "' and f_date >= date_sub('" + today.ToString() + "', interval 30 day)";
+                String sql3 = "SELECT * FROM ledgerdb.view_MonthSpendCount";
                 MySqlCommand cmd3 = new MySqlCommand(sql3, conn);
                 MySqlDataReader data3 = cmd3.ExecuteReader();
 
@@ -224,66 +225,91 @@ namespace Ledger {
                     f_cateList.Add(f_cate);
                 }
 
-                Dictionary<string, int> cateCount = new Dictionary<string, int>();
-
-                cateCount["mealCount"] = 0; cateCount["dessertCount"] = 0;
-                cateCount["leisureCount"] = 0; cateCount["shelterCount"] = 0;
-                cateCount["beautyCount"] = 0; cateCount["savingCount"] = 0;
-                cateCount["trafficCount"] = 0; cateCount["stockCount"] = 0;
-                cateCount["medicalCount"] = 0; cateCount["gameCount"] = 0;
-                cateCount["etcCount"] = 0;
-
-                for (int i = 0; i < f_cateList.Count; i++) {
-                    if (f_cateList[i].ToString() == "식사")
-                        cateCount["mealCount"]++;
-                    else if (f_cateList[i].ToString() == "간식")
-                        cateCount["dessertCount"]++;
-                    else if (f_cateList[i].ToString() == "여가")
-                        cateCount["leisureCount"]++;
-                    else if (f_cateList[i].ToString() == "주거")
-                        cateCount["shelterCount"]++;
-                    else if (f_cateList[i].ToString() == "미용")
-                        cateCount["beautyCount"]++;
-                    else if (f_cateList[i].ToString() == "저축")
-                        cateCount["savingCount"]++;
-                    else if (f_cateList[i].ToString() == "교통")
-                        cateCount["trafficCount"]++;
-                    else if (f_cateList[i].ToString() == "주식")
-                        cateCount["stockCount"]++;
-                    else if (f_cateList[i].ToString() == "의료")
-                        cateCount["medicalCount"]++;
-                    else if (f_cateList[i].ToString() == "게임")
-                        cateCount["gameCount"]++;
-                    else if (f_cateList[i].ToString() == "기타")
-                        cateCount["etcCount"]++;
+                Dictionary<string, int> cateCount = new Dictionary<string, int>
+                {
+                    { "mealCount", 0 }, { "dessertCount", 0 }, { "leisureCount", 0 },
+                    { "shelterCount", 0 }, { "beautyCount", 0 }, { "savingCount", 0 },
+                    { "trafficCount", 0 }, { "stockCount", 0 }, { "medicalCount", 0 },
+                    { "gameCount", 0 }, { "etcCount", 0 }
+                };
+                foreach (var category in f_cateList)
+                {
+                    switch (category.ToString())
+                    {
+                        case "식사":
+                            cateCount["mealCount"]++;
+                            break;
+                        case "간식":
+                            cateCount["dessertCount"]++;
+                            break;
+                        case "여가":
+                            cateCount["leisureCount"]++;
+                            break;
+                        case "주거":
+                            cateCount["shelterCount"]++;
+                            break;
+                        case "미용":
+                            cateCount["beautyCount"]++;
+                            break;
+                        case "저축":
+                            cateCount["savingCount"]++;
+                            break;
+                        case "교통":
+                            cateCount["trafficCount"]++;
+                            break;
+                        case "주식":
+                            cateCount["stockCount"]++;
+                            break;
+                        case "의료":
+                            cateCount["medicalCount"]++;
+                            break;
+                        case "게임":
+                            cateCount["gameCount"]++;
+                            break;
+                        case "기타":
+                            cateCount["etcCount"]++;
+                            break;
+                    }
                 }
-
                 int maxCate = cateCount.Values.Max();
                 String maxCateName = cateCount.FirstOrDefault(x => x.Value == maxCate).Key;
 
-                if (maxCateName == "mealCount")
-                    maxCateName = "식사";
-                else if (maxCateName == "dessertCount")
-                    maxCateName = "간식";
-                else if (maxCateName == "leisureCount")
-                    maxCateName = "여가";
-                else if (maxCateName == "shelterCount")
-                    maxCateName = "주거";
-                else if (maxCateName == "beautyCount")
-                    maxCateName = "미용";
-                else if (maxCateName == "savingCount")
-                    maxCateName = "저축";
-                else if (maxCateName == "trafficCount")
-                    maxCateName = "교통";
-                else if (maxCateName == "stockCount")
-                    maxCateName = "주식";
-                else if (maxCateName == "medicalCount")
-                    maxCateName = "의료";
-                else if (maxCateName == "gameCount")
-                    maxCateName = "게임";
-                else if (maxCateName == "etcCount")
-                    maxCateName = "기타";
-
+                switch (maxCateName)
+                {
+                    case "mealCount":
+                        maxCateName = "식사";
+                        break;
+                    case "dessertCount":
+                        maxCateName = "간식";
+                        break;
+                    case "leisureCount":
+                        maxCateName = "여가";
+                        break;
+                    case "shelterCount":
+                        maxCateName = "주거";
+                        break;
+                    case "beautyCount":
+                        maxCateName = "미용";
+                        break;
+                    case "savingCount":
+                        maxCateName = "저축";
+                        break;
+                    case "trafficCount":
+                        maxCateName = "교통";
+                        break;
+                    case "stockCount":
+                        maxCateName = "주식";
+                        break;
+                    case "medicalCount":
+                        maxCateName = "의료";
+                        break;
+                    case "gameCount":
+                        maxCateName = "게임";
+                        break;
+                    case "etcCount":
+                        maxCateName = "기타";
+                        break;
+                }
                 data3.Close();
 
                 // 출력 부분
@@ -302,11 +328,11 @@ namespace Ledger {
             }
         }
 
-        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e) {
-            Dispose();
-        }
+        #endregion 
 
-        private void btnCalendar_Click(object sender, EventArgs e) {
+        #region btnFormClick
+        private void btnCalendar_Click(object sender, EventArgs e)
+        {
             if (isthisOpenedForm("CalenderMain")) return;
             CalenderMain calenderMain = new CalenderMain(this);
             calenderMain.Show();
@@ -384,11 +410,15 @@ namespace Ledger {
             }
             return false;
         }
+        #endregion
 
         private void FormMain_Activated(object sender, EventArgs e) {
             notifyIcon1.Visible = false;
         }
-
+        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Dispose();
+        }
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e) {
             if (msPanel != null && Controls.Contains(msPanel)) {
 

@@ -48,6 +48,7 @@
             // 
             // CalenderPanels
             // 
+            CalenderPanels.BackColor = SystemColors.Info;
             CalenderPanels.ColumnCount = 7;
             CalenderPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.28571F));
             CalenderPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
@@ -82,107 +83,107 @@
             // textBox1
             // 
             textBox1.BackColor = SystemColors.Window;
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Dock = DockStyle.Fill;
             textBox1.Font = new Font("맑은 고딕", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             textBox1.ForeColor = Color.IndianRed;
             textBox1.Location = new Point(0, 0);
             textBox1.Margin = new Padding(0);
+            textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
-            textBox1.Size = new Size(107, 36);
+            textBox1.Size = new Size(103, 40);
             textBox1.TabIndex = 0;
+            textBox1.TabStop = false;
             textBox1.Text = "일";
             textBox1.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox2
             // 
             textBox2.BackColor = SystemColors.Window;
-            textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Dock = DockStyle.Fill;
             textBox2.Font = new Font("맑은 고딕", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             textBox2.Location = new Point(107, 0);
             textBox2.Margin = new Padding(0);
+            textBox2.Multiline = true;
             textBox2.Name = "textBox2";
             textBox2.ReadOnly = true;
-            textBox2.Size = new Size(107, 36);
+            textBox2.Size = new Size(104, 40);
             textBox2.TabIndex = 0;
+            textBox2.TabStop = false;
             textBox2.Text = "월";
             textBox2.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox3
             // 
             textBox3.BackColor = SystemColors.Window;
-            textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Dock = DockStyle.Fill;
             textBox3.Font = new Font("맑은 고딕", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             textBox3.Location = new Point(214, 0);
             textBox3.Margin = new Padding(0);
+            textBox3.Multiline = true;
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
-            textBox3.Size = new Size(107, 36);
+            textBox3.Size = new Size(104, 40);
             textBox3.TabIndex = 0;
+            textBox3.TabStop = false;
             textBox3.Text = "화";
             textBox3.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox4
             // 
             textBox4.BackColor = SystemColors.Window;
-            textBox4.BorderStyle = BorderStyle.None;
-            textBox4.Dock = DockStyle.Fill;
             textBox4.Font = new Font("맑은 고딕", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             textBox4.Location = new Point(321, 0);
             textBox4.Margin = new Padding(0);
+            textBox4.Multiline = true;
             textBox4.Name = "textBox4";
             textBox4.ReadOnly = true;
-            textBox4.Size = new Size(107, 36);
+            textBox4.Size = new Size(104, 40);
             textBox4.TabIndex = 0;
+            textBox4.TabStop = false;
             textBox4.Text = "수";
             textBox4.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox5
             // 
             textBox5.BackColor = SystemColors.Window;
-            textBox5.BorderStyle = BorderStyle.None;
-            textBox5.Dock = DockStyle.Fill;
             textBox5.Font = new Font("맑은 고딕", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             textBox5.Location = new Point(428, 0);
             textBox5.Margin = new Padding(0);
+            textBox5.Multiline = true;
             textBox5.Name = "textBox5";
             textBox5.ReadOnly = true;
-            textBox5.Size = new Size(107, 36);
+            textBox5.Size = new Size(104, 40);
             textBox5.TabIndex = 0;
+            textBox5.TabStop = false;
             textBox5.Text = "목";
             textBox5.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox6
             // 
             textBox6.BackColor = SystemColors.Window;
-            textBox6.BorderStyle = BorderStyle.None;
-            textBox6.Dock = DockStyle.Fill;
             textBox6.Font = new Font("맑은 고딕", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             textBox6.Location = new Point(535, 0);
             textBox6.Margin = new Padding(0);
+            textBox6.Multiline = true;
             textBox6.Name = "textBox6";
             textBox6.ReadOnly = true;
-            textBox6.Size = new Size(107, 36);
+            textBox6.Size = new Size(104, 40);
             textBox6.TabIndex = 0;
+            textBox6.TabStop = false;
             textBox6.Text = "금";
             textBox6.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox7
             // 
             textBox7.BackColor = SystemColors.Window;
-            textBox7.BorderStyle = BorderStyle.None;
-            textBox7.Dock = DockStyle.Fill;
             textBox7.Font = new Font("맑은 고딕", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             textBox7.ForeColor = SystemColors.MenuHighlight;
             textBox7.Location = new Point(642, 0);
             textBox7.Margin = new Padding(0);
+            textBox7.Multiline = true;
             textBox7.Name = "textBox7";
             textBox7.ReadOnly = true;
-            textBox7.Size = new Size(110, 36);
+            textBox7.Size = new Size(105, 40);
             textBox7.TabIndex = 0;
+            textBox7.TabStop = false;
             textBox7.Text = "토";
             textBox7.TextAlign = HorizontalAlignment.Center;
             // 
