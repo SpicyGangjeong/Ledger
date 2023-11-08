@@ -1,7 +1,5 @@
-﻿namespace Ledger
-{
-    partial class EnterAccountBook
-    {
+﻿namespace Ledger {
+    partial class EnterAccountBook {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,15 +22,10 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnterAccountBook));
             tabControl1 = new TabControl();
             tabSpend = new TabPage();
-            pnl_Regular = new Panel();
-            rbtn_Year = new RadioButton();
-            rbtn_Month = new RadioButton();
-            rbtn_Week = new RadioButton();
             cbx_Imp = new CheckBox();
             pnl_Way = new Panel();
             rbtn_Cash = new RadioButton();
@@ -42,7 +33,6 @@
             btn_Cancel = new Button();
             tbx_Memo = new TextBox();
             label9 = new Label();
-            label8 = new Label();
             cmbx_Cate = new ComboBox();
             label7 = new Label();
             tbx_Money = new TextBox();
@@ -52,15 +42,10 @@
             label4 = new Label();
             btn_Add = new Button();
             tabIncome = new TabPage();
-            pnl_Regular2 = new Panel();
-            rbtn_Week2 = new RadioButton();
-            rbtn_Month2 = new RadioButton();
-            rbtn_Year2 = new RadioButton();
             btn_Cancel2 = new Button();
             btn_Add2 = new Button();
             tbx_Memo2 = new TextBox();
             label11 = new Label();
-            label10 = new Label();
             tbx_From = new TextBox();
             label3 = new Label();
             label2 = new Label();
@@ -68,12 +53,12 @@
             tbx_Name2 = new TextBox();
             label1 = new Label();
             button1 = new Button();
+            cbx_RegSpend = new CheckBox();
+            cbx_RegIncome = new CheckBox();
             tabControl1.SuspendLayout();
             tabSpend.SuspendLayout();
-            pnl_Regular.SuspendLayout();
             pnl_Way.SuspendLayout();
             tabIncome.SuspendLayout();
-            pnl_Regular2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -88,13 +73,12 @@
             // 
             // tabSpend
             // 
-            tabSpend.Controls.Add(pnl_Regular);
+            tabSpend.Controls.Add(cbx_RegSpend);
             tabSpend.Controls.Add(cbx_Imp);
             tabSpend.Controls.Add(pnl_Way);
             tabSpend.Controls.Add(btn_Cancel);
             tabSpend.Controls.Add(tbx_Memo);
             tabSpend.Controls.Add(label9);
-            tabSpend.Controls.Add(label8);
             tabSpend.Controls.Add(cmbx_Cate);
             tabSpend.Controls.Add(label7);
             tabSpend.Controls.Add(tbx_Money);
@@ -105,57 +89,11 @@
             tabSpend.Controls.Add(btn_Add);
             tabSpend.Location = new Point(4, 29);
             tabSpend.Name = "tabSpend";
-            tabSpend.Padding = new Padding(3, 3, 3, 3);
+            tabSpend.Padding = new Padding(3);
             tabSpend.Size = new Size(446, 364);
             tabSpend.TabIndex = 1;
             tabSpend.Text = "지출 입력";
             tabSpend.UseVisualStyleBackColor = true;
-            // 
-            // pnl_Regular
-            // 
-            pnl_Regular.Controls.Add(rbtn_Year);
-            pnl_Regular.Controls.Add(rbtn_Month);
-            pnl_Regular.Controls.Add(rbtn_Week);
-            pnl_Regular.Location = new Point(91, 168);
-            pnl_Regular.Name = "pnl_Regular";
-            pnl_Regular.Size = new Size(234, 32);
-            pnl_Regular.TabIndex = 22;
-            // 
-            // rbtn_Year
-            // 
-            rbtn_Year.AutoSize = true;
-            rbtn_Year.Location = new Point(135, 4);
-            rbtn_Year.Name = "rbtn_Year";
-            rbtn_Year.Size = new Size(60, 24);
-            rbtn_Year.TabIndex = 15;
-            rbtn_Year.Text = "매년";
-            rbtn_Year.UseVisualStyleBackColor = true;
-            rbtn_Year.CheckedChanged += rbtnRegularChanged;
-            rbtn_Year.Click += rbtnRegularClick;
-            // 
-            // rbtn_Month
-            // 
-            rbtn_Month.AutoSize = true;
-            rbtn_Month.Location = new Point(69, 4);
-            rbtn_Month.Name = "rbtn_Month";
-            rbtn_Month.Size = new Size(60, 24);
-            rbtn_Month.TabIndex = 14;
-            rbtn_Month.Text = "매달";
-            rbtn_Month.UseVisualStyleBackColor = true;
-            rbtn_Month.CheckedChanged += rbtnRegularChanged;
-            rbtn_Month.Click += rbtnRegularClick;
-            // 
-            // rbtn_Week
-            // 
-            rbtn_Week.AutoSize = true;
-            rbtn_Week.Location = new Point(3, 4);
-            rbtn_Week.Name = "rbtn_Week";
-            rbtn_Week.Size = new Size(60, 24);
-            rbtn_Week.TabIndex = 13;
-            rbtn_Week.Text = "매주";
-            rbtn_Week.UseVisualStyleBackColor = true;
-            rbtn_Week.CheckedChanged += rbtnRegularChanged;
-            rbtn_Week.Click += rbtnRegularClick;
             // 
             // cbx_Imp
             // 
@@ -210,30 +148,21 @@
             // 
             // tbx_Memo
             // 
-            tbx_Memo.Location = new Point(76, 205);
+            tbx_Memo.Location = new Point(76, 175);
             tbx_Memo.Multiline = true;
             tbx_Memo.Name = "tbx_Memo";
             tbx_Memo.ScrollBars = ScrollBars.Vertical;
-            tbx_Memo.Size = new Size(352, 96);
+            tbx_Memo.Size = new Size(352, 130);
             tbx_Memo.TabIndex = 17;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(15, 209);
+            label9.Location = new Point(15, 175);
             label9.Name = "label9";
             label9.Size = new Size(39, 20);
             label9.TabIndex = 16;
             label9.Text = "메모";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(15, 173);
-            label8.Name = "label8";
-            label8.Size = new Size(69, 20);
-            label8.TabIndex = 12;
-            label8.Text = "정기지출";
             // 
             // cmbx_Cate
             // 
@@ -307,12 +236,11 @@
             // 
             // tabIncome
             // 
-            tabIncome.Controls.Add(pnl_Regular2);
+            tabIncome.Controls.Add(cbx_RegIncome);
             tabIncome.Controls.Add(btn_Cancel2);
             tabIncome.Controls.Add(btn_Add2);
             tabIncome.Controls.Add(tbx_Memo2);
             tabIncome.Controls.Add(label11);
-            tabIncome.Controls.Add(label10);
             tabIncome.Controls.Add(tbx_From);
             tabIncome.Controls.Add(label3);
             tabIncome.Controls.Add(label2);
@@ -322,60 +250,11 @@
             tabIncome.Controls.Add(button1);
             tabIncome.Location = new Point(4, 29);
             tabIncome.Name = "tabIncome";
-            tabIncome.Padding = new Padding(3, 3, 3, 3);
+            tabIncome.Padding = new Padding(3);
             tabIncome.Size = new Size(446, 364);
             tabIncome.TabIndex = 0;
             tabIncome.Text = "수입 입력";
             tabIncome.UseVisualStyleBackColor = true;
-            // 
-            // pnl_Regular2
-            // 
-            pnl_Regular2.Controls.Add(rbtn_Week2);
-            pnl_Regular2.Controls.Add(rbtn_Month2);
-            pnl_Regular2.Controls.Add(rbtn_Year2);
-            pnl_Regular2.Location = new Point(85, 132);
-            pnl_Regular2.Name = "pnl_Regular2";
-            pnl_Regular2.Size = new Size(206, 43);
-            pnl_Regular2.TabIndex = 21;
-            // 
-            // rbtn_Week2
-            // 
-            rbtn_Week2.AutoSize = true;
-            rbtn_Week2.Location = new Point(6, 9);
-            rbtn_Week2.Name = "rbtn_Week2";
-            rbtn_Week2.Size = new Size(60, 24);
-            rbtn_Week2.TabIndex = 8;
-            rbtn_Week2.TabStop = true;
-            rbtn_Week2.Text = "매주";
-            rbtn_Week2.UseVisualStyleBackColor = true;
-            rbtn_Week2.CheckedChanged += rbtnRegularChanged;
-            rbtn_Week2.Click += rbtnRegularClick;
-            // 
-            // rbtn_Month2
-            // 
-            rbtn_Month2.AutoSize = true;
-            rbtn_Month2.Location = new Point(72, 9);
-            rbtn_Month2.Name = "rbtn_Month2";
-            rbtn_Month2.Size = new Size(60, 24);
-            rbtn_Month2.TabIndex = 9;
-            rbtn_Month2.TabStop = true;
-            rbtn_Month2.Text = "매달";
-            rbtn_Month2.UseVisualStyleBackColor = true;
-            rbtn_Month2.CheckedChanged += rbtnRegularChanged;
-            rbtn_Month2.Click += rbtnRegularClick;
-            // 
-            // rbtn_Year2
-            // 
-            rbtn_Year2.AutoSize = true;
-            rbtn_Year2.Location = new Point(138, 9);
-            rbtn_Year2.Name = "rbtn_Year2";
-            rbtn_Year2.Size = new Size(60, 24);
-            rbtn_Year2.TabIndex = 10;
-            rbtn_Year2.TabStop = true;
-            rbtn_Year2.Text = "매년";
-            rbtn_Year2.UseVisualStyleBackColor = true;
-            rbtn_Year2.CheckedChanged += rbtnRegularChanged;
-            rbtn_Year2.Click += rbtnRegularClick;
             // 
             // btn_Cancel2
             // 
@@ -399,30 +278,21 @@
             // 
             // tbx_Memo2
             // 
-            tbx_Memo2.Location = new Point(76, 180);
+            tbx_Memo2.Location = new Point(77, 141);
             tbx_Memo2.Multiline = true;
             tbx_Memo2.Name = "tbx_Memo2";
             tbx_Memo2.ScrollBars = ScrollBars.Vertical;
-            tbx_Memo2.Size = new Size(352, 129);
+            tbx_Memo2.Size = new Size(352, 164);
             tbx_Memo2.TabIndex = 18;
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(15, 183);
+            label11.Location = new Point(15, 141);
             label11.Name = "label11";
             label11.Size = new Size(39, 20);
             label11.TabIndex = 17;
             label11.Text = "메모";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(15, 144);
-            label10.Name = "label10";
-            label10.Size = new Size(69, 20);
-            label10.TabIndex = 7;
-            label10.Text = "정기수입";
             // 
             // tbx_From
             // 
@@ -481,6 +351,26 @@
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
             // 
+            // cbx_RegSpend
+            // 
+            cbx_RegSpend.AutoSize = true;
+            cbx_RegSpend.Location = new Point(222, 94);
+            cbx_RegSpend.Name = "cbx_RegSpend";
+            cbx_RegSpend.Size = new Size(131, 24);
+            cbx_RegSpend.TabIndex = 22;
+            cbx_RegSpend.Text = "매월 정기 지출";
+            cbx_RegSpend.UseVisualStyleBackColor = true;
+            // 
+            // cbx_RegIncome
+            // 
+            cbx_RegIncome.AutoSize = true;
+            cbx_RegIncome.Location = new Point(220, 100);
+            cbx_RegIncome.Name = "cbx_RegIncome";
+            cbx_RegIncome.Size = new Size(131, 24);
+            cbx_RegIncome.TabIndex = 21;
+            cbx_RegIncome.Text = "매월 정기 수입";
+            cbx_RegIncome.UseVisualStyleBackColor = true;
+            // 
             // EnterAccountBook
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -494,14 +384,10 @@
             tabControl1.ResumeLayout(false);
             tabSpend.ResumeLayout(false);
             tabSpend.PerformLayout();
-            pnl_Regular.ResumeLayout(false);
-            pnl_Regular.PerformLayout();
             pnl_Way.ResumeLayout(false);
             pnl_Way.PerformLayout();
             tabIncome.ResumeLayout(false);
             tabIncome.PerformLayout();
-            pnl_Regular2.ResumeLayout(false);
-            pnl_Regular2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -527,24 +413,16 @@
         private TextBox tbx_Money;
         private ComboBox cmbx_Cate;
         private Label label7;
-        private Label label8;
-        private RadioButton rbtn_Year;
-        private RadioButton rbtn_Month;
-        private RadioButton rbtn_Week;
         private Label label9;
         private Button btn_Cancel;
         private TextBox tbx_Memo;
-        private Label label10;
-        private RadioButton rbtn_Year2;
-        private RadioButton rbtn_Month2;
-        private RadioButton rbtn_Week2;
         private Button btn_Cancel2;
         private Button btn_Add2;
         private TextBox tbx_Memo2;
         private Label label11;
         private Panel pnl_Way;
         private CheckBox cbx_Imp;
-        private Panel pnl_Regular;
-        private Panel pnl_Regular2;
+        private CheckBox cbx_RegSpend;
+        private CheckBox cbx_RegIncome;
     }
 }
