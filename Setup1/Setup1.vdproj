@@ -43,6 +43,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -59,6 +67,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -76,6 +92,16 @@
         {
             "LaunchCondition"
             {
+                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_09A326F280934986876D331D3A47C6CF"
+                {
+                "Name" = "8:.NET Core"
+                "Message" = "8:[VSDNETCOREMSG]"
+                "AllowLaterVersions" = "11:FALSE"
+                "InstallUrl" = "8:https://dotnet.microsoft.com/download/dotnet-core/[NetCoreVerMajorDotMinor]"
+                "IsNETCore" = "11:TRUE"
+                "Architecture" = "2:0"
+                "Runtime" = "2:0"
+                }
             }
         }
         "File"
@@ -85,7 +111,7 @@
             "SourcePath" = "8:..\\..\\..\\..\\Downloads\\ledger.ico"
             "TargetName" = "8:ledger.ico"
             "Tag" = "8:"
-            "Folder" = "8:_0E70F7D54FEE45138329BA8FCBA554AE"
+            "Folder" = "8:_895D8F85E7644236A4C6150886D74B22"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -116,6 +142,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_895D8F85E7644236A4C6150886D74B22"
+                    {
+                    "Name" = "8:MyLedger"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_79F2C992344F43EB90A45BBFAFD931A0"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_6E7780613151469CA598CA0555E05AB9"
@@ -277,7 +314,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_83011A82B90841929A703465AEC75096"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6D43ACB955C74953BE2D240D03928A14"
             {
             "Name" = "8:MyLedger"
             "Arguments" = "8:"
@@ -287,11 +324,11 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_FD0CEB1316F44E7895FB08C6BE8F720C"
             "Folder" = "8:_968B4DCA3A9A4C3985CE4F0DF172A588"
-            "WorkingFolder" = "8:_0E70F7D54FEE45138329BA8FCBA554AE"
+            "WorkingFolder" = "8:_895D8F85E7644236A4C6150886D74B22"
             "Icon" = "8:_9291F3A82EDD4C1D84C38AFE47C4FDAD"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BA2CCD643B4E40D191BDFB4D33A4C2C9"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8AE9D5D173204DDA961AD02A3449302E"
             {
             "Name" = "8:MyLedger"
             "Arguments" = "8:"
@@ -301,7 +338,7 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_FD0CEB1316F44E7895FB08C6BE8F720C"
             "Folder" = "8:_6E7780613151469CA598CA0555E05AB9"
-            "WorkingFolder" = "8:_0E70F7D54FEE45138329BA8FCBA554AE"
+            "WorkingFolder" = "8:_895D8F85E7644236A4C6150886D74B22"
             "Icon" = "8:_9291F3A82EDD4C1D84C38AFE47C4FDAD"
             "Feature" = "8:"
             }
@@ -709,7 +746,7 @@
             "SourcePath" = "8:..\\Calender\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_0E70F7D54FEE45138329BA8FCBA554AE"
+            "Folder" = "8:_895D8F85E7644236A4C6150886D74B22"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
