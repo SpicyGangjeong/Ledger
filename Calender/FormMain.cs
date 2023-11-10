@@ -362,7 +362,7 @@ namespace Ledger {
             msPanel = new Panel();
             msPanel.Size = new Size(this.Width, this.Height);
 
-            Search searchForm = new Search();
+            Search searchForm = new Search(this);
             searchForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             //캘린더 폼 내의 모든 컨트롤을 숨김
             foreach (Control control in this.Controls) {

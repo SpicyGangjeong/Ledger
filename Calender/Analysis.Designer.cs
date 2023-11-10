@@ -58,6 +58,7 @@
             // 
             // formsPlot
             // 
+            formsPlot.BackColor = SystemColors.ActiveCaption;
             formsPlot.Location = new Point(0, 0);
             formsPlot.Margin = new Padding(4, 3, 4, 3);
             formsPlot.Name = "formsPlot";
@@ -66,7 +67,7 @@
             // 
             // Title
             // 
-            Title.BackColor = SystemColors.AppWorkspace;
+            Title.BackColor = SystemColors.ActiveCaption;
             Title.BorderStyle = BorderStyle.None;
             Title.Dock = DockStyle.Top;
             Title.Font = new Font("맑은 고딕", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -109,7 +110,7 @@
             // 
             // rtbRank
             // 
-            rtbRank.BackColor = SystemColors.Control;
+            rtbRank.BackColor = SystemColors.InactiveCaption;
             rtbRank.BorderStyle = BorderStyle.None;
             rtbRank.Dock = DockStyle.Fill;
             rtbRank.Enabled = false;
@@ -166,7 +167,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = SystemColors.AppWorkspace;
+            panel1.BackColor = SystemColors.ActiveCaption;
             panel1.Controls.Add(txtNowMonth);
             panel1.Controls.Add(btnPostMonth);
             panel1.Controls.Add(button_f_cate);
