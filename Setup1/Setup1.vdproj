@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:Setup1"
+"ProjectName" = "8:MyLedger_Installer"
 "LanguageId" = "3:1042"
 "CodePage" = "3:949"
 "UILanguageId" = "3:1042"
@@ -50,6 +50,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -74,6 +82,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -194,7 +210,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MyLedger"
         "ProductCode" = "8:{9A3218AA-C848-4209-8D6A-BB96E2FCCA6D}"
-        "PackageCode" = "8:{9D4B3108-0440-4628-8E0F-49F920F5BA7E}"
+        "PackageCode" = "8:{D55EDC80-0195-4044-9C52-D22A3245595E}"
         "UpgradeCode" = "8:{CB5197CF-A96C-40B6-BC32-2047B5741EC1}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
