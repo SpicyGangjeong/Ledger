@@ -1,6 +1,6 @@
 ﻿namespace Ledger
 {
-    partial class CalenderMain
+    partial class CalendarMain
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalenderMain));
-            CalenderPanels = new TableLayoutPanel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalendarMain));
+            CalendarPanels = new TableLayoutPanel();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
             textBox3 = new TextBox();
@@ -43,42 +43,42 @@
             btnPreMonth = new Button();
             btnPostMonth = new Button();
             btnSettle = new Button();
-            CalenderPanels.SuspendLayout();
+            CalendarPanels.SuspendLayout();
             SuspendLayout();
             // 
-            // CalenderPanels
+            // CalendarPanels
             // 
-            CalenderPanels.BackColor = SystemColors.Info;
-            CalenderPanels.ColumnCount = 7;
-            CalenderPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.28571F));
-            CalenderPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            CalenderPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            CalenderPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            CalenderPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            CalenderPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            CalenderPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
-            CalenderPanels.Controls.Add(textBox1, 0, 0);
-            CalenderPanels.Controls.Add(textBox2, 1, 0);
-            CalenderPanels.Controls.Add(textBox3, 2, 0);
-            CalenderPanels.Controls.Add(textBox4, 3, 0);
-            CalenderPanels.Controls.Add(textBox5, 4, 0);
-            CalenderPanels.Controls.Add(textBox6, 5, 0);
-            CalenderPanels.Controls.Add(textBox7, 6, 0);
-            CalenderPanels.Dock = DockStyle.Bottom;
-            CalenderPanels.Location = new Point(0, 61);
-            CalenderPanels.Margin = new Padding(0);
-            CalenderPanels.Name = "CalenderPanels";
-            CalenderPanels.RowCount = 7;
-            CalenderPanels.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            CalenderPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            CalenderPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            CalenderPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            CalenderPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            CalenderPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            CalenderPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.6666622F));
-            CalenderPanels.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            CalenderPanels.Size = new Size(752, 542);
-            CalenderPanels.TabIndex = 4;
+            CalendarPanels.BackColor = SystemColors.Info;
+            CalendarPanels.ColumnCount = 7;
+            CalendarPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.28571F));
+            CalendarPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
+            CalendarPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
+            CalendarPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
+            CalendarPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
+            CalendarPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
+            CalendarPanels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857161F));
+            CalendarPanels.Controls.Add(textBox1, 0, 0);
+            CalendarPanels.Controls.Add(textBox2, 1, 0);
+            CalendarPanels.Controls.Add(textBox3, 2, 0);
+            CalendarPanels.Controls.Add(textBox4, 3, 0);
+            CalendarPanels.Controls.Add(textBox5, 4, 0);
+            CalendarPanels.Controls.Add(textBox6, 5, 0);
+            CalendarPanels.Controls.Add(textBox7, 6, 0);
+            CalendarPanels.Dock = DockStyle.Bottom;
+            CalendarPanels.Location = new Point(0, 61);
+            CalendarPanels.Margin = new Padding(0);
+            CalendarPanels.Name = "CalendarPanels";
+            CalendarPanels.RowCount = 7;
+            CalendarPanels.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            CalendarPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            CalendarPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            CalendarPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            CalendarPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            CalendarPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
+            CalendarPanels.RowStyles.Add(new RowStyle(SizeType.Percent, 16.6666622F));
+            CalendarPanels.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            CalendarPanels.Size = new Size(752, 542);
+            CalendarPanels.TabIndex = 4;
             // 
             // textBox1
             // 
@@ -251,7 +251,7 @@
             btnSettle.UseVisualStyleBackColor = true;
             btnSettle.Click += btnSettle_click;
             // 
-            // CalenderMain
+            // CalendarMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -263,20 +263,20 @@
             Controls.Add(txtNowMonth);
             Controls.Add(YearPicker);
             Controls.Add(MonthPicker);
-            Controls.Add(CalenderPanels);
+            Controls.Add(CalendarPanels);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "CalenderMain";
-            Text = "CalenderMain";
-            FormClosing += CalenderMain_FormClosing;
-            Load += CalenderMain_Load;
-            CalenderPanels.ResumeLayout(false);
-            CalenderPanels.PerformLayout();
+            Name = "CalendarMain";
+            Text = "CalendarMain";
+            FormClosing += CalendarMain_FormClosing;
+            Load += CalendarMain_Load;
+            CalendarPanels.ResumeLayout(false);
+            CalendarPanels.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private TableLayoutPanel CalenderPanels;
+        private TableLayoutPanel CalendarPanels;
         private ComboBox MonthPicker;
         private TextBox YearPicker;
         private TextBox textBox1;

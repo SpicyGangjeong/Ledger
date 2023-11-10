@@ -5,16 +5,16 @@ using MySqlConnector;
 namespace Ledger
 {
 
-    public partial class CalenderMain : Form
+    public partial class CalendarMain : Form
     {
         FormMain formMain;
-        public CalenderMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
+        public CalendarMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
         {
             formMain = _formMain;
             InitializeComponent();
         }
 
-        private void CalenderMain_Load(object sender, EventArgs e)
+        private void CalendarMain_Load(object sender, EventArgs e)
         {
             MonthPicker.SelectedIndex = DateTime.Now.Month - 1;
             YearPicker.Text = DateTime.Now.Year.ToString();
@@ -53,9 +53,9 @@ namespace Ledger
         {
             List<int[]> arrays = MonthQuery(year, Month + 1, days[Month]);
 
-            while (CalenderPanels.Controls.Count > 7)
+            while (CalendarPanels.Controls.Count > 7)
             {
-                CalenderPanels.Controls[7].Dispose();
+                CalendarPanels.Controls[7].Dispose();
             }
             int row = 1;
             int col = 0;
@@ -71,7 +71,7 @@ namespace Ledger
                     inday = days[Month - 1];
                 }
                 RichTextBox rtb = CreateRichTextBox(Month + "/" + (inday - startday + i + 1));
-                CalenderPanels.Controls.Add(rtb, i, row);
+                CalendarPanels.Controls.Add(rtb, i, row);
                 col++;
             }
             for (int i = 0; i < days[Month]; i++) // 시작일부터 말일까지 출력
@@ -84,11 +84,11 @@ namespace Ledger
                 }
                 startday++;
                 RichTextBox rtb = CreateRichTextBox((Month + 1) + "/" + (i + 1), true, arrays[0][i].ToString(), arrays[1][i].ToString(), arrays[2][i].ToString());
-                CalenderPanels.Controls.Add(rtb, col, row);
+                CalendarPanels.Controls.Add(rtb, col, row);
 
                 col++;
             }
-            for (int i = 0; CalenderPanels.Controls.Count < 49; i++) // 마지막칸까지 달력 채우기
+            for (int i = 0; CalendarPanels.Controls.Count < 49; i++) // 마지막칸까지 달력 채우기
             {
                 if (startday == 7)
                 {
@@ -106,7 +106,7 @@ namespace Ledger
                 {
                     rtb = CreateRichTextBox((Month + 2) + "/" + (i + 1));
                 }
-                CalenderPanels.Controls.Add(rtb, col, row);
+                CalendarPanels.Controls.Add(rtb, col, row);
                 col++;
             }
         }
@@ -217,7 +217,11 @@ namespace Ledger
         //클릭한 셀의 지출 / 수입 목록을 확인하는 창 열기
         public void OpenAccountBookList(object sender, EventArgs e)
         {
-            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0, 5);
+            string  originalText = (sender as Control).Text;
+            int indexOfNewLine = originalText.IndexOf('\n');
+            string subStringBeforeNewLine = (indexOfNewLine != -1) ? originalText.Substring(0, indexOfNewLine) : originalText;
+            int alphaIndex = subStringBeforeNewLine.Length;
+            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0, alphaIndex);
             AccountBookList acc_list = new AccountBookList(date, formMain);
             acc_list.Show();
             acc_list.FormClosed += CloseAccountBookList;
@@ -236,7 +240,7 @@ namespace Ledger
             }
         }
 
-        private void CalenderMain_FormClosing(object sender, FormClosingEventArgs e)
+        private void CalendarMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             formMain.Show();
             e.Cancel = true;
