@@ -31,10 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpperLimit));
             panel1 = new Panel();
             lbYearTop = new Label();
-            btnSwitchUpper = new Button();
-            btnSwitchGraph = new Button();
-            btnSwitchTree = new Button();
-            btnSwitchCalender = new Button();
             pnlBottom = new Panel();
             btnGiveUp = new Button();
             lbText6 = new Label();
@@ -67,12 +63,8 @@
             // panel1
             // 
             panel1.Controls.Add(lbYearTop);
-            panel1.Controls.Add(btnSwitchUpper);
-            panel1.Controls.Add(btnSwitchGraph);
-            panel1.Controls.Add(btnSwitchTree);
-            panel1.Controls.Add(btnSwitchCalender);
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(2, 2, 2, 2);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
             panel1.Size = new Size(658, 71);
             panel1.TabIndex = 1;
@@ -87,46 +79,6 @@
             lbYearTop.Size = new Size(114, 52);
             lbYearTop.TabIndex = 20;
             lbYearTop.Text = "2023";
-            // 
-            // btnSwitchUpper
-            // 
-            btnSwitchUpper.Location = new Point(145, 10);
-            btnSwitchUpper.Margin = new Padding(2, 2, 2, 2);
-            btnSwitchUpper.Name = "btnSwitchUpper";
-            btnSwitchUpper.Size = new Size(38, 34);
-            btnSwitchUpper.TabIndex = 19;
-            btnSwitchUpper.Text = "dd";
-            btnSwitchUpper.UseVisualStyleBackColor = true;
-            // 
-            // btnSwitchGraph
-            // 
-            btnSwitchGraph.Image = (Image)resources.GetObject("btnSwitchGraph.Image");
-            btnSwitchGraph.Location = new Point(101, 10);
-            btnSwitchGraph.Name = "btnSwitchGraph";
-            btnSwitchGraph.Size = new Size(38, 34);
-            btnSwitchGraph.TabIndex = 17;
-            btnSwitchGraph.UseVisualStyleBackColor = true;
-            btnSwitchGraph.Click += btnSwitchGraph_Click;
-            // 
-            // btnSwitchTree
-            // 
-            btnSwitchTree.Image = (Image)resources.GetObject("btnSwitchTree.Image");
-            btnSwitchTree.Location = new Point(57, 10);
-            btnSwitchTree.Name = "btnSwitchTree";
-            btnSwitchTree.Size = new Size(38, 34);
-            btnSwitchTree.TabIndex = 18;
-            btnSwitchTree.UseVisualStyleBackColor = true;
-            btnSwitchTree.Click += btnSwitchTree_Click;
-            // 
-            // btnSwitchCalender
-            // 
-            btnSwitchCalender.Image = (Image)resources.GetObject("btnSwitchCalender.Image");
-            btnSwitchCalender.Location = new Point(12, 10);
-            btnSwitchCalender.Name = "btnSwitchCalender";
-            btnSwitchCalender.Size = new Size(38, 34);
-            btnSwitchCalender.TabIndex = 16;
-            btnSwitchCalender.UseVisualStyleBackColor = true;
-            btnSwitchCalender.Click += btnSwitchCalender_Click;
             // 
             // pnlBottom
             // 
@@ -143,7 +95,7 @@
             pnlBottom.Controls.Add(lbText1);
             pnlBottom.ForeColor = SystemColors.ControlText;
             pnlBottom.Location = new Point(0, 275);
-            pnlBottom.Margin = new Padding(2, 2, 2, 2);
+            pnlBottom.Margin = new Padding(2);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Size = new Size(659, 102);
             pnlBottom.TabIndex = 2;
@@ -151,7 +103,7 @@
             // btnGiveUp
             // 
             btnGiveUp.Location = new Point(557, 69);
-            btnGiveUp.Margin = new Padding(2, 2, 2, 2);
+            btnGiveUp.Margin = new Padding(2);
             btnGiveUp.Name = "btnGiveUp";
             btnGiveUp.Size = new Size(92, 22);
             btnGiveUp.TabIndex = 10;
@@ -252,7 +204,7 @@
             // 
             pnlCenter.Controls.Add(pnlNoChallenge);
             pnlCenter.Location = new Point(0, 70);
-            pnlCenter.Margin = new Padding(2, 2, 2, 2);
+            pnlCenter.Margin = new Padding(2);
             pnlCenter.Name = "pnlCenter";
             pnlCenter.Size = new Size(658, 206);
             pnlCenter.TabIndex = 3;
@@ -270,7 +222,7 @@
             pnlNoChallenge.Controls.Add(btnStart);
             pnlNoChallenge.Controls.Add(lbNoChallenge);
             pnlNoChallenge.Location = new Point(0, 0);
-            pnlNoChallenge.Margin = new Padding(2, 2, 2, 2);
+            pnlNoChallenge.Margin = new Padding(2);
             pnlNoChallenge.Name = "pnlNoChallenge";
             pnlNoChallenge.Size = new Size(658, 206);
             pnlNoChallenge.TabIndex = 0;
@@ -318,7 +270,7 @@
             // tbMoney
             // 
             tbMoney.Location = new Point(187, 124);
-            tbMoney.Margin = new Padding(2, 2, 2, 2);
+            tbMoney.Margin = new Padding(2);
             tbMoney.Name = "tbMoney";
             tbMoney.Size = new Size(146, 23);
             tbMoney.TabIndex = 15;
@@ -326,7 +278,7 @@
             // tbDay
             // 
             tbDay.Location = new Point(365, 86);
-            tbDay.Margin = new Padding(2, 2, 2, 2);
+            tbDay.Margin = new Padding(2);
             tbDay.Name = "tbDay";
             tbDay.Size = new Size(43, 23);
             tbDay.TabIndex = 14;
@@ -334,7 +286,7 @@
             // tbMonth
             // 
             tbMonth.Location = new Point(292, 86);
-            tbMonth.Margin = new Padding(2, 2, 2, 2);
+            tbMonth.Margin = new Padding(2);
             tbMonth.Name = "tbMonth";
             tbMonth.Size = new Size(41, 23);
             tbMonth.TabIndex = 13;
@@ -342,7 +294,7 @@
             // tbYear
             // 
             tbYear.Location = new Point(187, 86);
-            tbYear.Margin = new Padding(2, 2, 2, 2);
+            tbYear.Margin = new Padding(2);
             tbYear.Name = "tbYear";
             tbYear.Size = new Size(77, 23);
             tbYear.TabIndex = 12;
@@ -350,7 +302,7 @@
             // btnStart
             // 
             btnStart.Location = new Point(282, 157);
-            btnStart.Margin = new Padding(2, 2, 2, 2);
+            btnStart.Margin = new Padding(2);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(73, 22);
             btnStart.TabIndex = 11;
@@ -379,7 +331,7 @@
             Controls.Add(pnlBottom);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "UpperLimit";
             Text = "UpperLimit";
             FormClosing += UpperLimit_FormClosing;
@@ -419,10 +371,6 @@
         private TextBox tbYear;
         private Button btnStart;
         private Label lbNoChallenge;
-        private Button btnSwitchUpper;
-        private Button btnSwitchGraph;
-        private Button btnSwitchTree;
-        private Button btnSwitchCalender;
         private Label lbYearTop;
     }
 }

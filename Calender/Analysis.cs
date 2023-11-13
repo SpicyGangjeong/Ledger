@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Linq;
 using ScottPlot.Ticks.DateTimeTickUnits;
 using ScottPlot;
+using ScottPlot.Drawing.Colormaps;
 
 namespace Ledger
 {
@@ -22,6 +23,15 @@ namespace Ledger
         MySqlDataReader data;
         string[] Month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
         int idxMonth = 8;
+        double card_Nopulse_Sum = 0;
+        double card_Pulse_Sum = 0;
+        double card_Sum = 0;
+        double cash_Nopulse_Sum = 0;
+        double cash_Pulse_Sum = 0;
+        double cash_Sum = 0;
+        double all_Sum = 0;
+        double ImPulseSum = 0;
+        double NoImPulseSum = 0;
         public Analysis(FormMain fMain)
         {
             InitializeComponent();
@@ -32,7 +42,9 @@ namespace Ledger
 
         private void button_f_cate_Click(object sender, EventArgs e)
         {
+            rbt_GroupBox.Visible = false;
             btnhide();
+            formsPlot.Plot.Grid(true);
             formsPlot.Plot.Clear();
             rtbRank.Enabled = false;
             List<string> dataX = new List<string>();
@@ -66,6 +78,7 @@ namespace Ledger
 
         private void button_f_way_Click(object sender, EventArgs e)
         {
+            rbt_GroupBox.Visible = true;
             rtbRank.Text = "\n";
             formsPlot.Plot.Clear();
             btnhide();
@@ -74,13 +87,6 @@ namespace Ledger
             string sql = "select * from f_way_analysis";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
-            double card_Nopulse_Sum = 0;
-            double card_Pulse_Sum = 0;
-            double card_Sum = 0;
-            double cash_Nopulse_Sum = 0;
-            double cash_Pulse_Sum = 0;
-            double cash_Sum = 0;
-            double all_Sum = 0;
             while (data.Read())
             {
                 switch (data[0].ToString())
@@ -97,7 +103,7 @@ namespace Ledger
                             case "&현금_합계":
                                 cash_Sum = Convert.ToDouble(data[3]);
                                 break;
-                            default: 
+                            default:
                                 switch (data[2].ToString())
                                 {
                                     case "&카드_비충동_합계":
@@ -119,25 +125,24 @@ namespace Ledger
                         }
                         break;
                 }
+                ImPulseSum = card_Pulse_Sum + cash_Pulse_Sum;
+                NoImPulseSum = card_Nopulse_Sum + cash_Nopulse_Sum;
                 rtbRank.Text += data[0].ToString() + '\t';
                 rtbRank.Text += data[1].ToString() + '\t';
                 rtbRank.Text += data[2].ToString() + '\t';
                 rtbRank.Text += data[3].ToString() + "\n";
             }
-            double[] values = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum, card_Sum, card_Pulse_Sum, card_Nopulse_Sum }; 
-            double[] values1 = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum };
-            double[] values2 = { card_Sum, card_Pulse_Sum, card_Nopulse_Sum };
-            string[] labels = { "cash_Sum", "cash_Pulse_Sum", "cash_Nopulse_Sum", "card_Sum", "card_Pulse_Sum", "card_Nopulse_Sum" };
-            formsPlot.Plot.AddCoxcomb(values);
-            formsPlot.Plot.Legend(Enabled = true);
-            formsPlot.Refresh();
-            rtbRank.Enabled = true;
+            rtbRank.Text += "충동구매 합계: " + ImPulseSum + "\n";
+            rtbRank.Text += "비충동구매 합계: " + NoImPulseSum + "\n\n\n\n\n\n\n";
             data.Close();
+            rtbRank.Enabled = true;
             formsPlot.Refresh();
         }
 
         private void button_Days_Click(object sender, EventArgs e)
         {
+            rbt_GroupBox.Visible = false;
+            formsPlot.Plot.Grid(true);
             rtbRank.Text = "\n\n";
             btnPostMonth.Enabled = true;
             btnPreMonth.Enabled = true;
@@ -254,7 +259,9 @@ namespace Ledger
 
         private void Analysis_FormClosing(object sender, FormClosingEventArgs e)
         {
-            formMain.Dispose();
+            formMain.Show();
+            e.Cancel = true;
+            this.Hide();
         }
 
         private void btnPostMonth_Click(object sender, EventArgs e)
@@ -282,6 +289,40 @@ namespace Ledger
                 idxMonth++;
             }
             button_Days_Click(sender, e);
+        }
+        private void cb_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox[] checkBoxes = { cbCash_Sum, cbCash_ImpulseSum, cbCash_NoImpulseSum, cbCard_Sum, cbCard_ImpulseSum, cbCard_NoImpulseSum, cbImPulse_Sum, cbNoImpulseSum };
+            double[] readValues = { cash_Sum, cash_Pulse_Sum, cash_Nopulse_Sum, card_Sum, card_Pulse_Sum, card_Nopulse_Sum, ImPulseSum, NoImPulseSum };
+            string[] labels = { "cash_Sum", "cash_ImPulse_Sum", "cash_No Impulse_Sum", "card_Sum", "card_ImPulse_Sum", "card_No Impulse_Sum", "ImPulseSum", "NoImPulseSum" };
+            List<double> showValues = new List<double>();
+            List<string> showLabels = new List<string>();
+            int check = 0;
+            for (int i = 0; i < checkBoxes.Length; i++)
+            {
+                if (checkBoxes[i].Checked)
+                {
+                    check += 1;
+                    showValues.Add(readValues[i]);
+                    showLabels.Add(labels[i]);
+                }
+            }
+            formsPlot.Plot.Clear();
+            if (check != 0)
+            {
+                var plt = new ScottPlot.Plot(600, 400);
+                var pie = plt.AddPie(showValues.ToArray());
+                pie.SliceLabels = showLabels.ToArray();
+                pie.SliceLabelPosition = 0.3;
+                pie.ShowPercentages = true;
+                pie.ShowLabels = true;
+                formsPlot.Plot.Add(pie);
+                formsPlot.Plot.Grid(false);
+                double[] positions = { 0 };
+                string[] xlabel = { "0" };
+                formsPlot.Plot.XTicks(positions, xlabel);
+            }
+            formsPlot.Refresh();
         }
     }
 }

@@ -22,12 +22,6 @@ namespace Ledger
             InitializeComponent();
             this.formMain = formMain;
         }
-
-        public TreeMain(CalenderMain calenderMain, FormMain formMain) // 처음 Calender 에서 열렸을 때 사용됨
-        {
-            InitializeComponent();
-            this.formMain = formMain;
-        }
         public void InitializeTree()
         {
             string sql = "select distinct substr(f_date, 1, 4) \"YEAR\" from tb_spend " +
@@ -51,37 +45,12 @@ namespace Ledger
             data.Close();
         }
 
-        private void btnSwitchCalender_Click(object sender, EventArgs e)
-        {
-            foreach (Form openForm in Application.OpenForms)
-            {
-                // 폼 중복 열기 방지
-                if (openForm.Name == "CalenderMain") // 열린 폼의 이름 검사
-                {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
-                        openForm.WindowState = FormWindowState.Normal;
-                        openForm.Location = new Point(this.Location.X, this.Location.Y);
-                    }
-                    openForm.Activate();
-                    openForm.Show();
-                    this.Hide();
-                    return;
-                }
-            }
-            CalenderMain calenderMain = new CalenderMain(this, formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
-            calenderMain.Show();
-            this.Hide();
-        }
-
-        private void btnSwitchTree_Click(object sender, EventArgs e)
-        {
-            // 사용안함
-        }
 
         private void TreeMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            formMain.Dispose();
+            this.Hide();
+            e.Cancel = true;
+            formMain.Show();
         }
 
         private void TreeMain_Load(object sender, EventArgs e)
@@ -134,6 +103,13 @@ namespace Ledger
                 }
                 data.Close();
                 Node.ImageIndex = 1;
+                foreach (TreeNode node in Node.Parent.Nodes)
+                {
+                    if (node.IsExpanded == true)
+                    {
+                        node.Collapse();
+                    }
+                }
                 Node.Expand();
             }
             // 날짜 노드를 클릭한 경우
@@ -317,13 +293,6 @@ namespace Ledger
         {
             TreeNode node = IOTree.SelectedNode;
             node.ImageIndex = 0;
-        }
-
-        private void btnSwitchUpper_Click(object sender, EventArgs e)
-        {
-            UpperLimit upperForm = new UpperLimit(formMain);
-            upperForm.Show();
-            this.Hide();
         }
     }
 }

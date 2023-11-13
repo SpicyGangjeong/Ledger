@@ -5,24 +5,19 @@ using MySqlConnector;
 namespace Ledger
 {
 
-    public partial class CalenderMain : Form
+    public partial class CalendarMain : Form
     {
         FormMain formMain;
-        public CalenderMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
-        {
-            formMain = _formMain;
-            InitializeComponent();
-        }
-        public CalenderMain(TreeMain tree, FormMain _formMain) // Tree에서 생성될 때 사용
+        public CalendarMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
         {
             formMain = _formMain;
             InitializeComponent();
         }
 
-        private void CalenderMain_Load(object sender, EventArgs e)
+        private void CalendarMain_Load(object sender, EventArgs e)
         {
-            MonthPicker.SelectedIndex = 8;
-            Calc_day();
+            MonthPicker.SelectedIndex = DateTime.Now.Month - 1;
+            YearPicker.Text = DateTime.Now.Year.ToString();
         }
         private void Calc_day()
         {
@@ -32,7 +27,18 @@ namespace Ledger
             else Month = Convert.ToInt32(MonthPicker.Text.Substring(0, 1)) - 1;
             int[] days = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
             int startday = (year + (year / 4 - year / 100 + year / 400)) % 7; // 첫 날짜 확인, 일요일 = 0
-            if ((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0))) days[1] = 29; // 윤년 판단
+            if ((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0)))
+            {
+                days[1] = 29; // 윤년 판단
+                if (startday < 1)
+                {
+                    startday = startday + 6;
+                }
+                else
+                {
+                    startday--;
+                }
+            }
             else days[1] = 28;
 
             for (int i = 0; i < Month; i++)
@@ -40,20 +46,32 @@ namespace Ledger
                 startday += days[i];
             }
             startday = startday % 7;
-            Filling(startday, Month, days);
+            Filling(startday, Month, days, year);
+            ActiveSettle();
         }
-        private void Filling(int startday, int Month, int[] days)
+        private void Filling(int startday, int Month, int[] days, int year)
         {
-            while (CalenderPanels.Controls.Count > 7)
+            List<int[]> arrays = MonthQuery(year, Month + 1, days[Month]);
+
+            while (CalendarPanels.Controls.Count > 7)
             {
-                CalenderPanels.Controls[7].Dispose();
+                CalendarPanels.Controls[7].Dispose();
             }
             int row = 1;
             int col = 0;
             for (int i = 0; i < startday; i++) // 첫 주 시작일까지 공백 출력
             {
-                RichTextBox rtb = CreateRichTextBox(Month + "/" + (days[Month - 1] - startday + i + 1), false);
-                CalenderPanels.Controls.Add(rtb, i, row);
+                int inday;
+                if (Month - 1 < 0)
+                {
+                    inday = 11;
+                }
+                else
+                {
+                    inday = days[Month - 1];
+                }
+                RichTextBox rtb = CreateRichTextBox(Month + "/" + (inday - startday + i + 1));
+                CalendarPanels.Controls.Add(rtb, i, row);
                 col++;
             }
             for (int i = 0; i < days[Month]; i++) // 시작일부터 말일까지 출력
@@ -65,12 +83,12 @@ namespace Ledger
                     row++;
                 }
                 startday++;
-                RichTextBox rtb = CreateRichTextBox((Month + 1) + "/" + (i + 1));
-                CalenderPanels.Controls.Add(rtb, col, row);
+                RichTextBox rtb = CreateRichTextBox((Month + 1) + "/" + (i + 1), true, arrays[0][i].ToString(), arrays[1][i].ToString(), arrays[2][i].ToString());
+                CalendarPanels.Controls.Add(rtb, col, row);
 
                 col++;
             }
-            for (int i = 0; CalenderPanels.Controls.Count < 49; i++) // 마지막칸까지 달력 채우기
+            for (int i = 0; CalendarPanels.Controls.Count < 49; i++) // 마지막칸까지 달력 채우기
             {
                 if (startday == 7)
                 {
@@ -79,11 +97,68 @@ namespace Ledger
                     row++;
                 }
                 startday++;
-                RichTextBox rtb = CreateRichTextBox((Month + 2) + "/" + (i + 1), false);
-                CalenderPanels.Controls.Add(rtb, col, row);
+                RichTextBox rtb;
+                if (Month + 2 > 12)
+                {
+                    rtb = CreateRichTextBox(1 + "/" + (i + 1));
+                }
+                else
+                {
+                    rtb = CreateRichTextBox((Month + 2) + "/" + (i + 1));
+                }
+                CalendarPanels.Controls.Add(rtb, col, row);
                 col++;
             }
+        }
+        private List<int[]> MonthQuery(int year, int Month, int days)
+        {
+            int[] spend = new int[days + 1];
+            int[] income = new int[days + 1];
+            int[] regular = new int[days + 1];
+            for (int i = 0; i < days; i++)
+            {
+                spend[i] = 0; income[i] = 0; regular[i] = 0;
+            }
+            string nowMonthFirst = year + "/" + Month + "/01";
+            string nowMonthLast = year + "/" + Month + "/" + days;
+            string sql = "select f_date, f_money, f_regular from tb_spend where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + "' order by f_date";
 
+
+            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
+            MySqlDataReader data = cmd.ExecuteReader();
+            while (data.Read())                             // 지출내용이 있다면 - spends 추가
+            {
+                string f_date = data["f_date"].ToString();
+                spend[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+            }
+            data.Close();
+
+            sql = "select f_date, f_money, f_regular from tb_income where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + "' order by f_date";
+            cmd = new MySqlCommand(sql, FormMain.conn);
+            data = cmd.ExecuteReader();
+            while (data.Read())
+            {
+                string f_date = data["f_date"].ToString();
+                income[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+            }
+            data.Close();
+
+            sql = "select f_date, f_money, f_regular from tb_spend where f_regular = 2 union all select f_date, f_money, f_regular from tb_income where f_regular = 2;";
+            cmd = new MySqlCommand(sql, FormMain.conn);
+            data = cmd.ExecuteReader();
+            while (data.Read())
+            {
+                string f_date = data["f_date"].ToString();
+                regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+            }
+            data.Close();
+
+            List<int[]> arrayOfArrays = new List<int[]>();
+            arrayOfArrays.Add(spend);
+            arrayOfArrays.Add(income);
+            arrayOfArrays.Add(regular);
+
+            return arrayOfArrays;
         }
         private void MonthPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -91,52 +166,45 @@ namespace Ledger
             Calc_day();
         }
 
-        public RichTextBox CreateRichTextBox(string text, bool able = true)
+        public RichTextBox CreateRichTextBox(string text, bool able = false, string spend = "", string income = "", string regular = "")
         {
             RichTextBox rtb = new RichTextBox();
 
-            rtb.Text = text + "\n\n";
-            int indexdate = rtb.Text.Length;                // 마지막 캐럿지점
-            string sql = "select sum(f_money) \"Money\" from tb_spend where f_date = '" + YearPicker.Text + "/" + text + "'";
-            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
-            MySqlDataReader data = cmd.ExecuteReader();
-            while (data.Read())                             // 지출내용이 있다면 - spends 추가
+            rtb.Text = text + "\n";
+            if (able)
             {
-                string spends = data["Money"].ToString();
-                if (spends.Length > 0)
-                    rtb.Text += "-" + spends;
-            }
-            data.Close();
-            rtb.Text += "\n";
-
-            rtb.Select(indexdate, rtb.Text.Length);         // 첫 캐럿지점부터 현재 캐럿지점까지 선택
-            rtb.SelectionColor = System.Drawing.Color.Red;  // 선택지점 색 변경
-            rtb.SelectionAlignment = HorizontalAlignment.Right; // 우로정렬
-            int indexspends = rtb.Text.Length;              // 지출지점 마지막 인덱스
-
-            sql = "select sum(f_money) \"Money\" from tb_income where f_date = '" + YearPicker.Text + "/" + text + "'";
-            cmd = new MySqlCommand(sql, FormMain.conn);
-            data = cmd.ExecuteReader();
-            while (data.Read())
-            {
-                string incomes = data["Money"].ToString();
-                if (incomes.Length > 0)
+                int indexRegular = rtb.Text.Length; // 레귤러 시작 지점
+                if ( regular != "0")
                 {
-                    rtb.Text += "+" + incomes;              // 수입내역이 있다면 color가 깨짐
-                    rtb.Select(indexdate, indexspends);     // 그래서 다시 만들어줌
-                    rtb.SelectionColor = System.Drawing.Color.Red;  // 지출내역부터 다시 빨간색으로
-                    rtb.SelectionAlignment = HorizontalAlignment.Right; // 우로정렬
-                    rtb.Select(indexspends, rtb.Text.Length);       // 수입내역선택
-                    rtb.SelectionColor = System.Drawing.Color.Blue; // 수입내역 파란색으로
-                    rtb.SelectionAlignment = HorizontalAlignment.Right; // 우로정렬
+                    rtb.Text += "±" + regular + "\n";
                 }
+                int indexspend = rtb.Text.Length; // spend 시작 지점
+                if (spend != "0")
+                {
+                    rtb.Text += "-" + spend + "\n";
+                }
+                int indexincome = rtb.Text.Length; // income 시작 지점
+                if (income != "0")
+                {
+                    rtb.Text += "+" + income + "\n";
+                }
+
+                rtb.Select(indexRegular, indexspend);
+                rtb.SelectionColor = System.Drawing.Color.Green;
+                rtb.SelectionAlignment = HorizontalAlignment.Right;
+                rtb.Select(indexspend, indexincome);
+                rtb.SelectionColor = System.Drawing.Color.Red;
+                rtb.SelectionAlignment = HorizontalAlignment.Right;
+                rtb.Select(indexincome, rtb.Text.Length);
+                rtb.SelectionColor = System.Drawing.Color.Blue;
+                rtb.SelectionAlignment = HorizontalAlignment.Right;
             }
-            data.Close();
             rtb.Dock = DockStyle.Fill;                      // 가득 채움
             rtb.Enabled = able;                             // 활성화 전환
             rtb.Click += Rtb_Click;             // 클릭 이벤트 활성화
             rtb.ReadOnly = true;                            // 읽기전용
-            rtb.BackColor = Color.White;                    // 배경화면 하얀색
+            rtb.BackColor = Color.White;                    // 배경화면 투명
+            rtb.Padding = new Padding(3, 3, 3, 3);
             rtb.ScrollBars = RichTextBoxScrollBars.None;    //스크롤바 비활성화
             return rtb;
         }
@@ -149,7 +217,11 @@ namespace Ledger
         //클릭한 셀의 지출 / 수입 목록을 확인하는 창 열기
         public void OpenAccountBookList(object sender, EventArgs e)
         {
-            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0, 5);
+            string  originalText = (sender as Control).Text;
+            int indexOfNewLine = originalText.IndexOf('\n');
+            string subStringBeforeNewLine = (indexOfNewLine != -1) ? originalText.Substring(0, indexOfNewLine) : originalText;
+            int alphaIndex = subStringBeforeNewLine.Length;
+            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0, alphaIndex);
             AccountBookList acc_list = new AccountBookList(date, formMain);
             acc_list.Show();
             acc_list.FormClosed += CloseAccountBookList;
@@ -168,76 +240,80 @@ namespace Ledger
             }
         }
 
-        private void CalenderMain_FormClosing(object sender, FormClosingEventArgs e)
+        private void CalendarMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            formMain.Dispose();
+            formMain.Show();
+            e.Cancel = true;
+            this.Hide();
         }
         private void btnPostMonth_Click(object sender, EventArgs e)
         {
-            MonthPicker.SelectedIndex++;
+            if (MonthPicker.SelectedIndex == 11)
+            {
+                string yeardate = YearPicker.Text;
+                YearPicker.Text = (int.Parse(yeardate) + 1).ToString();
+                MonthPicker.SelectedIndex = 0;
+            }
+            else
+            {
+                MonthPicker.SelectedIndex++;
+            }
         }
 
         private void btnPreMonth_Click(object sender, EventArgs e)
         {
-            MonthPicker.SelectedIndex--;
-        }
-
-        private void btnSwitchTree_Click(object sender, EventArgs e)
-        {
-            foreach (Form openForm in Application.OpenForms)
+            if (MonthPicker.SelectedIndex == 0)
             {
-                // 폼 중복 열기 방지
-                if (openForm.Name == "TreeMain") // 열린 폼의 이름 검사
-                {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
-                        openForm.WindowState = FormWindowState.Normal;
-                        openForm.Location = new Point(this.Location.X, this.Location.Y);
-                    }
-                    openForm.Activate();
-                    openForm.Show();
-                    this.Hide();
-                    return;
-                }
+                string yeardate = YearPicker.Text;
+                YearPicker.Text = (int.Parse(yeardate) - 1).ToString();
+                MonthPicker.SelectedIndex = 11;
             }
-            TreeMain TreeMain = new TreeMain(this, formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
-            TreeMain.Show();
-            this.Hide();
-        }
-
-        private void btnSwitchCalender_Click(object sender, EventArgs e)
-        {
-            // 필요없음
-        }
-
-        private void btnSwitchUpper_Click(object sender, EventArgs e)
-        {
-            UpperLimit upperForm = new UpperLimit(formMain);
-            upperForm.Show();
-            this.Hide();
-        }
-
-        private void btnSwitchGraph_Click(object sender, EventArgs e)
-        {
-            foreach (Form openForm in Application.OpenForms)
+            else
             {
-                // 폼 중복 열기 방지
-                if (openForm.Name == "Analysis") // 열린 폼의 이름 검사
-                {
-                    if (openForm.WindowState == FormWindowState.Minimized)
-                    {   // 폼이 active 인지 검사
-                        openForm.WindowState = FormWindowState.Normal;
-                        openForm.Location = new Point(this.Location.X, this.Location.Y);
-                    }
-                    openForm.Activate();
-                    openForm.Show();
-                    this.Hide();
-                    return;
-                }
+                MonthPicker.SelectedIndex--;
             }
-            Analysis Analysis = new Analysis(formMain); // 트리뷰 폼을 만들고 기존의 값들을 넘겨줌.
-            Analysis.Show();
-            this.Hide();
+        }
+        private void btnSettle_click(object sender, EventArgs e)
+        {
+            int Year = Convert.ToInt32(YearPicker.Text);
+            int Month = MonthPicker.SelectedIndex + 1;
+
+            //패널 안에 폼 추가
+            Panel msPanel = new Panel();
+            msPanel.Size = new Size(this.Width, this.Height);
+
+            MonthlySettlement msForm = new MonthlySettlement(this, Year, Month);
+            msForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            //캘린더 폼 내의 모든 컨트롤을 숨김
+            foreach (Control control in this.Controls)
+            {
+                control.Hide();
+            }
+            msForm.TopLevel = false;
+            msPanel.Controls.Add(msForm);
+            this.Controls.Add(msPanel);
+            msForm.Show();
+            msForm.Dock = DockStyle.Fill;
+        }
+        //월간정산 버튼 활성화
+        private void ActiveSettle()
+        {
+            //지금 보고 있는 캘린더의 DateTime 객체 반환
+            DateTime see = new DateTime(Convert.ToInt32(YearPicker.Text), Convert.ToInt32(MonthPicker.SelectedIndex + 1), 1);
+
+            //현재 날짜를 반환
+            DateTime now = DateTime.Now;
+
+            //연도가 크거나, 연도가 같고 월이 클 경우
+            if ((now.Year > see.Year) || (now.Year == see.Year && now.Month > see.Month))
+            {
+                btnSettle.Show(); //보임
+            }
+            else
+            {
+                btnSettle.Hide(); //숨김
+            }
+
         }
     }
 }
