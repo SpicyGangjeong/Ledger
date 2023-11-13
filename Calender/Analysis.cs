@@ -22,7 +22,7 @@ namespace Ledger
         MySqlCommand cmd;
         MySqlDataReader data;
         string[] Month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
-        int idxMonth = 8;
+        int idxMonth = 8; // DateTime.Now.Month;
         double card_Nopulse_Sum = 0;
         double card_Pulse_Sum = 0;
         double card_Sum = 0;
