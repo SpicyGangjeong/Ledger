@@ -165,7 +165,7 @@ namespace Ledger
                 DateTime InitialDate = DateTime.ParseExact(string.Concat(year, '-', ZeroMonth), "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture);
                 DateTime compareDate = DateTime.ParseExact(f_date.Substring(0, 7), "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture);
                 DateTime twoMonthsLater = compareDate.AddMonths(2);
-                if (DateTime.Compare(InitialDate.Date, compareDate.Date) >= 0 && twoMonthsLater >= InitialDate)
+                if (DateTime.Compare(InitialDate.Date, compareDate.Date) >= 0 && twoMonthsLater >= InitialDate) // 기록된 날 이후, 기록되고나서 3개월간
                 {
                     regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
                 }
