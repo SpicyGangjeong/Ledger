@@ -8,6 +8,7 @@ namespace Ledger
     {
         FormMain formMain;
         string beforeYear;
+        DateTime currentTime = DateTime.Now;
         public CalendarMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
         {
             formMain = _formMain;
@@ -149,10 +150,25 @@ namespace Ledger
             sql = "select f_date, f_money, f_regular from tb_spend where f_regular = 2 union all select f_date, f_money, f_regular from tb_income where f_regular = 2;";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
+            string ZeroMonth;
+            if (Month < 10)
+            {
+                ZeroMonth = "0"+ Convert.ToString(Month);
+            }
+            else
+            {
+                ZeroMonth = Convert.ToString(Month);
+            }
             while (data.Read())
             {
                 string f_date = data["f_date"].ToString();
-                regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+                DateTime InitialDate = DateTime.ParseExact(string.Concat(year, '-', ZeroMonth), "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime compareDate = DateTime.ParseExact(f_date.Substring(0, 7), "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime twoMonthsLater = compareDate.AddMonths(2);
+                if (DateTime.Compare(InitialDate.Date, compareDate.Date) >= 0 && twoMonthsLater >= InitialDate)
+                {
+                    regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+                }
             }
             data.Close();
 
