@@ -39,6 +39,8 @@
             btnPreMonth = new Button();
             txtNowMonth = new TextBox();
             panel1 = new Panel();
+            txtNowYear = new TextBox();
+            btnReturn = new Button();
             panel2 = new Panel();
             rbt_GroupBox = new GroupBox();
             cbNoImpulseSum = new CheckBox();
@@ -128,7 +130,7 @@
             btnPostMonth.BackgroundImageLayout = ImageLayout.None;
             btnPostMonth.FlatAppearance.BorderSize = 0;
             btnPostMonth.FlatStyle = FlatStyle.Flat;
-            btnPostMonth.Location = new Point(530, 17);
+            btnPostMonth.Location = new Point(532, 30);
             btnPostMonth.Name = "btnPostMonth";
             btnPostMonth.Size = new Size(42, 23);
             btnPostMonth.TabIndex = 13;
@@ -143,7 +145,7 @@
             btnPreMonth.BackgroundImageLayout = ImageLayout.None;
             btnPreMonth.FlatAppearance.BorderSize = 0;
             btnPreMonth.FlatStyle = FlatStyle.Flat;
-            btnPreMonth.Location = new Point(375, 17);
+            btnPreMonth.Location = new Point(377, 30);
             btnPreMonth.Name = "btnPreMonth";
             btnPreMonth.Size = new Size(43, 23);
             btnPreMonth.TabIndex = 12;
@@ -158,7 +160,7 @@
             txtNowMonth.BorderStyle = BorderStyle.None;
             txtNowMonth.Enabled = false;
             txtNowMonth.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            txtNowMonth.Location = new Point(424, 18);
+            txtNowMonth.Location = new Point(426, 31);
             txtNowMonth.Name = "txtNowMonth";
             txtNowMonth.Size = new Size(100, 22);
             txtNowMonth.TabIndex = 11;
@@ -168,7 +170,9 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
+            panel1.Controls.Add(txtNowYear);
             panel1.Controls.Add(txtNowMonth);
+            panel1.Controls.Add(btnReturn);
             panel1.Controls.Add(btnPostMonth);
             panel1.Controls.Add(button_f_cate);
             panel1.Controls.Add(btnPreMonth);
@@ -179,6 +183,34 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1165, 56);
             panel1.TabIndex = 14;
+            // 
+            // txtNowYear
+            // 
+            txtNowYear.BackColor = SystemColors.ControlLightLight;
+            txtNowYear.BorderStyle = BorderStyle.None;
+            txtNowYear.Enabled = false;
+            txtNowYear.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            txtNowYear.Location = new Point(442, 5);
+            txtNowYear.Name = "txtNowYear";
+            txtNowYear.Size = new Size(68, 22);
+            txtNowYear.TabIndex = 11;
+            txtNowYear.TextAlign = HorizontalAlignment.Center;
+            txtNowYear.Visible = false;
+            // 
+            // btnReturn
+            // 
+            btnReturn.BackColor = SystemColors.ControlLightLight;
+            btnReturn.BackgroundImage = (Image)resources.GetObject("btnReturn.BackgroundImage");
+            btnReturn.BackgroundImageLayout = ImageLayout.None;
+            btnReturn.FlatAppearance.BorderSize = 0;
+            btnReturn.FlatStyle = FlatStyle.Flat;
+            btnReturn.Location = new Point(580, 13);
+            btnReturn.Name = "btnReturn";
+            btnReturn.Size = new Size(32, 34);
+            btnReturn.TabIndex = 13;
+            btnReturn.UseVisualStyleBackColor = false;
+            btnReturn.Visible = false;
+            btnReturn.Click += btnReturn_Click;
             // 
             // panel2
             // 
@@ -354,5 +386,7 @@
         private CheckBox cbCard_Sum;
         private CheckBox cbNoImpulseSum;
         private CheckBox cbImPulse_Sum;
+        private TextBox txtNowYear;
+        private Button btnReturn;
     }
 }
