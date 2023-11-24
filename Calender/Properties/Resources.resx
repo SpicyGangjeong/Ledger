@@ -124,6 +124,9 @@
   <data name="fail_chall_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fail_chall_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="panel2.BackgroundImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\panel2.BackgroundImage.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="recommend_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\recommend_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -136,7 +139,76 @@
   <data name="suc_chall_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\suc_chall_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="panel2.BackgroundImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\panel2.BackgroundImage.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ach_pic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ach_pic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach14.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach17.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach19.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ach9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ach9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AchFrame" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AchFrame.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AchPanel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AchPanel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AchPanel2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AchPanel2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
