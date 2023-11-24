@@ -331,8 +331,7 @@ namespace Ledger {
         #endregion 
 
         #region btnFormClick
-        private void btnCalendar_Click(object sender, EventArgs e)
-        {
+        private void btnCalendar_Click(object sender, EventArgs e) {
             if (isthisOpenedForm("CalendarMain")) return;
             CalendarMain CalendarMain = new CalendarMain(this);
             CalendarMain.Show();
