@@ -385,8 +385,7 @@ namespace Ledger
 
         private void UpperLimit_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Hide();
-            e.Cancel = true;
+            this.Dispose();
             formMain.Show();
         }
 

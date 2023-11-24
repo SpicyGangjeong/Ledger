@@ -62,7 +62,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(366, 49);
             panel2.TabIndex = 1;
-            panel2.Paint += panel2_Paint;
             // 
             // label1
             // 
@@ -98,8 +97,9 @@
             btnSearchPw.Name = "btnSearchPw";
             btnSearchPw.Size = new Size(192, 37);
             btnSearchPw.TabIndex = 6;
-            btnSearchPw.Text = "비밀번호 찾기";
+            btnSearchPw.Text = "아이디/비밀번호 찾기";
             btnSearchPw.UseVisualStyleBackColor = false;
+            btnSearchPw.Click += btnSearchPw_Click;
             // 
             // btnSignUp
             // 
@@ -123,6 +123,7 @@
             btnLogin.TabIndex = 4;
             btnLogin.Text = "로그인";
             btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += btnLogin_Click;
             // 
             // label3
             // 
@@ -150,6 +151,7 @@
             userPw.PasswordChar = '*';
             userPw.Size = new Size(182, 27);
             userPw.TabIndex = 1;
+            userPw.KeyDown += userPw_KeyDown;
             // 
             // userId
             // 
@@ -158,6 +160,7 @@
             userId.Name = "userId";
             userId.Size = new Size(182, 27);
             userId.TabIndex = 0;
+            userId.KeyDown += userId_KeyDown;
             // 
             // Login
             // 
@@ -174,7 +177,6 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Login";
             Text = "로그인";
-            FormClosing += Login_FormClosing;
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ResumeLayout(false);

@@ -121,7 +121,8 @@ namespace Ledger
                     suId.Enabled = false;
                     MessageBox.Show(suId.Text + "는 사용 가능한 아이디입니다.", "아이디 중복 확인",
                         MessageBoxButtons.OK);
-                } else
+                }
+                else
                 {
                     MessageBox.Show(suId.Text + "는 사용 불가능한 아이디입니다.", "아이디 중복 확인",
                         MessageBoxButtons.OK);
