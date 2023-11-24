@@ -55,7 +55,6 @@ namespace Ledger
 
         private void TreeMain_Load(object sender, EventArgs e)
         {
-            MonthPicker.SelectedIndex = 8;
             InitializeTree();
 
         }

@@ -24,7 +24,6 @@ namespace Ledger
             this.date = date; //해당 리스트는 몇월 몇일의 리스트인가
             this.lb_Date.Text = this.date; //날짜 레이블의 값을 설정
             this.formMain = fMain;
-
         }
         public void LoadSpendDatabase(string date)
         {
@@ -49,6 +48,8 @@ namespace Ledger
                 pnl.Controls.Add(lb_money); //패널에 가격 레이블 추가
                 pnl.Controls.Add(btn_edit); //패널에 수정 버튼 추가
                 pnl.Controls.Add(btn_delete); //패널에 삭제 버튼 추가
+                btn_edit.BringToFront(); // 수정버튼 앞으로
+                btn_delete.BringToFront(); // 삭제버튼 앞으로
                 flpnl_Spend.Controls.Add(pnl);
 
                 if (pnl.Bottom > flpnl_Spend.ClientSize.Height)
@@ -109,6 +110,8 @@ namespace Ledger
                 pnl.Controls.Add(lb_money); //패널에 가격 레이블 추가
                 pnl.Controls.Add(btn_edit); //패널에 수정 버튼 추가
                 pnl.Controls.Add(btn_delete); //패널에 삭제 버튼 추가
+                btn_edit.BringToFront(); // 수정버튼 앞으로
+                btn_delete.BringToFront(); // 삭제버튼 앞으로
                 flpnl_Income.Controls.Add(pnl);
 
                 if (pnl.Bottom > flpnl_Income.ClientSize.Height)
