@@ -186,7 +186,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "FormMain";
             Text = "HOME";
             Activated += FormMain_Activated;

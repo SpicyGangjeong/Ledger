@@ -106,6 +106,7 @@
             btnSignUp.TabIndex = 14;
             btnSignUp.Text = "가입하기";
             btnSignUp.UseVisualStyleBackColor = true;
+            btnSignUp.Click += btnSignUp_Click;
             // 
             // suNameWarning
             // 
@@ -125,6 +126,7 @@
             checkDuple.TabIndex = 12;
             checkDuple.Text = "중복확인";
             checkDuple.UseVisualStyleBackColor = false;
+            checkDuple.Click += checkDuple_Click;
             // 
             // suEmail
             // 
@@ -167,6 +169,7 @@
             suPwRe.BackColor = Color.WhiteSmoke;
             suPwRe.Location = new Point(173, 177);
             suPwRe.Name = "suPwRe";
+            suPwRe.PasswordChar = '*';
             suPwRe.Size = new Size(211, 27);
             suPwRe.TabIndex = 7;
             // 
