@@ -413,6 +413,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(353, 296);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             Name = "EnterAccountBook";

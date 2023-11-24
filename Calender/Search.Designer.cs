@@ -106,7 +106,7 @@
             // btnSearch
             // 
             btnSearch.Location = new Point(562, 116);
-            btnSearch.Margin = new Padding(2, 2, 2, 2);
+            btnSearch.Margin = new Padding(2);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(73, 22);
             btnSearch.TabIndex = 0;
@@ -128,7 +128,7 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colDate, colName, colMoney, colCate });
             dataGridView1.Location = new Point(9, 142);
-            dataGridView1.Margin = new Padding(2, 2, 2, 2);
+            dataGridView1.Margin = new Padding(2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
@@ -168,7 +168,7 @@
             // btnReset
             // 
             btnReset.Location = new Point(453, 116);
-            btnReset.Margin = new Padding(2, 2, 2, 2);
+            btnReset.Margin = new Padding(2);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(103, 22);
             btnReset.TabIndex = 2;
@@ -185,7 +185,7 @@
             tabFilter.Controls.Add(tabImp);
             tabFilter.Controls.Add(tabRegular);
             tabFilter.Location = new Point(9, 9);
-            tabFilter.Margin = new Padding(2, 2, 2, 2);
+            tabFilter.Margin = new Padding(2);
             tabFilter.Name = "tabFilter";
             tabFilter.SelectedIndex = 0;
             tabFilter.Size = new Size(625, 103);
@@ -197,9 +197,9 @@
             tabText.Controls.Add(tbText);
             tabText.Controls.Add(label1);
             tabText.Location = new Point(4, 24);
-            tabText.Margin = new Padding(2, 2, 2, 2);
+            tabText.Margin = new Padding(2);
             tabText.Name = "tabText";
-            tabText.Padding = new Padding(2, 2, 2, 2);
+            tabText.Padding = new Padding(2);
             tabText.Size = new Size(617, 75);
             tabText.TabIndex = 0;
             tabText.Text = "문자 검색";
@@ -211,7 +211,7 @@
             pnlText.Controls.Add(rbtnContent);
             pnlText.Controls.Add(rbtnTitle);
             pnlText.Location = new Point(101, 40);
-            pnlText.Margin = new Padding(2, 2, 2, 2);
+            pnlText.Margin = new Padding(2);
             pnlText.Name = "pnlText";
             pnlText.Size = new Size(409, 34);
             pnlText.TabIndex = 2;
@@ -221,7 +221,7 @@
             rbtnTextBoth.AutoSize = true;
             rbtnTextBoth.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnTextBoth.Location = new Point(312, 8);
-            rbtnTextBoth.Margin = new Padding(2, 2, 2, 2);
+            rbtnTextBoth.Margin = new Padding(2);
             rbtnTextBoth.Name = "rbtnTextBoth";
             rbtnTextBoth.Size = new Size(99, 21);
             rbtnTextBoth.TabIndex = 2;
@@ -234,7 +234,7 @@
             rbtnContent.AutoSize = true;
             rbtnContent.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnContent.Location = new Point(170, 8);
-            rbtnContent.Margin = new Padding(2, 2, 2, 2);
+            rbtnContent.Margin = new Padding(2);
             rbtnContent.Name = "rbtnContent";
             rbtnContent.Size = new Size(68, 21);
             rbtnContent.TabIndex = 1;
@@ -248,7 +248,7 @@
             rbtnTitle.Checked = true;
             rbtnTitle.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnTitle.Location = new Point(19, 8);
-            rbtnTitle.Margin = new Padding(2, 2, 2, 2);
+            rbtnTitle.Margin = new Padding(2);
             rbtnTitle.Name = "rbtnTitle";
             rbtnTitle.Size = new Size(68, 21);
             rbtnTitle.TabIndex = 0;
@@ -260,7 +260,7 @@
             // 
             tbText.Font = new Font("예스 고딕 레귤러", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point);
             tbText.Location = new Point(260, 14);
-            tbText.Margin = new Padding(2, 2, 2, 2);
+            tbText.Margin = new Padding(2);
             tbText.Name = "tbText";
             tbText.Size = new Size(203, 24);
             tbText.TabIndex = 1;
@@ -283,9 +283,9 @@
             tabDate.Controls.Add(rbtnDateRange);
             tabDate.Controls.Add(rbtnDateDirect);
             tabDate.Location = new Point(4, 24);
-            tabDate.Margin = new Padding(2, 2, 2, 2);
+            tabDate.Margin = new Padding(2);
             tabDate.Name = "tabDate";
-            tabDate.Padding = new Padding(2, 2, 2, 2);
+            tabDate.Padding = new Padding(2);
             tabDate.Size = new Size(617, 75);
             tabDate.TabIndex = 1;
             tabDate.Text = "날짜 검색";
@@ -297,7 +297,7 @@
             pnlDateRange.Controls.Add(tbDateRange2);
             pnlDateRange.Controls.Add(tbDateRange1);
             pnlDateRange.Location = new Point(104, 13);
-            pnlDateRange.Margin = new Padding(2, 2, 2, 2);
+            pnlDateRange.Margin = new Padding(2);
             pnlDateRange.Name = "pnlDateRange";
             pnlDateRange.Size = new Size(393, 32);
             pnlDateRange.TabIndex = 4;
@@ -316,7 +316,7 @@
             // tbDateRange2
             // 
             tbDateRange2.Location = new Point(219, 6);
-            tbDateRange2.Margin = new Padding(2, 2, 2, 2);
+            tbDateRange2.Margin = new Padding(2);
             tbDateRange2.Name = "tbDateRange2";
             tbDateRange2.Size = new Size(96, 23);
             tbDateRange2.TabIndex = 1;
@@ -325,7 +325,7 @@
             // tbDateRange1
             // 
             tbDateRange1.Location = new Point(95, 6);
-            tbDateRange1.Margin = new Padding(2, 2, 2, 2);
+            tbDateRange1.Margin = new Padding(2);
             tbDateRange1.Name = "tbDateRange1";
             tbDateRange1.Size = new Size(96, 23);
             tbDateRange1.TabIndex = 0;
@@ -335,7 +335,7 @@
             // 
             pnlDateSwitch.Controls.Add(tbDateDirect);
             pnlDateSwitch.Location = new Point(105, 13);
-            pnlDateSwitch.Margin = new Padding(2, 2, 2, 2);
+            pnlDateSwitch.Margin = new Padding(2);
             pnlDateSwitch.Name = "pnlDateSwitch";
             pnlDateSwitch.Size = new Size(393, 32);
             pnlDateSwitch.TabIndex = 3;
@@ -343,7 +343,7 @@
             // tbDateDirect
             // 
             tbDateDirect.Location = new Point(158, 6);
-            tbDateDirect.Margin = new Padding(2, 2, 2, 2);
+            tbDateDirect.Margin = new Padding(2);
             tbDateDirect.Name = "tbDateDirect";
             tbDateDirect.Size = new Size(96, 23);
             tbDateDirect.TabIndex = 0;
@@ -354,7 +354,7 @@
             rbtnDateRange.AutoSize = true;
             rbtnDateRange.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnDateRange.Location = new Point(320, 51);
-            rbtnDateRange.Margin = new Padding(2, 2, 2, 2);
+            rbtnDateRange.Margin = new Padding(2);
             rbtnDateRange.Name = "rbtnDateRange";
             rbtnDateRange.Size = new Size(86, 21);
             rbtnDateRange.TabIndex = 2;
@@ -368,7 +368,7 @@
             rbtnDateDirect.Checked = true;
             rbtnDateDirect.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnDateDirect.Location = new Point(231, 51);
-            rbtnDateDirect.Margin = new Padding(2, 2, 2, 2);
+            rbtnDateDirect.Margin = new Padding(2);
             rbtnDateDirect.Name = "rbtnDateDirect";
             rbtnDateDirect.Size = new Size(86, 21);
             rbtnDateDirect.TabIndex = 1;
@@ -384,7 +384,7 @@
             tabMoney.Controls.Add(pnlMoneyRange);
             tabMoney.Controls.Add(pnlMoneyDirect);
             tabMoney.Location = new Point(4, 24);
-            tabMoney.Margin = new Padding(2, 2, 2, 2);
+            tabMoney.Margin = new Padding(2);
             tabMoney.Name = "tabMoney";
             tabMoney.Size = new Size(617, 75);
             tabMoney.TabIndex = 2;
@@ -396,7 +396,7 @@
             rbtnMoneyRange.AutoSize = true;
             rbtnMoneyRange.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnMoneyRange.Location = new Point(320, 51);
-            rbtnMoneyRange.Margin = new Padding(2, 2, 2, 2);
+            rbtnMoneyRange.Margin = new Padding(2);
             rbtnMoneyRange.Name = "rbtnMoneyRange";
             rbtnMoneyRange.Size = new Size(86, 21);
             rbtnMoneyRange.TabIndex = 6;
@@ -410,7 +410,7 @@
             rbtnMoneyDirect.Checked = true;
             rbtnMoneyDirect.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnMoneyDirect.Location = new Point(231, 51);
-            rbtnMoneyDirect.Margin = new Padding(2, 2, 2, 2);
+            rbtnMoneyDirect.Margin = new Padding(2);
             rbtnMoneyDirect.Name = "rbtnMoneyDirect";
             rbtnMoneyDirect.Size = new Size(86, 21);
             rbtnMoneyDirect.TabIndex = 5;
@@ -425,7 +425,7 @@
             pnlMoneyRange.Controls.Add(tbMoneyRange2);
             pnlMoneyRange.Controls.Add(tbMoneyRange1);
             pnlMoneyRange.Location = new Point(103, 13);
-            pnlMoneyRange.Margin = new Padding(2, 2, 2, 2);
+            pnlMoneyRange.Margin = new Padding(2);
             pnlMoneyRange.Name = "pnlMoneyRange";
             pnlMoneyRange.Size = new Size(393, 32);
             pnlMoneyRange.TabIndex = 4;
@@ -444,7 +444,7 @@
             // tbMoneyRange2
             // 
             tbMoneyRange2.Location = new Point(219, 6);
-            tbMoneyRange2.Margin = new Padding(2, 2, 2, 2);
+            tbMoneyRange2.Margin = new Padding(2);
             tbMoneyRange2.Name = "tbMoneyRange2";
             tbMoneyRange2.Size = new Size(96, 23);
             tbMoneyRange2.TabIndex = 1;
@@ -453,7 +453,7 @@
             // tbMoneyRange1
             // 
             tbMoneyRange1.Location = new Point(95, 6);
-            tbMoneyRange1.Margin = new Padding(2, 2, 2, 2);
+            tbMoneyRange1.Margin = new Padding(2);
             tbMoneyRange1.Name = "tbMoneyRange1";
             tbMoneyRange1.Size = new Size(96, 23);
             tbMoneyRange1.TabIndex = 0;
@@ -463,7 +463,7 @@
             // 
             pnlMoneyDirect.Controls.Add(tbMoneyDirect);
             pnlMoneyDirect.Location = new Point(104, 13);
-            pnlMoneyDirect.Margin = new Padding(2, 2, 2, 2);
+            pnlMoneyDirect.Margin = new Padding(2);
             pnlMoneyDirect.Name = "pnlMoneyDirect";
             pnlMoneyDirect.Size = new Size(393, 32);
             pnlMoneyDirect.TabIndex = 4;
@@ -471,7 +471,7 @@
             // tbMoneyDirect
             // 
             tbMoneyDirect.Location = new Point(158, 6);
-            tbMoneyDirect.Margin = new Padding(2, 2, 2, 2);
+            tbMoneyDirect.Margin = new Padding(2);
             tbMoneyDirect.Name = "tbMoneyDirect";
             tbMoneyDirect.Size = new Size(96, 23);
             tbMoneyDirect.TabIndex = 0;
@@ -493,7 +493,7 @@
             tabCate.Controls.Add(cbxSnack);
             tabCate.Controls.Add(cbxMeal);
             tabCate.Location = new Point(4, 24);
-            tabCate.Margin = new Padding(2, 2, 2, 2);
+            tabCate.Margin = new Padding(2);
             tabCate.Name = "tabCate";
             tabCate.Size = new Size(617, 75);
             tabCate.TabIndex = 3;
@@ -503,7 +503,7 @@
             // btnCheckAll
             // 
             btnCheckAll.Location = new Point(544, 15);
-            btnCheckAll.Margin = new Padding(2, 2, 2, 2);
+            btnCheckAll.Margin = new Padding(2);
             btnCheckAll.Name = "btnCheckAll";
             btnCheckAll.Size = new Size(64, 22);
             btnCheckAll.TabIndex = 12;
@@ -514,7 +514,7 @@
             // btnUncheckAll
             // 
             btnUncheckAll.Location = new Point(544, 46);
-            btnUncheckAll.Margin = new Padding(2, 2, 2, 2);
+            btnUncheckAll.Margin = new Padding(2);
             btnUncheckAll.Name = "btnUncheckAll";
             btnUncheckAll.Size = new Size(64, 22);
             btnUncheckAll.TabIndex = 11;
@@ -529,7 +529,7 @@
             cbxOther.CheckState = CheckState.Checked;
             cbxOther.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxOther.Location = new Point(418, 46);
-            cbxOther.Margin = new Padding(2, 2, 2, 2);
+            cbxOther.Margin = new Padding(2);
             cbxOther.Name = "cbxOther";
             cbxOther.Size = new Size(55, 21);
             cbxOther.TabIndex = 10;
@@ -543,7 +543,7 @@
             cbxGame.CheckState = CheckState.Checked;
             cbxGame.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxGame.Location = new Point(351, 46);
-            cbxGame.Margin = new Padding(2, 2, 2, 2);
+            cbxGame.Margin = new Padding(2);
             cbxGame.Name = "cbxGame";
             cbxGame.Size = new Size(55, 21);
             cbxGame.TabIndex = 9;
@@ -557,7 +557,7 @@
             cbxMedical.CheckState = CheckState.Checked;
             cbxMedical.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxMedical.Location = new Point(283, 46);
-            cbxMedical.Margin = new Padding(2, 2, 2, 2);
+            cbxMedical.Margin = new Padding(2);
             cbxMedical.Name = "cbxMedical";
             cbxMedical.Size = new Size(55, 21);
             cbxMedical.TabIndex = 8;
@@ -571,7 +571,7 @@
             cbxStock.CheckState = CheckState.Checked;
             cbxStock.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxStock.Location = new Point(215, 46);
-            cbxStock.Margin = new Padding(2, 2, 2, 2);
+            cbxStock.Margin = new Padding(2);
             cbxStock.Name = "cbxStock";
             cbxStock.Size = new Size(55, 21);
             cbxStock.TabIndex = 7;
@@ -585,7 +585,7 @@
             cbxTraffic.CheckState = CheckState.Checked;
             cbxTraffic.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxTraffic.Location = new Point(148, 46);
-            cbxTraffic.Margin = new Padding(2, 2, 2, 2);
+            cbxTraffic.Margin = new Padding(2);
             cbxTraffic.Name = "cbxTraffic";
             cbxTraffic.Size = new Size(55, 21);
             cbxTraffic.TabIndex = 6;
@@ -599,7 +599,7 @@
             cbxSaving.CheckState = CheckState.Checked;
             cbxSaving.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxSaving.Location = new Point(463, 15);
-            cbxSaving.Margin = new Padding(2, 2, 2, 2);
+            cbxSaving.Margin = new Padding(2);
             cbxSaving.Name = "cbxSaving";
             cbxSaving.Size = new Size(55, 21);
             cbxSaving.TabIndex = 5;
@@ -613,7 +613,7 @@
             cbxBeauti.CheckState = CheckState.Checked;
             cbxBeauti.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxBeauti.Location = new Point(394, 15);
-            cbxBeauti.Margin = new Padding(2, 2, 2, 2);
+            cbxBeauti.Margin = new Padding(2);
             cbxBeauti.Name = "cbxBeauti";
             cbxBeauti.Size = new Size(55, 21);
             cbxBeauti.TabIndex = 4;
@@ -627,7 +627,7 @@
             cbxDwelling.CheckState = CheckState.Checked;
             cbxDwelling.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxDwelling.Location = new Point(324, 15);
-            cbxDwelling.Margin = new Padding(2, 2, 2, 2);
+            cbxDwelling.Margin = new Padding(2);
             cbxDwelling.Name = "cbxDwelling";
             cbxDwelling.Size = new Size(55, 21);
             cbxDwelling.TabIndex = 3;
@@ -641,7 +641,7 @@
             cbxLeisure.CheckState = CheckState.Checked;
             cbxLeisure.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxLeisure.Location = new Point(255, 15);
-            cbxLeisure.Margin = new Padding(2, 2, 2, 2);
+            cbxLeisure.Margin = new Padding(2);
             cbxLeisure.Name = "cbxLeisure";
             cbxLeisure.Size = new Size(55, 21);
             cbxLeisure.TabIndex = 2;
@@ -655,7 +655,7 @@
             cbxSnack.CheckState = CheckState.Checked;
             cbxSnack.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxSnack.Location = new Point(186, 15);
-            cbxSnack.Margin = new Padding(2, 2, 2, 2);
+            cbxSnack.Margin = new Padding(2);
             cbxSnack.Name = "cbxSnack";
             cbxSnack.Size = new Size(55, 21);
             cbxSnack.TabIndex = 1;
@@ -669,7 +669,7 @@
             cbxMeal.CheckState = CheckState.Checked;
             cbxMeal.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             cbxMeal.Location = new Point(117, 15);
-            cbxMeal.Margin = new Padding(2, 2, 2, 2);
+            cbxMeal.Margin = new Padding(2);
             cbxMeal.Name = "cbxMeal";
             cbxMeal.Size = new Size(55, 21);
             cbxMeal.TabIndex = 0;
@@ -680,7 +680,7 @@
             // 
             tabImp.Controls.Add(pnlImp);
             tabImp.Location = new Point(4, 24);
-            tabImp.Margin = new Padding(2, 2, 2, 2);
+            tabImp.Margin = new Padding(2);
             tabImp.Name = "tabImp";
             tabImp.Size = new Size(617, 75);
             tabImp.TabIndex = 4;
@@ -693,7 +693,7 @@
             pnlImp.Controls.Add(rbtnImp);
             pnlImp.Controls.Add(rbtnImpBoth);
             pnlImp.Location = new Point(114, 22);
-            pnlImp.Margin = new Padding(2, 2, 2, 2);
+            pnlImp.Margin = new Padding(2);
             pnlImp.Name = "pnlImp";
             pnlImp.Size = new Size(366, 34);
             pnlImp.TabIndex = 0;
@@ -703,7 +703,7 @@
             rbtnNotImp.AutoSize = true;
             rbtnNotImp.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnNotImp.Location = new Point(226, 8);
-            rbtnNotImp.Margin = new Padding(2, 2, 2, 2);
+            rbtnNotImp.Margin = new Padding(2);
             rbtnNotImp.Name = "rbtnNotImp";
             rbtnNotImp.Size = new Size(82, 21);
             rbtnNotImp.TabIndex = 2;
@@ -715,7 +715,7 @@
             rbtnImp.AutoSize = true;
             rbtnImp.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnImp.Location = new Point(150, 8);
-            rbtnImp.Margin = new Padding(2, 2, 2, 2);
+            rbtnImp.Margin = new Padding(2);
             rbtnImp.Name = "rbtnImp";
             rbtnImp.Size = new Size(68, 21);
             rbtnImp.TabIndex = 1;
@@ -728,7 +728,7 @@
             rbtnImpBoth.Checked = true;
             rbtnImpBoth.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnImpBoth.Location = new Point(86, 8);
-            rbtnImpBoth.Margin = new Padding(2, 2, 2, 2);
+            rbtnImpBoth.Margin = new Padding(2);
             rbtnImpBoth.Name = "rbtnImpBoth";
             rbtnImpBoth.Size = new Size(54, 21);
             rbtnImpBoth.TabIndex = 0;
@@ -740,7 +740,7 @@
             // 
             tabRegular.Controls.Add(pnlReg);
             tabRegular.Location = new Point(4, 24);
-            tabRegular.Margin = new Padding(2, 2, 2, 2);
+            tabRegular.Margin = new Padding(2);
             tabRegular.Name = "tabRegular";
             tabRegular.Size = new Size(617, 75);
             tabRegular.TabIndex = 5;
@@ -753,7 +753,7 @@
             pnlReg.Controls.Add(rbtnReg);
             pnlReg.Controls.Add(rbtnRegBoth);
             pnlReg.Location = new Point(114, 22);
-            pnlReg.Margin = new Padding(2, 2, 2, 2);
+            pnlReg.Margin = new Padding(2);
             pnlReg.Name = "pnlReg";
             pnlReg.Size = new Size(366, 34);
             pnlReg.TabIndex = 1;
@@ -763,7 +763,7 @@
             rbtnNotReg.AutoSize = true;
             rbtnNotReg.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnNotReg.Location = new Point(241, 8);
-            rbtnNotReg.Margin = new Padding(2, 2, 2, 2);
+            rbtnNotReg.Margin = new Padding(2);
             rbtnNotReg.Name = "rbtnNotReg";
             rbtnNotReg.Size = new Size(114, 21);
             rbtnNotReg.TabIndex = 2;
@@ -775,7 +775,7 @@
             rbtnReg.AutoSize = true;
             rbtnReg.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnReg.Location = new Point(144, 8);
-            rbtnReg.Margin = new Padding(2, 2, 2, 2);
+            rbtnReg.Margin = new Padding(2);
             rbtnReg.Name = "rbtnReg";
             rbtnReg.Size = new Size(100, 21);
             rbtnReg.TabIndex = 1;
@@ -788,7 +788,7 @@
             rbtnRegBoth.Checked = true;
             rbtnRegBoth.Font = new Font("나눔스퀘어", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
             rbtnRegBoth.Location = new Point(86, 8);
-            rbtnRegBoth.Margin = new Padding(2, 2, 2, 2);
+            rbtnRegBoth.Margin = new Padding(2);
             rbtnRegBoth.Name = "rbtnRegBoth";
             rbtnRegBoth.Size = new Size(54, 21);
             rbtnRegBoth.TabIndex = 0;
@@ -805,7 +805,8 @@
             Controls.Add(btnReset);
             Controls.Add(dataGridView1);
             Controls.Add(btnSearch);
-            Margin = new Padding(2, 2, 2, 2);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(2);
             Name = "Search";
             Text = "Search";
             FormClosing += Search_FormClosing;
