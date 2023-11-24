@@ -12,6 +12,7 @@ using System.Linq;
 using ScottPlot.Ticks.DateTimeTickUnits;
 using ScottPlot;
 using ScottPlot.Drawing.Colormaps;
+using Newtonsoft.Json.Linq;
 
 namespace Ledger
 {
@@ -22,7 +23,8 @@ namespace Ledger
         MySqlCommand cmd;
         MySqlDataReader data;
         string[] Month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
-        int idxMonth = 8;
+        int idxMonth;
+        int year;
         double card_Nopulse_Sum = 0;
         double card_Pulse_Sum = 0;
         double card_Sum = 0;
@@ -36,7 +38,10 @@ namespace Ledger
         {
             InitializeComponent();
             this.formMain = fMain;
+            idxMonth = DateTime.Now.Month;
             txtNowMonth.Text = Month[idxMonth];
+            txtNowYear.Text = DateTime.Now.Year.ToString();
+            year = Convert.ToInt32(txtNowYear.Text);
             button_f_cate_Click(null, null);
         }
 
@@ -145,15 +150,20 @@ namespace Ledger
             formsPlot.Plot.Grid(true);
             rtbRank.Text = "\n\n";
             btnPostMonth.Enabled = true;
+            btnReturn.Enabled = true;
             btnPreMonth.Enabled = true;
             txtNowMonth.Enabled = true;
+            txtNowYear.Enabled = true;
             btnPreMonth.Show();
             btnPostMonth.Show();
+            btnReturn.Show();
             txtNowMonth.Show();
+            txtNowYear.Show();
             txtNowMonth.Text = Month[idxMonth];
+            txtNowYear.Text = year.ToString();
             formsPlot.Plot.Clear();
-            int year = 2023;
             rtbRank.Enabled = false;
+
             List<string> dataIncomeX = new List<string>();
             List<string> dataSpendX = new List<string>();
             List<double> dataIncomeY = new List<double>();
@@ -161,6 +171,7 @@ namespace Ledger
             List<string> barX = new List<string>();
             int[] days = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
             if ((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0))) days[1] = 29; // 윤년 판단
+
             string sql = "select * from stats_income_analysis";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
@@ -170,6 +181,7 @@ namespace Ledger
                 dataIncomeY.Add(Convert.ToInt32(data["금액"]));
             }
             data.Close();
+
             sql = "select * from stats_spend_date";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
@@ -179,12 +191,17 @@ namespace Ledger
                 dataSpendY.Add(Convert.ToInt32(data["f_money"]));
             }
             data.Close();
+
             List<double> dataIncomePosition = new List<double>();
             List<double> dataSpendPosition = new List<double>();
+            List<double> dataIncomeValue = new List<double>();
+            List<double> dataSpendValue = new List<double>();
             List<double> basicPosition = new List<double>();
             string today = "";
             string date = "";
-            for (int i = 1; i <= days[Convert.ToInt32(txtNowMonth.Text) - 1]; i++)
+
+            int dummy = days[Convert.ToInt32(txtNowMonth.Text) - 1];
+            for (int i = 1; i <= dummy; i++)
             {
                 if (i < 10)
                 {
@@ -194,67 +211,88 @@ namespace Ledger
                 {
                     date = i.ToString();
                 }
-                today = string.Concat(year, "-", txtNowMonth.Text, "-", date);
-                barX.Add(today);
-                basicPosition.Add(i - 1);
-                foreach (string Dday in dataSpendX)
+
+                today = string.Concat(year, "-", txtNowMonth.Text, "-", date); // "2023-11-23"
+                barX.Add(today); // barX에는 현재 달의 모든 날짜가 들어감
+                basicPosition.Add(i - 1); // 
+                foreach (string Dday in dataSpendX) // 소비데이터를 하나씩 확인해서
                 {
-                    if (Dday == today)
+                    if (Dday == today) // 이번달 내역이면
                     {
-                        dataSpendPosition.Add(Convert.ToDouble(i - 1));
+                        dataSpendValue.Add(dataSpendY[dataSpendX.IndexOf(Dday)]); // 이번달 소비 날짜 지점의 가격 표기
+                        dataSpendPosition.Add(Convert.ToDouble(i - 1)); // 이번달 소비 날짜 지점에 표기
                     }
                 }
-                foreach (string Dday in dataIncomeX)
+                foreach (string Dday in dataIncomeX) // 수입데이터를 하나씩 확인해서
                 {
-                    if (Dday == today)
+                    if (Dday == today) // 이번달 내역이면
                     {
-                        dataIncomePosition.Add(Convert.ToDouble(i - 1));
+                        dataIncomeValue.Add(dataIncomeY[dataIncomeX.IndexOf(Dday)]); // 이번달 수입 날짜 지점의 가격 표기
+                        dataIncomePosition.Add(Convert.ToDouble(i - 1)); // 이번달 수입 날짜 지점에 표기
                     }
                 }
             }
-            double[] dataSPY = dataSpendY.ToArray();
-            double[] dataICY = dataIncomeY.ToArray();
+            double[] dataSPY = dataSpendValue.ToArray();
+            double[] dataICY = dataIncomeValue.ToArray();
             double[] dataICY2 = new double[dataICY.Length];
-            for (int i = 0; i < dataICY.Length; i++)
+            for (int i = 0; i < ((dataSPY.Length > dataICY.Length) ? dataICY.Length : dataSPY.Length); i++)
                 dataICY2[i] = dataSPY[i] + dataICY[i];
-            formsPlot.Plot.AddBar(dataICY2, dataIncomePosition.ToArray());
-            formsPlot.Plot.AddBar(dataSPY, dataSpendPosition.ToArray());
+
+            if (dataIncomePosition.Count != 0)
+            {
+                formsPlot.Plot.AddBar(dataICY2, dataIncomePosition.ToArray()); // 수입바를 먼저 그리고
+            }
+            if (dataSpendPosition.Count != 0)
+            {
+                formsPlot.Plot.AddBar(dataSPY, dataSpendPosition.ToArray()); // 그 앞에 지출바를 그려서 덧씌움
+            }
             formsPlot.Plot.XTicks(basicPosition.ToArray(), barX.ToArray());
             formsPlot.Refresh();
+
+
             Title.Text = title[3];
-            int maxsIndex = 0;
-            double maxsValue = dataSpendY[0];
-            for (int i = 1; i < dataSpendY.Count; i++)
-            {
-                if (dataSpendY[i] > maxsValue)
-                {
-                    maxsValue = dataSpendY[i];
-                    maxsIndex = i;
-                }
-            }
-            int maxiIndex = 0;
-            double maxiValue = dataIncomeY[0];
-            for (int i = 1; i < dataIncomeY.Count; i++)
-            {
-                if (dataIncomeY[i] > maxiValue)
-                {
-                    maxiValue = dataIncomeY[i];
-                    maxiIndex = i;
-                }
-            }
             string basictext = "";
             rtbRank.Text = "\n\n";
-            basictext += "제일 많은 소비날짜 = " + dataSpendX[maxsIndex] + "\n";
-            basictext += "소비 금액 = " + maxsValue + "\n\n";
-            basictext += "제일 많은 수입날짜 = " + dataIncomeX[maxiIndex] + "\n";
-            basictext += "수입 금액 = " + maxiValue + "\n";
+
+            int maxsIndex = 0;
+            if (dataSpendPosition.Count != 0)
+            {
+                double maxsValue = dataSpendValue[0];
+                for (int i = 1; i < dataSpendValue.Count; i++)
+                {
+                    if (dataSpendValue[i] > maxsValue)
+                    {
+                        maxsValue = dataSpendValue[i];
+                        maxsIndex = i;
+                    }
+                }
+                basictext += "제일 많은 소비날짜 = " + string.Concat(year, "-", txtNowMonth.Text, "-", dataSpendPosition[maxsIndex] + 1) + "\n";
+                basictext += "소비 금액 = " + maxsValue + "\n\n";
+            }
+            int maxiIndex = 0;
+            if (dataIncomePosition.Count != 0)
+            {
+                double maxiValue = dataIncomeValue[0];
+                for (int i = 1; i < dataIncomeValue.Count; i++)
+                {
+                    if (dataIncomeValue[i] > maxiValue)
+                    {
+                        maxiValue = dataIncomeValue[i];
+                        maxiIndex = i;
+                    }
+                }
+                basictext += "제일 많은 수입날짜 = " + string.Concat(year, "-", txtNowMonth.Text, "-", dataIncomePosition[maxiIndex] + 1) + "\n";
+                basictext += "수입 금액 = " + maxiValue + "\n";
+            }
             rtbRank.Text += basictext;
         }
         private void btnhide()
         {
             btnPreMonth.Hide();
             btnPostMonth.Hide();
+            btnReturn.Hide();
             txtNowMonth.Hide();
+            txtNowYear.Hide();
         }
 
         private void Analysis_FormClosing(object sender, FormClosingEventArgs e)
@@ -266,9 +304,26 @@ namespace Ledger
 
         private void btnPostMonth_Click(object sender, EventArgs e)
         {
+            if (idxMonth == 11)
+            {
+                idxMonth = 0;
+                year++;
+                txtNowYear.Text = year.ToString();
+            }
+            else
+            {
+                idxMonth++;
+            }
+            button_Days_Click(sender, e);
+        }
+
+        private void btnPreMonth_Click(object sender, EventArgs e)
+        {
             if (idxMonth == 0)
             {
                 idxMonth = 11;
+                year--;
+                txtNowYear.Text = year.ToString();
             }
             else
             {
@@ -276,18 +331,12 @@ namespace Ledger
             }
             button_Days_Click(sender, e);
         }
-
-        private void btnPreMonth_Click(object sender, EventArgs e)
+        private void btnReturn_Click(object sender, EventArgs e)
         {
-
-            if (idxMonth == 11)
-            {
-                idxMonth = 1;
-            }
-            else
-            {
-                idxMonth++;
-            }
+            idxMonth = DateTime.Now.Month;
+            txtNowMonth.Text = Month[idxMonth];
+            txtNowYear.Text = DateTime.Now.Year.ToString();
+            year = Convert.ToInt32(txtNowYear.Text);
             button_Days_Click(sender, e);
         }
         private void cb_CheckedChanged(object sender, EventArgs e)

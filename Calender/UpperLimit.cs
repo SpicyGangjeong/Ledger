@@ -16,20 +16,10 @@ namespace Ledger
     public partial class UpperLimit : Form
     {
         FormMain formMain;
-        private const string basePath = "https://ledger-cc069-default-rtdb.firebaseio.com";
-        private const string baseSecret = "4AT6nTl88LXsImHpFGRXEn3LKcFkgNTyZCAJpNVW";
-        private static FirebaseClient _client;
 
         public UpperLimit(FormMain formMain)
         {
             this.formMain = formMain;
-            IFirebaseConfig config = new FirebaseConfig
-            {
-                AuthSecret = baseSecret,
-                BasePath = basePath
-            };
-            _client = new FirebaseClient(config);
-
             InitializeComponent();
             lbYearTop.Text = DateTime.Now.Year.ToString();
         }
@@ -41,9 +31,9 @@ namespace Ledger
                 string str_end = tbYear.Text + "-" + tbMonth.Text + "-" + tbDay.Text;  //입력받은 값을 문자열로 이음
                 DateTime endday = DateTime.Parse(str_end); //이은 문자열을 데이트타임 객체로 변환
                 // "UPPER" 노드 아래에 "START," "END," "MONEY" 노드를 만들고 값을 설정합니다.
-                FirebaseResponse responseStart = client.Set("UPPER/START", string.Format("{0:yyyy-MM-dd}", DateTime.Today));
-                FirebaseResponse responseEnd = client.Set("UPPER/END", string.Format("{0:yyyy-MM-dd}", endday));
-                FirebaseResponse responseMoney = client.Set("UPPER/MONEY", tbMoney.Text);
+                FirebaseResponse responseStart = client.Set("test_id/UPPER/START", string.Format("{0:yyyy-MM-dd}", DateTime.Today));
+                FirebaseResponse responseEnd = client.Set("test_id/UPPER/END", string.Format("{0:yyyy-MM-dd}", endday));
+                FirebaseResponse responseMoney = client.Set("test_id/UPPER/MONEY", tbMoney.Text);
 
                 if (responseStart.StatusCode == System.Net.HttpStatusCode.OK &&
                     responseEnd.StatusCode == System.Net.HttpStatusCode.OK &&
@@ -62,7 +52,7 @@ namespace Ledger
         {
             try
             {
-                FirebaseResponse response = client.Get("UPPER/END");
+                FirebaseResponse response = client.Get("test_id/UPPER/END");
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //비어있으면 안됨.
@@ -90,9 +80,9 @@ namespace Ledger
             string[] ret = new string[3];
             try
             {
-                FirebaseResponse responseStart = client.Get("UPPER/START");
-                FirebaseResponse responseEnd = client.Get("UPPER/END");
-                FirebaseResponse responseMoney = client.Get("UPPER/MONEY");
+                FirebaseResponse responseStart = client.Get("test_id/UPPER/START");
+                FirebaseResponse responseEnd = client.Get("test_id/UPPER/END");
+                FirebaseResponse responseMoney = client.Get("test_id/UPPER/MONEY");
 
                 if (responseStart.StatusCode == System.Net.HttpStatusCode.OK &&
                     responseEnd.StatusCode == System.Net.HttpStatusCode.OK &&
@@ -114,7 +104,7 @@ namespace Ledger
         {
             try
             {
-                FirebaseResponse responseStart = client.Delete("UPPER");
+                FirebaseResponse responseStart = client.Delete("test_id/UPPER");
 
                 if (responseStart.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -134,7 +124,7 @@ namespace Ledger
             /*if (!CheckUpperNode(_client)) {
                 return;
             }*/
-            from_base = ReadDataFromFirebase(_client);
+            from_base = ReadDataFromFirebase(formMain.client);
             string str_start = from_base[0];
             string str_end = from_base[1];
             int init_money = Convert.ToInt32(from_base[2]);
@@ -377,7 +367,7 @@ namespace Ledger
         }
         private void UpperLimit_Load(object sender, EventArgs e)
         {
-            if (!CheckUpperNode(_client))
+            if (!CheckUpperNode(formMain.client))
             {
                 pnlBottom.Hide();
             }
@@ -398,7 +388,7 @@ namespace Ledger
                 MessageBox.Show("비어있는 입력칸이 존재합니다.");
                 return;
             }
-            AddDataToFirebase(_client);
+            AddDataToFirebase(formMain.client);
             LoadChallengeInterface();
             //챌린지 시작
             /*
@@ -457,7 +447,7 @@ namespace Ledger
         private void btnGiveUp_Click(object sender, EventArgs e)
         {
             //파이어 베이스에서 UPPER 노드 삭제
-            DropFromFirebase(_client);
+            DropFromFirebase(formMain.client);
             RemoveNestedFlowLayoutPanels();
             pnlNoChallenge.Show();
             pnlBottom.Hide();

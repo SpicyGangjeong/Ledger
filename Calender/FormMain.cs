@@ -24,7 +24,7 @@ namespace Ledger
 
         private const string basePath = "https://ledger-cc069-default-rtdb.firebaseio.com";
         private const string baseSecret = "4AT6nTl88LXsImHpFGRXEn3LKcFkgNTyZCAJpNVW";
-        private static FirebaseClient client;
+        public FirebaseClient client;
 
         Login login;
 
@@ -47,6 +47,7 @@ namespace Ledger
 
             InitializeComponent();
             LoadLatestSpend();
+            //Fireb.InitUserNode(client);
         }
 
         #region LoadLatestSpend
@@ -120,9 +121,9 @@ namespace Ledger
                 if (!string.IsNullOrEmpty(response.Body))
                 {
                     // 지출 챌린지 정보를 가져오기 위한 코드
-                    FirebaseResponse responseStart = client.Get("UPPER/START");
-                    FirebaseResponse responseEnd = client.Get("UPPER/END");
-                    FirebaseResponse responseMoney = client.Get("UPPER/MONEY");
+                    FirebaseResponse responseStart = client.Get("test_id/UPPER/START");
+                    FirebaseResponse responseEnd = client.Get("test_id/UPPER/END");
+                    FirebaseResponse responseMoney = client.Get("test_id/UPPER/MONEY");
 
                     if (responseStart.StatusCode == System.Net.HttpStatusCode.OK &&
                         responseEnd.StatusCode == System.Net.HttpStatusCode.OK &&
@@ -251,10 +252,8 @@ namespace Ledger
                     { "trafficCount", 0 }, { "stockCount", 0 }, { "medicalCount", 0 },
                     { "gameCount", 0 }, { "etcCount", 0 }
                 };
-                foreach (var category in f_cateList)
-                {
-                    switch (category.ToString())
-                    {
+                foreach (var category in f_cateList) {
+                    switch (category.ToString()) {
                         case "식사":
                             cateCount["mealCount"]++;
                             break;
@@ -293,8 +292,7 @@ namespace Ledger
                 int maxCate = cateCount.Values.Max();
                 String maxCateName = cateCount.FirstOrDefault(x => x.Value == maxCate).Key;
 
-                switch (maxCateName)
-                {
+                switch (maxCateName) {
                     case "mealCount":
                         maxCateName = "식사";
                         break;
@@ -350,11 +348,10 @@ namespace Ledger
         #endregion 
 
         #region btnFormClick
-        private void btnCalendar_Click(object sender, EventArgs e)
-        {
-            if (isthisOpenedForm("CalenderMain")) return;
-            CalenderMain calenderMain = new CalenderMain(this);
-            calenderMain.Show();
+        private void btnCalendar_Click(object sender, EventArgs e) {
+            if (isthisOpenedForm("CalendarMain")) return;
+            CalendarMain CalendarMain = new CalendarMain(this);
+            CalendarMain.Show();
             this.Hide();
             notifyIcon1.Visible = true;
         }
@@ -384,7 +381,7 @@ namespace Ledger
             msPanel = new Panel();
             msPanel.Size = new Size(this.Width, this.Height);
 
-            Search searchForm = new Search();
+            Search searchForm = new Search(this);
             searchForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             //캘린더 폼 내의 모든 컨트롤을 숨김
             foreach (Control control in this.Controls)
@@ -399,9 +396,24 @@ namespace Ledger
             this.Text = searchForm.Text;
         }
 
-        private void btnSpendanal_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning); ;
+        private void btnSpendanal_Click(object sender, EventArgs e) {
+            //MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //패널 안에 폼 추가
+            msPanel = new Panel();
+            msPanel.Size = new Size(this.Width, this.Height);
+
+            Achievement achForm = new Achievement(this);
+            achForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            //캘린더 폼 내의 모든 컨트롤을 숨김
+            foreach (Control control in this.Controls) {
+                control.Hide();
+            }
+            achForm.TopLevel = false;
+            msPanel.Controls.Add(achForm);
+            this.Controls.Add(msPanel);
+            achForm.Show();
+            achForm.Dock = DockStyle.Fill;
+            this.Text = achForm.Text;
         }
 
         private void btnMonthly_Click(object sender, EventArgs e)
@@ -442,8 +454,7 @@ namespace Ledger
         {
             notifyIcon1.Visible = false;
         }
-        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e) {
             Dispose();
         }
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)

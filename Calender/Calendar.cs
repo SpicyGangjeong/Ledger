@@ -1,23 +1,27 @@
 using Ledger;
+using System.Text.RegularExpressions;
 using MySqlConnector;
-
-
 namespace Ledger
 {
 
-    public partial class CalenderMain : Form
+    public partial class CalendarMain : Form
     {
         FormMain formMain;
-        public CalenderMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
+        string beforeYear;
+        DateTime currentTime = DateTime.Now;
+        public CalendarMain(FormMain _formMain) // FormMain에서 처음 들어갈때 사용
         {
             formMain = _formMain;
             InitializeComponent();
         }
 
-        private void CalenderMain_Load(object sender, EventArgs e)
+        private void CalendarMain_Load(object sender, EventArgs e)
         {
             MonthPicker.SelectedIndex = DateTime.Now.Month - 1;
             YearPicker.Text = DateTime.Now.Year.ToString();
+            YearPicker.TextChanged += YearPicker_TextChanged;
+            beforeYear = YearPicker.Text;
+            btnNowDate.Text = DateTime.Now.ToString().Substring(0, 10);
         }
         private void Calc_day()
         {
@@ -53,9 +57,9 @@ namespace Ledger
         {
             List<int[]> arrays = MonthQuery(year, Month + 1, days[Month]);
 
-            while (CalenderPanels.Controls.Count > 7)
+            while (CalendarPanels.Controls.Count > 7)
             {
-                CalenderPanels.Controls[7].Dispose();
+                CalendarPanels.Controls[7].Dispose();
             }
             int row = 1;
             int col = 0;
@@ -71,7 +75,7 @@ namespace Ledger
                     inday = days[Month - 1];
                 }
                 RichTextBox rtb = CreateRichTextBox(Month + "/" + (inday - startday + i + 1));
-                CalenderPanels.Controls.Add(rtb, i, row);
+                CalendarPanels.Controls.Add(rtb, i, row);
                 col++;
             }
             for (int i = 0; i < days[Month]; i++) // 시작일부터 말일까지 출력
@@ -84,11 +88,11 @@ namespace Ledger
                 }
                 startday++;
                 RichTextBox rtb = CreateRichTextBox((Month + 1) + "/" + (i + 1), true, arrays[0][i].ToString(), arrays[1][i].ToString(), arrays[2][i].ToString());
-                CalenderPanels.Controls.Add(rtb, col, row);
+                CalendarPanels.Controls.Add(rtb, col, row);
 
                 col++;
             }
-            for (int i = 0; CalenderPanels.Controls.Count < 49; i++) // 마지막칸까지 달력 채우기
+            for (int i = 0; CalendarPanels.Controls.Count < 49; i++) // 마지막칸까지 달력 채우기
             {
                 if (startday == 7)
                 {
@@ -106,7 +110,7 @@ namespace Ledger
                 {
                     rtb = CreateRichTextBox((Month + 2) + "/" + (i + 1));
                 }
-                CalenderPanels.Controls.Add(rtb, col, row);
+                CalendarPanels.Controls.Add(rtb, col, row);
                 col++;
             }
         }
@@ -146,10 +150,25 @@ namespace Ledger
             sql = "select f_date, f_money, f_regular from tb_spend where f_regular = 2 union all select f_date, f_money, f_regular from tb_income where f_regular = 2;";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
+            string ZeroMonth;
+            if (Month < 10)
+            {
+                ZeroMonth = "0"+ Convert.ToString(Month);
+            }
+            else
+            {
+                ZeroMonth = Convert.ToString(Month);
+            }
             while (data.Read())
             {
                 string f_date = data["f_date"].ToString();
-                regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+                DateTime InitialDate = DateTime.ParseExact(string.Concat(year, '-', ZeroMonth), "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture); // day를 무시해서 월간으로 비교
+                DateTime compareDate = DateTime.ParseExact(f_date.Substring(0, 7), "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime twoMonthsLater = compareDate.AddMonths(2);
+                if (DateTime.Compare(InitialDate.Date, compareDate.Date) >= 0 && twoMonthsLater >= InitialDate) // 기록된 날 이후, 기록되고나서 3개월간
+                {
+                    regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
+                }
             }
             data.Close();
 
@@ -174,7 +193,7 @@ namespace Ledger
             if (able)
             {
                 int indexRegular = rtb.Text.Length; // 레귤러 시작 지점
-                if ( regular != "0")
+                if (regular != "0")
                 {
                     rtb.Text += "±" + regular + "\n";
                 }
@@ -211,13 +230,20 @@ namespace Ledger
         private void Rtb_Click(object sender, EventArgs e)
         {
             if (sender is RichTextBox rtb)
-                rtb.SelectionStart = 0;
+            {
+                rtb.SelectionStart = 1;
+                rtb.Focus();
+            }
             OpenAccountBookList(sender, e);
         }
         //클릭한 셀의 지출 / 수입 목록을 확인하는 창 열기
         public void OpenAccountBookList(object sender, EventArgs e)
         {
-            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0, 5);
+            string originalText = (sender as Control).Text;
+            int indexOfNewLine = originalText.IndexOf('\n');
+            string subStringBeforeNewLine = (indexOfNewLine != -1) ? originalText.Substring(0, indexOfNewLine) : originalText;
+            int alphaIndex = subStringBeforeNewLine.Length;
+            string date = YearPicker.Text + '/' + (sender as Control).Text.Substring(0, alphaIndex);
             AccountBookList acc_list = new AccountBookList(date, formMain);
             acc_list.Show();
             acc_list.FormClosed += CloseAccountBookList;
@@ -234,9 +260,10 @@ namespace Ledger
             {
                 control.Enabled = true;
             }
+            Calc_day();
         }
 
-        private void CalenderMain_FormClosing(object sender, FormClosingEventArgs e)
+        private void CalendarMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             formMain.Show();
             e.Cancel = true;
@@ -247,7 +274,9 @@ namespace Ledger
             if (MonthPicker.SelectedIndex == 11)
             {
                 string yeardate = YearPicker.Text;
+                YearPicker.TextChanged -= YearPicker_TextChanged;
                 YearPicker.Text = (int.Parse(yeardate) + 1).ToString();
+                YearPicker.TextChanged += YearPicker_TextChanged;
                 MonthPicker.SelectedIndex = 0;
             }
             else
@@ -261,7 +290,9 @@ namespace Ledger
             if (MonthPicker.SelectedIndex == 0)
             {
                 string yeardate = YearPicker.Text;
+                YearPicker.TextChanged -= YearPicker_TextChanged;
                 YearPicker.Text = (int.Parse(yeardate) - 1).ToString();
+                YearPicker.TextChanged += YearPicker_TextChanged;
                 MonthPicker.SelectedIndex = 11;
             }
             else
@@ -269,6 +300,8 @@ namespace Ledger
                 MonthPicker.SelectedIndex--;
             }
         }
+
+        #region Settle
         private void btnSettle_click(object sender, EventArgs e)
         {
             int Year = Convert.ToInt32(YearPicker.Text);
@@ -310,6 +343,43 @@ namespace Ledger
                 btnSettle.Hide(); //숨김
             }
 
+        }
+        #endregion Settle
+
+        private void YearPicker_TextChanged(object sender, EventArgs e)
+        {
+            if (YearPicker.Text.Length == 4)
+            {
+                Regex regex = new Regex("^[0-9]*$");
+                // 숫자 확인
+                if (!regex.IsMatch(YearPicker.Text))
+                {
+                    MessageBox.Show("입력이 올바르지 않습니다.");
+                    YearPicker.Text = beforeYear;
+                    YearPicker.Focus();
+                    return;
+                }
+                // 갱신
+                Calc_day();
+            }
+            else if (YearPicker.Text.Length > 4)
+            {
+                MessageBox.Show("연도는 최대 4글자를 초과할 수 없습니다.");
+                YearPicker.Text = beforeYear;
+                YearPicker.Focus();
+                return;
+            }
+        }
+
+        private void btnNowDate_Click(object sender, EventArgs e)
+        {
+            MonthPicker.SelectedIndex = DateTime.Now.Month - 1;
+            YearPicker.TextChanged -= YearPicker_TextChanged;
+            YearPicker.Text = DateTime.Now.Year.ToString();
+            YearPicker.TextChanged += YearPicker_TextChanged;
+            beforeYear = YearPicker.Text;
+            btnNowDate.Text = DateTime.Now.ToString().Substring(0, 10);
+            Calc_day();
         }
     }
 }
