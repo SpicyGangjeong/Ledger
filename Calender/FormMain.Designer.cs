@@ -1,5 +1,7 @@
-﻿namespace Ledger {
-    partial class FormMain {
+﻿namespace Ledger
+{
+    partial class FormMain
+    {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -9,8 +11,10 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -22,7 +26,8 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             notifyIcon1 = new NotifyIcon(components);
@@ -37,6 +42,9 @@
             btnTree = new Button();
             btnCalendar = new Button();
             panel2 = new Panel();
+            LoginedName = new Label();
+            btnEditPw = new Button();
+            btnLogout = new Button();
             ContentLayout = new FlowLayoutPanel();
             contextMenuStrip.SuspendLayout();
             panel1.SuspendLayout();
@@ -163,6 +171,9 @@
             panel2.BackColor = Color.White;
             panel2.BackgroundImage = Properties.Resources.panel2_BackgroundImage;
             panel2.BackgroundImageLayout = ImageLayout.Stretch;
+            panel2.Controls.Add(LoginedName);
+            panel2.Controls.Add(btnEditPw);
+            panel2.Controls.Add(btnLogout);
             panel2.Controls.Add(ContentLayout);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(112, 0);
@@ -170,12 +181,49 @@
             panel2.Size = new Size(716, 544);
             panel2.TabIndex = 3;
             // 
+            // LoginedName
+            // 
+            LoginedName.AutoSize = true;
+            LoginedName.BackColor = Color.Transparent;
+            LoginedName.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            LoginedName.Location = new Point(9, 18);
+            LoginedName.Name = "LoginedName";
+            LoginedName.Size = new Size(121, 23);
+            LoginedName.TabIndex = 3;
+            LoginedName.Text = "테스트(test)님";
+            LoginedName.TextAlign = ContentAlignment.BottomRight;
+            // 
+            // btnEditPw
+            // 
+            btnEditPw.BackColor = Color.Gainsboro;
+            btnEditPw.FlatStyle = FlatStyle.Flat;
+            btnEditPw.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            btnEditPw.Location = new Point(517, 10);
+            btnEditPw.Name = "btnEditPw";
+            btnEditPw.Size = new Size(83, 39);
+            btnEditPw.TabIndex = 2;
+            btnEditPw.Text = "내정보";
+            btnEditPw.UseVisualStyleBackColor = false;
+            // 
+            // btnLogout
+            // 
+            btnLogout.BackColor = Color.Gainsboro;
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            btnLogout.Location = new Point(606, 10);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(88, 39);
+            btnLogout.TabIndex = 1;
+            btnLogout.Text = "로그아웃";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
+            // 
             // ContentLayout
             // 
             ContentLayout.BackColor = Color.Transparent;
-            ContentLayout.Location = new Point(5, 17);
+            ContentLayout.Location = new Point(5, 57);
             ContentLayout.Name = "ContentLayout";
-            ContentLayout.Size = new Size(689, 509);
+            ContentLayout.Size = new Size(689, 469);
             ContentLayout.TabIndex = 0;
             // 
             // FormMain
@@ -185,6 +233,7 @@
             ClientSize = new Size(828, 544);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             Name = "FormMain";
@@ -194,6 +243,7 @@
             contextMenuStrip.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -211,5 +261,8 @@
         private Button btnCalendar;
         private Panel panel2;
         private FlowLayoutPanel ContentLayout;
+        private Label LoginedName;
+        private Button btnEditPw;
+        private Button btnLogout;
     }
 }
