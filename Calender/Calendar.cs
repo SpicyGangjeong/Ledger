@@ -125,7 +125,7 @@ namespace Ledger
             }
             string nowMonthFirst = year + "/" + Month + "/01";
             string nowMonthLast = year + "/" + Month + "/" + days;
-            string sql = "select f_date, f_money, f_regular from tb_spend where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + "' order by f_date";
+            string sql = "select f_date, f_money, f_regular from tb_spend where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + $"' and f_id = '{Login.logined_id}' order by f_date";
 
 
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
@@ -137,7 +137,7 @@ namespace Ledger
             }
             data.Close();
 
-            sql = "select f_date, f_money, f_regular from tb_income where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + "' order by f_date";
+            sql = "select f_date, f_money, f_regular from tb_income where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + $"' and f_id = '{Login.logined_id}' order by f_date";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
             while (data.Read())
@@ -147,7 +147,7 @@ namespace Ledger
             }
             data.Close();
 
-            sql = "select f_date, f_money, f_regular from tb_spend where f_regular = 2 union all select f_date, f_money, f_regular from tb_income where f_regular = 2;";
+            sql = $"select f_date, f_money, f_regular from tb_spend where f_regular = 2 and f_id = '{Login.logined_id}' union all select f_date, f_money, f_regular from tb_income where f_regular = 2 and f_id = '{Login.logined_id}';";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
             string ZeroMonth;

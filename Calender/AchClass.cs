@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FireSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,5 +29,20 @@ namespace Ledger {
             "소비 분야 [기타] 내역 추가 10회", "7일 이상의 지출 챌린지 1회 성공",
             "30일 이상의 지출 챌린지 1회 성공", "총 사용액 30만원 이하로 월간 정산하기"
         };
+        public static void GetAchievement(FirebaseClient client, int ach_num) {
+            int _get = Fireb.GetNode<int>(client, $"{Login.logined_id}/ach/ach{ach_num}/get");
+            if (_get == 0) {
+                //cnt값 얻어옴
+                int _cnt = Fireb.GetNode<int>(client, $"{Login.logined_id}/ach/ach{ach_num}/cnt");
+                //1 증가
+                Fireb.UpdateNode<int>(client, $"{Login.logined_id}/ach/ach{ach_num}/get", _cnt + 1);
+                //만약 획득 조건을 만족하면
+                if (Fireb.GetNode<int>(client, $"{Login.logined_id}/ach/ach{ach_num}/cnt") >= AchClass.achMaxCount[ach_num]) {
+                    Fireb.UpdateNode<int>(client, $"{Login.logined_id}/ach/ach{ach_num}/get", 1);
+                }
+                //업적 획득 알림 추가
+                //~~
+            }
+        }
     }
 }

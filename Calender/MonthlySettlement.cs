@@ -36,7 +36,7 @@ namespace Ledger
         private void DrawChartMonthlyCategory(object sender, PaintEventArgs e)
         {
             string sql = "select f_cate, sum(f_money) from tb_spend where year(f_date) = " + year.ToString(); 
-            sql += " and month(f_date) = " + month.ToString() + " group by f_cate";
+            sql += " and month(f_date) = " + month.ToString() + $" and f_id = '{Login.logined_id}' group by f_cate";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
 
@@ -136,7 +136,7 @@ namespace Ledger
         private void DrawRankMonthly(object sender, PaintEventArgs e)
         {
             string sql = "select f_cate, sum(f_money) from tb_spend where year(f_date) = " + year.ToString();
-            sql += " and month(f_date) = " + month.ToString() + " group by f_cate";
+            sql += " and month(f_date) = " + month.ToString() + $" and f_id = '{Login.logined_id}' group by f_cate";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
 
@@ -225,7 +225,7 @@ namespace Ledger
             string biggest_date = "";
             //돈을 가장 많이 사용한 날의 비용
             string sql = "select month(f_date), day(f_date), sum(f_money) from tb_spend where year(f_date) = " + year.ToString();
-            sql += " and month(f_date) = " + month.ToString() + " group by f_date order by sum(f_money) desc limit 1";
+            sql += " and month(f_date) = " + month.ToString() + $" and f_id = '{Login.logined_id}' group by f_date order by sum(f_money) desc limit 1";
 
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
@@ -248,6 +248,7 @@ namespace Ledger
             //총 지출량
             sql = "select sum(f_money) from tb_spend where year(f_date) = " + year.ToString();
             sql += " and month(f_date) = " + month.ToString();
+            sql += $" and f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
 
@@ -260,6 +261,7 @@ namespace Ledger
             sql = "select (count(f_no) / (select count(f_no) from tb_spend where year(f_date) = " + year.ToString() + " and month(f_date) = ";
             sql += month.ToString() + ")) as imp_ratio ";
             sql += "from tb_spend where month(f_date) = " + month.ToString() + " and f_imp = 1";
+            sql += $" and f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
 
@@ -271,6 +273,7 @@ namespace Ledger
             //정기지출로 쓴 총 금액
             sql = "select sum(f_money) from tb_spend where year(f_date) = " + year.ToString();
             sql += " and month(f_date) = " + month.ToString() + " and f_regular = 2";
+            sql += $" and f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
 
@@ -283,6 +286,7 @@ namespace Ledger
             sql = "select(sum(case when f_way = '카드' then 1 else 0 end) / count(f_no)) as card_ratio, ";
             sql += "(sum(case when f_way = '현금(계좌이체 포함)' then 1 else 0 end) / count(f_no)) as cash_ratio ";
             sql += "from tb_spend where year(f_date) = " + year.ToString() + " and month(f_date) = " + month.ToString();
+            sql += $" and f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
 

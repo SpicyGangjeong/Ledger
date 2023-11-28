@@ -28,7 +28,7 @@ namespace Ledger
         public void LoadSpendDatabase(string date)
         {
             //지출 테이블에서 인자로 받은 날짜에 존재하는 레코드를 추출합니다.
-            string sql = "select * from tb_spend where f_date = '" + date + "'";
+            string sql = "select * from tb_spend where f_date = '" + date + $"' and f_id = '{Login.logined_id}'";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             while (data.Read())
@@ -90,7 +90,7 @@ namespace Ledger
         public void LoadIncomeDatabase(string date)
         {
             //수입 테이블에서 인자로 받은 날짜에 존재하는 레코드를 추출합니다.
-            string sql = "select * from tb_income where f_date = '" + date + "'";
+            string sql = "select * from tb_income where f_date = '" + date + $"' and f_id = '{Login.logined_id}'";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             while (data.Read())
@@ -171,7 +171,7 @@ namespace Ledger
             //삭제 버튼 누를 시, 해당 넘버를 가진 레코드를 제거
             return (sender, e) =>
             {
-                string sql = "delete from tb_spend where f_no = '" + no.ToString() + "'";
+                string sql = "delete from tb_spend where f_no = '" + no.ToString() + $"' and f_id = '{Login.logined_id}'";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 int n = cmd.ExecuteNonQuery();
                 if (n == 1)
@@ -190,7 +190,7 @@ namespace Ledger
             //삭제 버튼 누를 시, 해당 넘버를 가진 레코드를 제거
             return (sender, e) =>
             {
-                string sql = "delete from tb_income where f_no = '" + no.ToString() + "'";
+                string sql = "delete from tb_income where f_no = '" + no.ToString() + $"' and f_id = '{Login.logined_id}'";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 int n = cmd.ExecuteNonQuery();
                 if (n == 1)

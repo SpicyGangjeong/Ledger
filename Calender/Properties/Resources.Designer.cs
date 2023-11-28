@@ -303,6 +303,16 @@ namespace Ledger.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap bg_loading {
+            get {
+                object obj = ResourceManager.GetObject("bg_loading", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap fail_chall_icon {
             get {
                 object obj = ResourceManager.GetObject("fail_chall_icon", resourceCulture);
@@ -316,6 +326,16 @@ namespace Ledger.Properties {
         internal static System.Drawing.Bitmap fail_icon {
             get {
                 object obj = ResourceManager.GetObject("fail_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap loading_gif {
+            get {
+                object obj = ResourceManager.GetObject("loading_gif", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
