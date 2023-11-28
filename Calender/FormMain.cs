@@ -53,9 +53,9 @@ namespace Ledger
         #region LoadLatestSpend
         public void LoadLatestSpend()
         {
-            LoginedName.Text = login.logined_user + "(" + login.logined_id + ")님";
+            LoginedName.Text = Login.logined_user + "(" + Login.logined_id + ")님";
 
-            String sql = "select count(*) from tb_spend where f_id='" + login.logined_id + "'";
+            String sql = "select count(*) from tb_spend where f_id='" + Login.logined_id + "'";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             Object data = cmd.ExecuteScalar();
             int spendCount = Convert.ToInt32(data);
@@ -86,7 +86,7 @@ namespace Ledger
                 panel.Controls.Add(lineText1);
 
 
-                String sql1 = "select f_name, f_date, f_money, f_cate from tb_spend order by f_date desc limit 1";
+                String sql1 = $"select f_name, f_date, f_money, f_cate from tb_spend where f_id = '{Login.logined_id}' order by f_date desc limit 1";
                 MySqlCommand cmd1 = new MySqlCommand(sql1, conn);
                 MySqlDataReader data1 = cmd1.ExecuteReader();
                 data1.Read();
@@ -190,7 +190,7 @@ namespace Ledger
 
 
                             String sql2 = "select sum(f_money) from tb_spend where f_date between '" + startDate
-                                + "' and '" + today + "' group by f_date order by f_date";
+                                + "' and '" + today + $"' and f_id = '{Login.logined_id}' group by f_date order by f_date";
                             MySqlCommand cmd2 = new MySqlCommand(sql2, conn);
                             Object rsm = cmd2.ExecuteScalar();
 
@@ -233,7 +233,7 @@ namespace Ledger
 
                 // 가장 많이 소비한 분야를 뽑아내기 위한 코드
                 DateTime today = DateTime.Today;
-                String sql3 = "SELECT * FROM ledgerdb.view_MonthSpendCount";
+                String sql3 = $"SELECT * FROM ledgerdb.view_MonthSpendCount where f_id = '{Login.logined_id}'";
                 MySqlCommand cmd3 = new MySqlCommand(sql3, conn);
                 MySqlDataReader data3 = cmd3.ExecuteReader();
 
@@ -472,9 +472,7 @@ namespace Ledger
                 msPanel.Dispose();
                 this.Text = "HOME";
                 e.Cancel = true;
-            }
-
-            if (login.islogined == true)
+            } else if (Login.islogined == true)
             {
                 DialogResult result = MessageBox.Show("로그인된 상태입니다. 로그아웃 하시겠습니까?", "경고!",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
@@ -483,9 +481,9 @@ namespace Ledger
                 {
                     MessageBox.Show("성공적으로 로그아웃 되었습니다.");
 
-                    login.islogined = false;
-                    login.logined_user = "";
-                    login.logined_id = "";
+                    Login.islogined = false;
+                    Login.logined_user = "";
+                    Login.logined_id = "";
 
                     this.Dispose();
                     login.Show();
@@ -506,9 +504,9 @@ namespace Ledger
             {
                 MessageBox.Show("성공적으로 로그아웃 되었습니다.");
 
-                login.islogined = false;
-                login.logined_user = "";
-                login.logined_id = "";
+                Login.islogined = false;
+                Login.logined_user = "";
+                Login.logined_id = "";
 
                 this.Dispose();
                 login.Show();

@@ -31,9 +31,9 @@ namespace Ledger
                 string str_end = tbYear.Text + "-" + tbMonth.Text + "-" + tbDay.Text;  //입력받은 값을 문자열로 이음
                 DateTime endday = DateTime.Parse(str_end); //이은 문자열을 데이트타임 객체로 변환
                 // "UPPER" 노드 아래에 "START," "END," "MONEY" 노드를 만들고 값을 설정합니다.
-                FirebaseResponse responseStart = client.Set("test_id/UPPER/START", string.Format("{0:yyyy-MM-dd}", DateTime.Today));
-                FirebaseResponse responseEnd = client.Set("test_id/UPPER/END", string.Format("{0:yyyy-MM-dd}", endday));
-                FirebaseResponse responseMoney = client.Set("test_id/UPPER/MONEY", tbMoney.Text);
+                FirebaseResponse responseStart = client.Set($"{Login.logined_id}/UPPER/START", string.Format("{0:yyyy-MM-dd}", DateTime.Today));
+                FirebaseResponse responseEnd = client.Set($"{Login.logined_id}/UPPER/END", string.Format("{0:yyyy-MM-dd}", endday));
+                FirebaseResponse responseMoney = client.Set($"{Login.logined_id}/UPPER/MONEY", tbMoney.Text);
 
                 if (responseStart.StatusCode == System.Net.HttpStatusCode.OK &&
                     responseEnd.StatusCode == System.Net.HttpStatusCode.OK &&
@@ -52,7 +52,7 @@ namespace Ledger
         {
             try
             {
-                FirebaseResponse response = client.Get("test_id/UPPER/END");
+                FirebaseResponse response = client.Get($"{Login.logined_id}/UPPER/END");
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     //비어있으면 안됨.
@@ -80,9 +80,9 @@ namespace Ledger
             string[] ret = new string[3];
             try
             {
-                FirebaseResponse responseStart = client.Get("test_id/UPPER/START");
-                FirebaseResponse responseEnd = client.Get("test_id/UPPER/END");
-                FirebaseResponse responseMoney = client.Get("test_id/UPPER/MONEY");
+                FirebaseResponse responseStart = client.Get($"{Login.logined_id}/UPPER/START");
+                FirebaseResponse responseEnd = client.Get($"{Login.logined_id}/UPPER/END");
+                FirebaseResponse responseMoney = client.Get($"{Login.logined_id}/UPPER/MONEY");
 
                 if (responseStart.StatusCode == System.Net.HttpStatusCode.OK &&
                     responseEnd.StatusCode == System.Net.HttpStatusCode.OK &&
@@ -104,7 +104,7 @@ namespace Ledger
         {
             try
             {
-                FirebaseResponse responseStart = client.Delete("test_id/UPPER");
+                FirebaseResponse responseStart = client.Delete($"{Login.logined_id}/UPPER");
 
                 if (responseStart.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -153,7 +153,7 @@ namespace Ledger
 
             string sql = "select sum(f_money), f_date from tb_spend ";
             sql += "where f_date between '" + startDT.ToString() + "' and '";
-            sql += lastDT.ToString() + "' group by f_date";
+            sql += lastDT.ToString() + $"' and f_id = '{Login.logined_id}' group by f_date";
 
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
@@ -390,28 +390,6 @@ namespace Ledger
             }
             AddDataToFirebase(formMain.client);
             LoadChallengeInterface();
-            //챌린지 시작
-            /*
-            StreamWriter sw = new StreamWriter(
-                    new FileStream(path, FileMode.Create));
-
-            string str_end = tbYear.Text + "-" + tbMonth.Text + "-" + tbDay.Text;  //입력받은 값을 문자열로 이음
-            DateTime endday = DateTime.Parse(str_end); //이은 문자열을 데이트타임 객체로 변환
-            DateTime today = DateTime.Today;
-            TimeSpan diff = endday.Date - today.Date;
-
-            //첫번째 줄은 현재 날짜
-            sw.WriteLine(string.Format("{0:yyyy-MM-dd}", today));
-            //두번째 줄은 입력 날짜
-            sw.WriteLine(string.Format("{0:yyyy-MM-dd}", endday));
-            //세번째 줄은 입력 금액
-            sw.WriteLine(tbMoney.Text);
-            //네번째 줄부터는 그 사이 날짜와 - 기호
-            sw.WriteLine('-');
-            sw.Close();
-            //챌린지 인터페이스를 로드합니다.
-            LoadChallengeInterface();/
-            */
         }
         private void setBorder(object sender, PaintEventArgs e)
         {

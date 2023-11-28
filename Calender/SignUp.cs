@@ -1,4 +1,7 @@
-﻿using MySqlConnector;
+﻿using FireSharp;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +19,10 @@ namespace Ledger
         public static string strConn = "Server=ledgerdb.ctsyekhyqkwe.ap-northeast-2.rds.amazonaws.com;Port=3306;Database=ledgerdb;Uid=root;Pwd=rootpass";
         public static MySqlConnection conn = null;
 
+        private const string basePath = "https://ledger-cc069-default-rtdb.firebaseio.com";
+        private const string baseSecret = "4AT6nTl88LXsImHpFGRXEn3LKcFkgNTyZCAJpNVW";
+        public FirebaseClient client;
+
         Boolean idChecker; // 아이디 중복 체크용 플래그 변수
         Login login;
 
@@ -28,9 +35,14 @@ namespace Ledger
             conn.Open();
 
             InitializeComponent();
+            IFirebaseConfig config = new FirebaseConfig {
+                AuthSecret = baseSecret,
+                BasePath = basePath
+            };
+            client = new FirebaseClient(config);
         }
 
-        private void btnSignUp_Click(object sender, EventArgs e)
+        private async void btnSignUp_Click(object sender, EventArgs e)
         {
             if (suName.Text != "" && suId.Text != "" && suPw.Text != ""
                 && suPwRe.Text != "" && suPhone.Text != "" && suEmail.Text != "")
@@ -44,10 +56,26 @@ namespace Ledger
                             suId.Text + "', '" + suPw.Text + "', '" + suPhone.Text + "', '" +
                             suEmail.Text + "', '" + today.ToString() + "')";
                         MySqlCommand cmd1 = new MySqlCommand(sql1, conn);
+                        
                         try
                         {
                             if (cmd1.ExecuteNonQuery() == 1)
                             {
+                                //로딩창 생성
+                                Panel msPanel = new Panel();
+                                msPanel.Size = new Size(this.Width, this.Height);
+
+                                LoadingScreen searchForm = new LoadingScreen();
+                                searchForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                                searchForm.TopLevel = false;
+                                msPanel.Controls.Add(searchForm);
+                                this.Controls.Add(msPanel);
+                                searchForm.Show();
+                                searchForm.Dock = DockStyle.Fill;
+                                msPanel.BringToFront();
+
+                                await Fireb.InitUserNode(client, suId.Text);
+
                                 MessageBox.Show("가입을 축하합니다 " + suName.Text + "님!", "회원가입 완료",
                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 this.Dispose();
@@ -106,7 +134,9 @@ namespace Ledger
                 }
             }
         }
-
+        private void ShowLoadingScreen() {
+            
+        }
         private void checkDuple_Click(object sender, EventArgs e)
         {
             if (suId.Text != "")
