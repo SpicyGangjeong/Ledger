@@ -275,6 +275,7 @@
             Controls.Add(YearPicker);
             Controls.Add(MonthPicker);
             Controls.Add(CalendarPanels);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CalendarMain";
             Text = "CalendarMain";
