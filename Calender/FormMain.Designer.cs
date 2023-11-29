@@ -43,7 +43,7 @@
             btnCalendar = new Button();
             panel2 = new Panel();
             LoginedName = new Label();
-            btnEditPw = new Button();
+            btnMyinfo = new Button();
             btnLogout = new Button();
             ContentLayout = new FlowLayoutPanel();
             contextMenuStrip.SuspendLayout();
@@ -109,7 +109,7 @@
             btnMonthly.Size = new Size(60, 55);
             btnMonthly.TabIndex = 6;
             btnMonthly.UseVisualStyleBackColor = false;
-            btnMonthly.Click += btnMonthly_Click;
+            btnMonthly.Click += btnAchievement_Click;
             // 
             // btnSpendanal
             // 
@@ -120,7 +120,7 @@
             btnSpendanal.Size = new Size(60, 55);
             btnSpendanal.TabIndex = 5;
             btnSpendanal.UseVisualStyleBackColor = false;
-            btnSpendanal.Click += btnSpendanal_Click;
+            btnSpendanal.Click += btnAchievement_Click;
             // 
             // btnSearch
             // 
@@ -172,7 +172,7 @@
             panel2.BackgroundImage = Properties.Resources.panel2_BackgroundImage;
             panel2.BackgroundImageLayout = ImageLayout.Stretch;
             panel2.Controls.Add(LoginedName);
-            panel2.Controls.Add(btnEditPw);
+            panel2.Controls.Add(btnMyinfo);
             panel2.Controls.Add(btnLogout);
             panel2.Controls.Add(ContentLayout);
             panel2.Dock = DockStyle.Fill;
@@ -193,17 +193,18 @@
             LoginedName.Text = "테스트(test)님";
             LoginedName.TextAlign = ContentAlignment.BottomRight;
             // 
-            // btnEditPw
+            // btnMyinfo
             // 
-            btnEditPw.BackColor = Color.Gainsboro;
-            btnEditPw.FlatStyle = FlatStyle.Flat;
-            btnEditPw.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            btnEditPw.Location = new Point(517, 10);
-            btnEditPw.Name = "btnEditPw";
-            btnEditPw.Size = new Size(83, 39);
-            btnEditPw.TabIndex = 2;
-            btnEditPw.Text = "내정보";
-            btnEditPw.UseVisualStyleBackColor = false;
+            btnMyinfo.BackColor = Color.Gainsboro;
+            btnMyinfo.FlatStyle = FlatStyle.Flat;
+            btnMyinfo.Font = new Font("맑은 고딕", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            btnMyinfo.Location = new Point(517, 10);
+            btnMyinfo.Name = "btnMyinfo";
+            btnMyinfo.Size = new Size(83, 39);
+            btnMyinfo.TabIndex = 2;
+            btnMyinfo.Text = "내정보";
+            btnMyinfo.UseVisualStyleBackColor = false;
+            btnMyinfo.Click += btnMyinfo_Click;
             // 
             // btnLogout
             // 
@@ -262,7 +263,7 @@
         private Panel panel2;
         private FlowLayoutPanel ContentLayout;
         private Label LoginedName;
-        private Button btnEditPw;
+        private Button btnMyinfo;
         private Button btnLogout;
     }
 }
