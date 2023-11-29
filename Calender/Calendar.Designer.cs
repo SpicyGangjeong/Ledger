@@ -43,6 +43,7 @@
             btnPreMonth = new Button();
             btnPostMonth = new Button();
             btnSettle = new Button();
+            btnNowDate = new Button();
             CalendarPanels.SuspendLayout();
             SuspendLayout();
             // 
@@ -242,14 +243,23 @@
             // 
             // btnSettle
             // 
-            btnSettle.Location = new Point(611, 6);
+            btnSettle.Location = new Point(578, 34);
             btnSettle.Margin = new Padding(2);
             btnSettle.Name = "btnSettle";
-            btnSettle.Size = new Size(73, 22);
+            btnSettle.Size = new Size(162, 22);
             btnSettle.TabIndex = 21;
             btnSettle.Text = "월간 정산";
             btnSettle.UseVisualStyleBackColor = true;
             btnSettle.Click += btnSettle_click;
+            // 
+            // btnNowDate
+            // 
+            btnNowDate.Location = new Point(576, 6);
+            btnNowDate.Name = "btnNowDate";
+            btnNowDate.Size = new Size(108, 23);
+            btnNowDate.TabIndex = 22;
+            btnNowDate.UseVisualStyleBackColor = true;
+            btnNowDate.Click += btnNowDate_Click;
             // 
             // CalendarMain
             // 
@@ -257,6 +267,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(752, 603);
+            Controls.Add(btnNowDate);
             Controls.Add(btnSettle);
             Controls.Add(btnPostMonth);
             Controls.Add(btnPreMonth);
@@ -264,6 +275,7 @@
             Controls.Add(YearPicker);
             Controls.Add(MonthPicker);
             Controls.Add(CalendarPanels);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CalendarMain";
             Text = "CalendarMain";
@@ -290,5 +302,6 @@
         private Button btnPreMonth;
         private Button btnPostMonth;
         private Button btnSettle;
+        private Button btnNowDate;
     }
 }

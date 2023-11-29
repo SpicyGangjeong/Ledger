@@ -36,9 +36,10 @@
             // 
             // btnBack
             // 
-            btnBack.Location = new Point(841, 766);
+            btnBack.Location = new Point(654, 574);
+            btnBack.Margin = new Padding(2, 2, 2, 2);
             btnBack.Name = "btnBack";
-            btnBack.Size = new Size(94, 29);
+            btnBack.Size = new Size(73, 22);
             btnBack.TabIndex = 0;
             btnBack.Text = "뒤로가기";
             btnBack.UseVisualStyleBackColor = true;
@@ -47,36 +48,41 @@
             // pnlChart
             // 
             pnlChart.BackColor = SystemColors.InactiveBorder;
-            pnlChart.Location = new Point(29, 31);
+            pnlChart.Location = new Point(23, 23);
+            pnlChart.Margin = new Padding(2, 2, 2, 2);
             pnlChart.Name = "pnlChart";
-            pnlChart.Size = new Size(906, 480);
+            pnlChart.Size = new Size(705, 360);
             pnlChart.TabIndex = 1;
             // 
             // pnlRank
             // 
             pnlRank.BackColor = SystemColors.InactiveBorder;
-            pnlRank.Location = new Point(29, 533);
+            pnlRank.Location = new Point(23, 400);
+            pnlRank.Margin = new Padding(2, 2, 2, 2);
             pnlRank.Name = "pnlRank";
-            pnlRank.Size = new Size(355, 259);
+            pnlRank.Size = new Size(276, 194);
             pnlRank.TabIndex = 2;
             // 
             // pnlDetailed
             // 
             pnlDetailed.BackColor = SystemColors.InactiveBorder;
-            pnlDetailed.Location = new Point(405, 533);
+            pnlDetailed.Location = new Point(315, 400);
+            pnlDetailed.Margin = new Padding(2, 2, 2, 2);
             pnlDetailed.Name = "pnlDetailed";
-            pnlDetailed.Size = new Size(530, 222);
+            pnlDetailed.Size = new Size(412, 166);
             pnlDetailed.TabIndex = 3;
             // 
             // MonthlySettlement
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(967, 804);
+            ClientSize = new Size(752, 603);
             Controls.Add(pnlDetailed);
             Controls.Add(pnlRank);
             Controls.Add(pnlChart);
             Controls.Add(btnBack);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(2, 2, 2, 2);
             Name = "MonthlySettlement";
             Text = "MonthlySettlement";
             ResumeLayout(false);

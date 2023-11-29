@@ -24,8 +24,8 @@ namespace Ledger
         }
         public void InitializeTree()
         {
-            string sql = "select distinct substr(f_date, 1, 4) \"YEAR\" from tb_spend " +
-                "union select distinct substr(f_date, 1, 4) \"YEAR\" from tb_income";
+            string sql = $"select distinct substr(f_date, 1, 4) \"YEAR\" from tb_spend where f_id = '{Login.logined_id}' " +
+                $"union select distinct substr(f_date, 1, 4) \"YEAR\" from tb_income where f_id = '{Login.logined_id}'";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             //////////////////////////
@@ -55,7 +55,6 @@ namespace Ledger
 
         private void TreeMain_Load(object sender, EventArgs e)
         {
-            MonthPicker.SelectedIndex = 8;
             InitializeTree();
 
         }
@@ -69,8 +68,8 @@ namespace Ledger
             if (Node.Name.Substring(0, 1) == "Y")
             {
                 Node.Nodes.Clear();
-                sql = "select distinct substr(f_date, 6, 2) \"MONTH\" from tb_spend where substr(f_date, 1, 4) = " + Node.Text +
-                    " union select distinct substr(f_date, 6, 2) \"MONTH\" from tb_income where substr(f_date, 1, 4) = " + Node.Text + " order by Month asc";
+                sql = "select distinct substr(f_date, 6, 2) \"MONTH\" from tb_spend where substr(f_date, 1, 4) = " + Node.Text + $" and f_id = '{Login.logined_id}'" +
+                    " union select distinct substr(f_date, 6, 2) \"MONTH\" from tb_income where substr(f_date, 1, 4) = " + Node.Text + $" and f_id = '{Login.logined_id}' order by Month asc";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 MySqlDataReader data = cmd.ExecuteReader();
                 while (data.Read())
@@ -89,8 +88,8 @@ namespace Ledger
             else if (Node.Name.Substring(0, 1) == "M")
             {
                 Node.Nodes.Clear();
-                sql = "select distinct substr(f_date, 9, 2) \"DATE\" from tb_spend where substr(f_date, 1, 4) = " + Node.Parent.Text + " and substr(f_date, 6, 2) =" + Node.Text +
-                    " union select distinct substr(f_date, 9, 2) \"DATE\" from tb_income where substr(f_date, 1, 4) = " + Node.Parent.Text + " and substr(f_date, 6, 2) =" + Node.Text + " order by DATE asc";
+                sql = "select distinct substr(f_date, 9, 2) \"DATE\" from tb_spend where substr(f_date, 1, 4) = " + Node.Parent.Text + " and substr(f_date, 6, 2) =" + Node.Text + $" and f_id = '{Login.logined_id}'" + 
+                    " union select distinct substr(f_date, 9, 2) \"DATE\" from tb_income where substr(f_date, 1, 4) = " + Node.Parent.Text + " and substr(f_date, 6, 2) =" + Node.Text + $" and f_id = '{Login.logined_id}' order by DATE asc";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 MySqlDataReader data = cmd.ExecuteReader();
                 while (data.Read())
@@ -125,7 +124,7 @@ namespace Ledger
         public void LoadSpendDatabase(string date)
         {
             //지출 테이블에서 인자로 받은 날짜에 존재하는 레코드를 추출합니다.
-            string sql = "select * from tb_spend where f_date = '" + date + "'";
+            string sql = "select * from tb_spend where f_date = '" + date + $"' and f_id = '{Login.logined_id}'";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             while (data.Read())
@@ -235,7 +234,7 @@ namespace Ledger
             //삭제 버튼 누를 시, 해당 넘버를 가진 레코드를 제거
             return (sender, e) =>
             {
-                string sql = "delete from tb_spend where f_no = '" + no.ToString() + "'";
+                string sql = "delete from tb_spend where f_no = '" + no.ToString() + $"' and f_id = '{Login.logined_id}'";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 int n = cmd.ExecuteNonQuery();
                 if (n == 1)
@@ -254,7 +253,7 @@ namespace Ledger
             //삭제 버튼 누를 시, 해당 넘버를 가진 레코드를 제거
             return (sender, e) =>
             {
-                string sql = "delete from tb_income where f_no = '" + no.ToString() + "'";
+                string sql = "delete from tb_income where f_no = '" + no.ToString() + $"' and f_id = '{Login.logined_id}'";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 int n = cmd.ExecuteNonQuery();
                 if (n == 1)

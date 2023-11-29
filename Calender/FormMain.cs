@@ -15,24 +15,31 @@ using System.Windows.Forms;
 using FireSharp.Response;
 using Microsoft.VisualBasic.Logging;
 
-namespace Ledger {
-    public partial class FormMain : Form {
+namespace Ledger
+{
+    public partial class FormMain : Form
+    {
         public static string strConn = "Server=ledgerdb.ctsyekhyqkwe.ap-northeast-2.rds.amazonaws.com;Port=3306;Database=ledgerdb;Uid=root;Pwd=rootpass";
         public static MySqlConnection conn = null;
 
         private const string basePath = "https://ledger-cc069-default-rtdb.firebaseio.com";
         private const string baseSecret = "4AT6nTl88LXsImHpFGRXEn3LKcFkgNTyZCAJpNVW";
-        private static FirebaseClient client;
+        public FirebaseClient client;
+
+        Login login;
 
         //검색 폼 변수 선언
         private Panel msPanel;
 
+        public FormMain(Login login)
+        {
+            this.login = login;
 
-        public FormMain() {
             conn = new MySqlConnection(strConn);
             conn.Open();
 
-            IFirebaseConfig config = new FirebaseConfig {
+            IFirebaseConfig config = new FirebaseConfig
+            {
                 AuthSecret = baseSecret,
                 BasePath = basePath
             };
@@ -40,17 +47,25 @@ namespace Ledger {
 
             InitializeComponent();
             LoadLatestSpend();
+            //Fireb.InitUserNode(client);
         }
 
         #region LoadLatestSpend
+        
+        // 메인 폼 동적 패널 생성 함수
         public void LoadLatestSpend()
         {
-            String sql = "select count(*) from tb_spend";
+            // 간단한 로그인 정보
+            LoginedName.Text = login.logined_user + "(" + login.logined_id + ")님";
+
+            // 소비 내역이 있는지 확인
+            String sql = "select count(*) from tb_spend where f_id='" + login.logined_id + "'";
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             Object data = cmd.ExecuteScalar();
             int spendCount = Convert.ToInt32(data);
 
-            if (spendCount > 0) {
+            if (spendCount > 0)
+            {
                 // 최근 지출 알림판
                 Panel panel = new Panel();
                 panel.BorderStyle = BorderStyle.Fixed3D;
@@ -75,7 +90,7 @@ namespace Ledger {
                 panel.Controls.Add(lineText1);
 
 
-                String sql1 = "select f_name, f_date, f_money, f_cate from tb_spend order by f_date desc limit 1";
+                String sql1 = $"select f_name, f_date, f_money, f_cate from tb_spend where f_id = '{Login.logined_id}' order by f_date desc limit 1";
                 MySqlCommand cmd1 = new MySqlCommand(sql1, conn);
                 MySqlDataReader data1 = cmd1.ExecuteReader();
                 data1.Read();
@@ -104,21 +119,26 @@ namespace Ledger {
                 data1.Close();
             }
 
+            // 파이어베이스 연동
             FirebaseResponse response = client.Get("UPPER");
-            if (response.StatusCode == System.Net.HttpStatusCode.OK) {
-                if (!string.IsNullOrEmpty(response.Body)) {
-                    // 지출 챌린지 정보를 가져오기 위한 코드
-                    FirebaseResponse responseStart = client.Get("UPPER/START");
-                    FirebaseResponse responseEnd = client.Get("UPPER/END");
-                    FirebaseResponse responseMoney = client.Get("UPPER/MONEY");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                if (!string.IsNullOrEmpty(response.Body))
+                {
+                    // 지출 챌린지 정보를 파이어베이스에서 가져옴
+                    FirebaseResponse responseStart = client.Get("test_id/UPPER/START");
+                    FirebaseResponse responseEnd = client.Get("test_id/UPPER/END");
+                    FirebaseResponse responseMoney = client.Get("test_id/UPPER/MONEY");
 
                     if (responseStart.StatusCode == System.Net.HttpStatusCode.OK &&
                         responseEnd.StatusCode == System.Net.HttpStatusCode.OK &&
-                        responseMoney.StatusCode == System.Net.HttpStatusCode.OK) {
+                        responseMoney.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
                         string startDate = responseStart.ResultAs<String>();
                         string endDate = responseEnd.ResultAs<String>();
 
-                        if (startDate != null && endDate != null) {
+                        if (startDate != null && endDate != null)
+                        {
                             // 지출 챌린지 현황 알림판
                             Panel upper_panel = new Panel();
                             upper_panel.BorderStyle = BorderStyle.Fixed3D;
@@ -132,7 +152,8 @@ namespace Ledger {
                             TimeSpan total_day = endday.Date - startDay.Date;
                             TimeSpan primary_day = today.Date - startDay.Date;
 
-                            if (responseMoney != null) {
+                            if (responseMoney != null)
+                            {
                                 int money = responseMoney.ResultAs<int>();
 
                                 Label upperTitle = new Label(); // 제목
@@ -174,11 +195,12 @@ namespace Ledger {
 
 
                             String sql2 = "select sum(f_money) from tb_spend where f_date between '" + startDate
-                                + "' and '" + today + "' group by f_date order by f_date";
+                                + "' and '" + today + $"' and f_id = '{Login.logined_id}' group by f_date order by f_date";
                             MySqlCommand cmd2 = new MySqlCommand(sql2, conn);
                             Object rsm = cmd2.ExecuteScalar();
 
-                            if (rsm != null) {
+                            if (rsm != null)
+                            {
                                 int rsmText = Convert.ToInt32(rsm);
                                 Label recentSpend = new Label(); // 현재까지의 소비 금액 표시
                                 recentSpend.Text = "현재까지 사용한 금액 : " + String.Format("{0:n0}", rsmText) + "원";
@@ -189,7 +211,8 @@ namespace Ledger {
                                 recentSpend.Location = new Point(10, 105);
                                 upper_panel.Controls.Add(recentSpend);
                             }
-                            else {
+                            else
+                            {
                                 Label recentSpend = new Label(); // 현재까지의 소비 금액 표시
                                 recentSpend.Text = "현재까지 어떠한 돈도 사용하지 않았어요! 대단해요!";
                                 recentSpend.Font = new Font("맑은 고딕", 10, FontStyle.Bold | FontStyle.Underline);
@@ -204,7 +227,8 @@ namespace Ledger {
                 }
             }
 
-            if (spendCount > 0) {
+            if (spendCount > 0)
+            {
                 // 가장 많이 소비한 분야 알림판
                 Panel MostCate = new Panel();
                 MostCate.BorderStyle = BorderStyle.Fixed3D;
@@ -214,13 +238,14 @@ namespace Ledger {
 
                 // 가장 많이 소비한 분야를 뽑아내기 위한 코드
                 DateTime today = DateTime.Today;
-                String sql3 = "SELECT * FROM ledgerdb.view_MonthSpendCount";
+                String sql3 = $"SELECT * FROM ledgerdb.view_MonthSpendCount where f_id = '{Login.logined_id}'";
                 MySqlCommand cmd3 = new MySqlCommand(sql3, conn);
                 MySqlDataReader data3 = cmd3.ExecuteReader();
 
                 List<String> f_cateList = new List<String>();
 
-                while (data3.Read()) {
+                while (data3.Read())
+                {
                     String f_cate = data3["f_cate"].ToString();
                     f_cateList.Add(f_cate);
                 }
@@ -333,6 +358,7 @@ namespace Ledger {
         #region btnFormClick
         private void btnCalendar_Click(object sender, EventArgs e)
         {
+            // 캘린터 폼 열기
             if (isthisOpenedForm("CalendarMain")) return;
             CalendarMain CalendarMain = new CalendarMain(this);
             CalendarMain.Show();
@@ -340,7 +366,9 @@ namespace Ledger {
             notifyIcon1.Visible = true;
         }
 
-        private void btnTree_Click(object sender, EventArgs e) {
+        private void btnTree_Click(object sender, EventArgs e)
+        {
+            // 트리 폼 열기
             if (isthisOpenedForm("TreeMain")) return;
             TreeMain tree = new TreeMain(this);
             tree.Show();
@@ -348,7 +376,9 @@ namespace Ledger {
             notifyIcon1.Visible = true;
         }
 
-        private void btnGraph_Click(object sender, EventArgs e) {
+        private void btnGraph_Click(object sender, EventArgs e)
+        {
+            // 그래프 폼 열기
             if (isthisOpenedForm("Analysis")) return;
             Analysis anly = new Analysis(this);
             anly.Show();
@@ -356,8 +386,8 @@ namespace Ledger {
             notifyIcon1.Visible = true;
         }
 
-        private void btnSearch_Click(object sender, EventArgs e) {
-            //MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
             //패널 안에 폼 추가
             msPanel = new Panel();
             msPanel.Size = new Size(this.Width, this.Height);
@@ -365,7 +395,8 @@ namespace Ledger {
             Search searchForm = new Search(this);
             searchForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             //캘린더 폼 내의 모든 컨트롤을 숨김
-            foreach (Control control in this.Controls) {
+            foreach (Control control in this.Controls)
+            {
                 control.Hide();
             }
             searchForm.TopLevel = false;
@@ -376,30 +407,50 @@ namespace Ledger {
             this.Text = searchForm.Text;
         }
 
-        private void btnSpendanal_Click(object sender, EventArgs e) {
+        private void btnAchievement_Click(object sender, EventArgs e)
+        {
+            //패널 안에 폼 추가
+            msPanel = new Panel();
+            msPanel.Size = new Size(this.Width, this.Height);
+
+            Achievement achForm = new Achievement(this);
+            achForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            //캘린더 폼 내의 모든 컨트롤을 숨김
+            foreach (Control control in this.Controls)
+            {
+                control.Hide();
+            }
+            achForm.TopLevel = false;
+            msPanel.Controls.Add(achForm);
+            this.Controls.Add(msPanel);
+            achForm.Show();
+            achForm.Dock = DockStyle.Fill;
+            this.Text = achForm.Text;
+        }
+
+        private void btnMonthly_Click(object sender, EventArgs e)
+        {
+            // 업적 폼 열기
             MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning); ;
         }
 
-        private void btnMonthly_Click(object sender, EventArgs e) {
-            Login login = new Login(this);
-            login.Show();
-            this.Hide();
-            notifyIcon1.Visible = true;
-        }
-
-        private void btnChallange_Click(object sender, EventArgs e) {
+        private void btnChallange_Click(object sender, EventArgs e)
+        {
             if (isthisOpenedForm("UpperLimit")) return;
             UpperLimit upperLimit = new UpperLimit(this);
             upperLimit.Show();
             this.Hide();
             notifyIcon1.Visible = true;
         }
-        private bool isthisOpenedForm(string formname) {
-            foreach (Form openForm in Application.OpenForms) {
+        private bool isthisOpenedForm(string formname)
+        {
+            foreach (Form openForm in Application.OpenForms)
+            {
                 // 폼 중복 열기 방지
                 if (openForm.Name == formname) // 열린 폼의 이름 검사
                 {
-                    if (openForm.WindowState == FormWindowState.Minimized) {   // 폼이 active 인지 검사
+                    if (openForm.WindowState == FormWindowState.Minimized)
+                    {   // 폼이 active 인지 검사
                         openForm.WindowState = FormWindowState.Normal;
                         openForm.Location = new Point(this.Location.X, this.Location.Y);
                     }
@@ -412,17 +463,21 @@ namespace Ledger {
         }
         #endregion
 
-        private void FormMain_Activated(object sender, EventArgs e) {
+        private void FormMain_Activated(object sender, EventArgs e)
+        {
             notifyIcon1.Visible = false;
         }
         private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Dispose();
         }
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e) {
-            if (msPanel != null && Controls.Contains(msPanel)) {
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (msPanel != null && Controls.Contains(msPanel))
+            {
 
-                foreach (Control control in this.Controls) {
+                foreach (Control control in this.Controls)
+                {
                     control.Show();
                 }
                 // Remove the pnl_1 panel from the form's Controls collection
@@ -432,6 +487,57 @@ namespace Ledger {
                 this.Text = "HOME";
                 e.Cancel = true;
             }
+
+            // 로그인 중일때 폼을 닫기를 눌러도 로그아웃을 할 수 있게 구현
+            if (login.islogined == true)
+            {
+                DialogResult result = MessageBox.Show("로그인된 상태입니다. 로그아웃 하시겠습니까?", "경고!",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.OK)
+                {
+                    MessageBox.Show("성공적으로 로그아웃 되었습니다.");
+
+                    Login.islogined = false;
+                    Login.logined_user = "";
+                    Login.logined_id = "";
+
+                    this.Dispose();
+                    login.Show();
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
+
+        // 로그아웃
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("로그아웃 하시겠습니까?", "로그아웃",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (result == DialogResult.OK)
+            {
+                MessageBox.Show("성공적으로 로그아웃 되었습니다.");
+
+                Login.islogined = false;
+                Login.logined_user = "";
+                Login.logined_id = "";
+
+                this.Dispose();
+                login.Show();
+            }
+        }
+
+        private void btnMyinfo_Click(object sender, EventArgs e)
+        {
+            // 내정보 폼 열기
+            MyInfo myinfo = new MyInfo(this, login);
+            myinfo.ShowDialog();
+        }
+
+        
     }
 }
