@@ -110,6 +110,7 @@ namespace Ledger {
             }
             return false;
         }
+        /*
         /// <summary>
         /// 회원가입 시, 파이어베이스의 노드를 초기화합니다. 클라이언트 객체를 파라미터로 요구합니다.
         /// </summary>
@@ -127,6 +128,7 @@ namespace Ledger {
                 return false;
             }
         }
+        
         /// <summary>
         /// 모든 업적 데이터를 딕셔너리 형태로 저장하여 반환합니다.
         /// </summary>
@@ -159,6 +161,7 @@ namespace Ledger {
             }
             return achNodeValues;
         }
+        
         public static Dictionary<string, int> GetAchNodeOne(FirebaseClient client, int ach_num) {
             FirebaseResponse response = client.Get(_id + $"ach/ach{ach_num}");
             string jsonResponse = response.Body;
@@ -173,12 +176,29 @@ namespace Ledger {
             if (dataDict.TryGetValue("cnt", out int cntJsonValue)) {
                 dict.Add("cnt", Convert.ToInt32(cntJsonValue));
             }
-            
-            MessageBox.Show($"{dict["cnt"]} {dict["get"]}");
-            
+      
             return dict;
         }
-        /*
+        
+        public static void UpdateAchNode(FirebaseClient client, int ach_num) {
+            Dictionary<string, int> dict = Fireb.GetAchNodeOne(client, ach_num);
+            if (dict["get"] == 0) {
+                //cnt값 얻어옴
+                int _cnt = dict["cnt"];
+                //1 증가
+                var data = new {
+                    cnt = _cnt++,
+                    get = (_cnt >= AchClass.achMaxCount[ach_num]) ? 1 : 0
+                };
+                Fireb.UpdateNode<object>(client, $"{Login.logined_id}/ach/ach{ach_num}/", data);
+                if (_cnt >= AchClass.achMaxCount[ach_num]) {
+                    MessageBox.Show("업적 달성");
+                    //업적 획득 알림 추가
+                    //~~
+                }
+            }
+        }
+        
         private void ShowAch(object sender, EventArgs args) {
             Dictionary<string, Dictionary<string, string>> achNodeValues = Fireb.GetAchNodeValues(client);
             string str = "";

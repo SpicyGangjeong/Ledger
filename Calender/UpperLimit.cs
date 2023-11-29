@@ -351,6 +351,7 @@ namespace Ledger
                     picSuc.Location = new Point(210, 6);
                     pnlBottom.Controls.Add(picSuc);
                     picSuc.BringToFront();
+                    AchClass.AddAchChallenge(start_to_end.Days);
                 }
                 else //잔여금액이 0 미만일 경우 실패
                 {

@@ -61,23 +61,11 @@ namespace Ledger
                         {
                             if (cmd1.ExecuteNonQuery() == 1)
                             {
-                                //로딩창 생성
-                                Panel msPanel = new Panel();
-                                msPanel.Size = new Size(this.Width, this.Height);
-
-                                LoadingScreen searchForm = new LoadingScreen();
-                                searchForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-                                searchForm.TopLevel = false;
-                                msPanel.Controls.Add(searchForm);
-                                this.Controls.Add(msPanel);
-                                searchForm.Show();
-                                searchForm.Dock = DockStyle.Fill;
-                                msPanel.BringToFront();
-
-                                await Fireb.InitUserNode(client, suId.Text);
-
+                                sql1 = $"insert into tb_ach(f_id) values ('{suId.Text}')";
+                                cmd1 = new MySqlCommand(sql1, conn);
+                                cmd1.ExecuteNonQuery();
                                 MessageBox.Show("가입을 축하합니다 " + suName.Text + "님!", "회원가입 완료",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                           MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 this.Dispose();
                             }
                         }
@@ -86,6 +74,7 @@ namespace Ledger
                             MessageBox.Show("예기치 못한 문제로 가입에 실패했습니다.", "회원가입 실패",
                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+                        
                     }
                     else
                     {
