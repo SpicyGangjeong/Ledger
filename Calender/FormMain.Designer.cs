@@ -109,7 +109,7 @@
             btnMonthly.Size = new Size(60, 55);
             btnMonthly.TabIndex = 6;
             btnMonthly.UseVisualStyleBackColor = false;
-            btnMonthly.Click += btnMonthly_Click;
+            btnMonthly.Click += btnAchievement_Click;
             // 
             // btnSpendanal
             // 
@@ -120,7 +120,7 @@
             btnSpendanal.Size = new Size(60, 55);
             btnSpendanal.TabIndex = 5;
             btnSpendanal.UseVisualStyleBackColor = false;
-            btnSpendanal.Click += btnSpendanal_Click;
+            btnSpendanal.Click += btnAchievement_Click;
             // 
             // btnSearch
             // 

@@ -33,12 +33,14 @@ namespace Ledger
 
         private void btnSignUp_Click(object sender, EventArgs e)
         {
+            // 회원가입 폼 열기
             SignUp signup = new SignUp(this);
             signup.ShowDialog();
         }
 
         private void btnSearchPw_Click(object sender, EventArgs e)
         {
+            // 아이디 / 비밀번호 찾기 폼 열기
             SeekAccount signup = new SeekAccount(this);
             signup.ShowDialog();
         }
@@ -52,6 +54,7 @@ namespace Ledger
 
             if (data.Read())
             {
+                // 로그인 정보 일치시, 로그인 정보에 해당 로그인 정보를 저장
                 islogined = true;
                 logined_user = data["f_name"].ToString();
                 logined_id = data["f_id"].ToString();
@@ -66,6 +69,7 @@ namespace Ledger
             }
             else
             {
+                // 로그인 정보 불일치 시, 로그인 정보를 다시 입력할 수 있게 함
                 MessageBox.Show("아이디가 존재하지 않거나 비밀번호가 다릅니다.", "경고!",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 userId.Text = "";
@@ -75,6 +79,7 @@ namespace Ledger
             data.Close();
         }
 
+        // 엔터키로 로그인을 할 수 있게끔 설정
         private void userPw_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

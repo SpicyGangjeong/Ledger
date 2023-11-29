@@ -15,9 +15,11 @@ namespace Ledger
 {
     public partial class MyInfo : Form
     {
+        // 데이터베이스 연동
         public static string strConn = "Server=ledgerdb.ctsyekhyqkwe.ap-northeast-2.rds.amazonaws.com;Port=3306;Database=ledgerdb;Uid=root;Pwd=rootpass";
         public static MySqlConnection conn = null;
 
+        // 다른 폼 연동
         Login login;
         FormMain formMain;
 
@@ -33,6 +35,7 @@ namespace Ledger
             loadInfo();
         }
 
+        // 내정보를 로드
         public void loadInfo()
         {
             String sql1 = "select * from tb_user where f_id='" + login.logined_id + "'";
@@ -53,6 +56,7 @@ namespace Ledger
             data1.Close();
         }
 
+        // 회원탈퇴
         private void deleteAccount_Click(object sender, EventArgs e)
         {
             DialogResult result =
@@ -82,6 +86,7 @@ namespace Ledger
             }
         }
 
+        // 내정보 수정
         private void btnModifyinfo_Click(object sender, EventArgs e)
         {
             if (infoPw.Text == "")
