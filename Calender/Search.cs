@@ -49,7 +49,6 @@ namespace Ledger {
             sql += CheckImpSearch();
             sql += CheckRegSearch();
             sql += $"and f_id = '{Login.logined_id}'";
-            Fireb.GetAchNodeOne(formMain.client, 0);
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             while (data.Read()) {

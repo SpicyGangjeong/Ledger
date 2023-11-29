@@ -168,9 +168,7 @@ namespace Ledger {
                 }
                 if (inputTime == n) // 삽입횟수와 영향을 받은 행의 갯수가 같다면 추가완료
                 {
-                    AchClass.GetAchievement(formMain.client, 0);
-                    AchClass.GetAchievement(formMain.client, 1);
-                    AchClass.GetAchievement(formMain.client, 2);
+                    AchClass.AddAchSpendCount(cmbx_Cate.Text);
                     MessageBox.Show("추가완료");
                 }
                 else
@@ -183,9 +181,7 @@ namespace Ledger {
             {
                 if (n == 1)
                 {
-                    AchClass.GetAchievement(formMain.client, 0);
-                    AchClass.GetAchievement(formMain.client, 1);
-                    AchClass.GetAchievement(formMain.client, 2);
+                    AchClass.AddAchSpendCount(cmbx_Cate.Text);
                     MessageBox.Show("추가완료");
                 }
                 else
@@ -274,9 +270,7 @@ namespace Ledger {
                 }
                 if (inputTime == n) // 삽입횟수와 영향을 받은 행의 갯수가 같다면 추가완료
                 {
-                    AchClass.GetAchievement(formMain.client, 3);
-                    AchClass.GetAchievement(formMain.client, 4);
-                    AchClass.GetAchievement(formMain.client, 5);
+                    AchClass.AddAchIncomeCount();
                     MessageBox.Show("추가완료");
                 }
                 else
@@ -289,9 +283,7 @@ namespace Ledger {
             {
                 if (n == 1)
                 {
-                    AchClass.GetAchievement(formMain.client, 3);
-                    AchClass.GetAchievement(formMain.client, 4);
-                    AchClass.GetAchievement(formMain.client, 5);
+                    AchClass.AddAchIncomeCount();
                     MessageBox.Show("추가완료");
                 }
                 else

@@ -12,12 +12,12 @@ using System.Runtime.InteropServices;
 
 namespace Ledger {
     public partial class Achievement : Form {
-        Dictionary<string, Dictionary<string, string>> achNodeValues;
         FormMain formMain;
+        string[] achList;
         public Achievement(FormMain formMain) {
             InitializeComponent();
             this.formMain = formMain;
-            achNodeValues = Fireb.GetAchNodeValues(formMain.client);
+            achList = AchClass.GetAchDatas();
             AddPanels();
             LeftPanel.Paint += DrawLeftPanel;
         }
@@ -59,9 +59,24 @@ namespace Ledger {
             ft = new Font(fontCollection.Families[0], 10);
             DrawOutlineText(g, AchClass.achText[index], ft, Brushes.White, Brushes.Gray, 2, new Point(120, 80), 2);
 
+            int _ind = index;
             //현황
-            DrawOutlineText(g, $"{achNodeValues[$"ach{index}"]["cnt"]} / {AchClass.achMaxCount[index]}", ft, Brushes.White, Brushes.Gray, 2, new Point(490, 100), 2);
+            if (index == 0 || index == 1 || index == 1) {
+                _ind = -2;
+            } else if (index == 3 || index == 4 || index == 5) {
+                _ind = -1;
+            }
+            DrawOutlineText(g, $"{AchClass.GetAchCnt(achList, _ind)} / {AchClass.achMaxCount[index]}", ft, Brushes.White, Brushes.Gray, 2, new Point(490, 100), 2);
 
+            //획득 못한 얘들은 회색 처리
+            if ((AchClass.GetAchCnt(achList, _ind) / AchClass.achMaxCount[index]) < 1) {
+                Color semiTransparentColor = Color.FromArgb(128, 128, 128, 128); // 128은 알파값 (0에서 255 사이)
+                SolidBrush semiTransparentBrush = new SolidBrush(semiTransparentColor);
+
+                // 사각형 그리기
+                g.FillRectangle(semiTransparentBrush, 0, 0, 545, 125);
+                semiTransparentBrush.Dispose();
+            }
 
             g.Dispose();
             //폰트 메모리 해체
@@ -85,12 +100,7 @@ namespace Ledger {
             Font ft = new Font(fontCollection.Families[0], 15);
 
             //현황
-            int cnt = 0;
-            for (int i = 0; i < 20; i++) {
-                if (achNodeValues[$"ach{i}"]["get"] == "1") {
-                    cnt++;
-                }
-            }
+            int cnt = AchClass.GetAchProgress(achList);
             DrawOutlineText(g, cnt.ToString("D2") + " / 20", ft, Brushes.White, Brushes.DarkSlateGray, 2, new Point(75, 310), 2);
 
             g.Dispose();

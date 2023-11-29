@@ -232,9 +232,10 @@ namespace Ledger
 
             
             if (data.HasRows) {
-                data.Read();
-                biggest_cost = Convert.ToInt32(data["sum(f_money)"]);
-                biggest_date = data["month(f_date)"].ToString() + "월 " + data["day(f_date)"].ToString() + "일";
+                while (data.Read()) {
+                    biggest_cost = Convert.ToInt32(data["sum(f_money)"]);
+                    biggest_date = data["month(f_date)"].ToString() + "월 " + data["day(f_date)"].ToString() + "일";
+                }   
             }
             
             data.Close();
@@ -252,9 +253,10 @@ namespace Ledger
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
 
-            data.Read();
             int all_cost = 0;
-            all_cost = Convert.ToInt32(data["sum(f_money)"]);
+            while (data.Read()) {
+                all_cost = Convert.ToInt32(data["sum(f_money)"]);
+            }
             data.Close();
 
             //충동구매 비율
@@ -264,10 +266,13 @@ namespace Ledger
             sql += $" and f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
-
-            data.Read();
+            
             double imp_ratio = 0;
-            imp_ratio = Convert.ToDouble(data["imp_ratio"]) * 100.0;
+            if (data.HasRows) {
+                while (data.Read()) {
+                    imp_ratio = Convert.ToDouble(data["imp_ratio"]) * 100.0;
+                }
+            }
             data.Close();
 
             //정기지출로 쓴 총 금액
@@ -277,9 +282,15 @@ namespace Ledger
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
 
-            data.Read();
             int sum_regular = 0;
-            sum_regular += Convert.ToInt32(data["sum(f_money)"]);
+            if (data.HasRows) {
+                while (data.Read()) {
+                    
+                    if (!Convert.IsDBNull(data["sum(f_money)"])) {
+                        sum_regular += Convert.ToInt32(data["sum(f_money)"]);
+                    };
+                }
+            }
             data.Close();
 
             //카드, 현금 사용 비율
@@ -290,9 +301,12 @@ namespace Ledger
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
 
-            data.Read();
-            double card_ratio = Convert.ToDouble(data["card_ratio"]) * 100.0;
-            double cash_ratio = Convert.ToDouble(data["cash_ratio"]) * 100.0;
+            double card_ratio = 0;
+            double cash_ratio = 0;
+            while (data.Read()) {
+                card_ratio = Convert.ToDouble(data["card_ratio"]) * 100.0;
+                cash_ratio = Convert.ToDouble(data["cash_ratio"]) * 100.0;
+            }
             data.Close();
 
             //리소스 폴더에서 폰트 불러오기
@@ -328,6 +342,8 @@ namespace Ledger
 
             //폰트 메모리 해체
             Marshal.FreeCoTaskMem(fontPtr);
+
+            AchClass.AddAchMonthly(all_cost);
         }
 
         private void btnBack_Click(object sender, EventArgs e)
