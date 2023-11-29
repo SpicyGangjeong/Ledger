@@ -34,6 +34,7 @@ namespace Ledger {
             "소비 분야 [기타] 내역 추가 10회", "7일 이상의 지출 챌린지 1회 성공",
             "30일 이상의 지출 챌린지 1회 성공", "총 사용액 30만원 이하로 월간 정산하기"
         };
+        //업적 테이블에서 해당 아이디의 레코드를 반환합니다
         public static string[] GetAchDatas() {
             string[] array = new string[22];
             string sql = $"select * from tb_ach where f_id = '{Login.logined_id}'";
@@ -48,6 +49,7 @@ namespace Ledger {
             }
             return array;
         }
+        //총 업적 20개중에 몇 개를 완수했는지 반환합니다
         public static int GetAchProgress(string[] array) {
             int result = 0;
             string[] split;
@@ -60,12 +62,14 @@ namespace Ledger {
             }
             return result;
         }
+        //해당 업적이 어느정도의 진행률을 가지고 있는지 반환합니다
         public static int GetAchCnt(string[] array, int index) {
             int result = 0;
             string[] split = array[index + 2].Split('_');
             result = Convert.ToInt32(split[0]);
             return result;
         }
+        //지출 내역 추가시에 얻을 수 있는 업적을 관리합니다
         public static void AddAchSpendCount(string cate_name) {
             MySqlCommand cmd;
             MySqlDataReader data;
@@ -128,6 +132,7 @@ namespace Ledger {
             cmd.ExecuteNonQuery();
             
         }
+        //수입 내역 추가 시 얻을 수 있는 업적을 관리합니다
         public static void AddAchIncomeCount() {
             MySqlCommand cmd;
             MySqlDataReader data;
@@ -173,6 +178,7 @@ namespace Ledger {
             cmd = new MySqlCommand(sql, FormMain.conn);
             cmd.ExecuteNonQuery();
         }
+        //지출 챌린지에서 얻을 수 있는 업적을 관리합니다
         public static void AddAchChallenge(int day) {
             MySqlCommand cmd;
             MySqlDataReader data;
@@ -207,6 +213,7 @@ namespace Ledger {
             cmd = new MySqlCommand(sql, FormMain.conn);
             cmd.ExecuteNonQuery();
         }
+        //월간 정산에서 얻을 수 있는 업적을 관리합니다
         public static void AddAchMonthly(int money) {
             if (money > 300000) {
                 return;
@@ -232,28 +239,10 @@ namespace Ledger {
                 ShowGetAch(Resources.Ach19);
             }
         }
+        //업적을 달성하였다는 폼을 띄웁니다
         public static void ShowGetAch(Image img) {
             AchievementGet achForm = new AchievementGet(img);
             achForm.Show();
         }
-        /*
-        public static void GetAchievement(FirebaseClient client, int ach_num) {
-            Dictionary<string, int> dict = Fireb.GetAchNodeOne(client, ach_num);
-            if (dict["get"] == 0) {
-                //cnt값 얻어옴
-                int _cnt = dict["cnt"];
-                //1 증가
-                Fireb.UpdateNode<int>(client, $"{Login.logined_id}/ach/ach{ach_num}/get", _cnt + 1);
-                
-
-                
-                if (_cnt >= AchClass.achMaxCount[ach_num]) {
-                    Fireb.UpdateNode<int>(client, $"{Login.logined_id}/ach/ach{ach_num}/get", 1);
-                    //업적 획득 알림 추가
-                    //~~
-                }
-            }
-        }
-        */
     }
 }
