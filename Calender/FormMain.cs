@@ -252,8 +252,10 @@ namespace Ledger
                     { "trafficCount", 0 }, { "stockCount", 0 }, { "medicalCount", 0 },
                     { "gameCount", 0 }, { "etcCount", 0 }
                 };
-                foreach (var category in f_cateList) {
-                    switch (category.ToString()) {
+                foreach (var category in f_cateList)
+                {
+                    switch (category.ToString())
+                    {
                         case "식사":
                             cateCount["mealCount"]++;
                             break;
@@ -292,7 +294,8 @@ namespace Ledger
                 int maxCate = cateCount.Values.Max();
                 String maxCateName = cateCount.FirstOrDefault(x => x.Value == maxCate).Key;
 
-                switch (maxCateName) {
+                switch (maxCateName)
+                {
                     case "mealCount":
                         maxCateName = "식사";
                         break;
@@ -348,7 +351,8 @@ namespace Ledger
         #endregion 
 
         #region btnFormClick
-        private void btnCalendar_Click(object sender, EventArgs e) {
+        private void btnCalendar_Click(object sender, EventArgs e)
+        {
             if (isthisOpenedForm("CalendarMain")) return;
             CalendarMain CalendarMain = new CalendarMain(this);
             CalendarMain.Show();
@@ -396,7 +400,8 @@ namespace Ledger
             this.Text = searchForm.Text;
         }
 
-        private void btnSpendanal_Click(object sender, EventArgs e) {
+        private void btnSpendanal_Click(object sender, EventArgs e)
+        {
             //MessageBox.Show("개발중입니다.", "경고!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //패널 안에 폼 추가
             msPanel = new Panel();
@@ -405,7 +410,8 @@ namespace Ledger
             Achievement achForm = new Achievement(this);
             achForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             //캘린더 폼 내의 모든 컨트롤을 숨김
-            foreach (Control control in this.Controls) {
+            foreach (Control control in this.Controls)
+            {
                 control.Hide();
             }
             achForm.TopLevel = false;
@@ -454,7 +460,8 @@ namespace Ledger
         {
             notifyIcon1.Visible = false;
         }
-        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             Dispose();
         }
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -513,6 +520,12 @@ namespace Ledger
                 this.Dispose();
                 login.Show();
             }
+        }
+
+        private void btnMyinfo_Click(object sender, EventArgs e)
+        {
+            MyInfo myinfo = new MyInfo(this, login);
+            myinfo.ShowDialog();
         }
     }
 }
