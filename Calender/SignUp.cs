@@ -1,4 +1,7 @@
-﻿using MySqlConnector;
+﻿using FireSharp;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +19,10 @@ namespace Ledger
         public static string strConn = "Server=ledgerdb.ctsyekhyqkwe.ap-northeast-2.rds.amazonaws.com;Port=3306;Database=ledgerdb;Uid=root;Pwd=rootpass";
         public static MySqlConnection conn = null;
 
+        private const string basePath = "https://ledger-cc069-default-rtdb.firebaseio.com";
+        private const string baseSecret = "4AT6nTl88LXsImHpFGRXEn3LKcFkgNTyZCAJpNVW";
+        public FirebaseClient client;
+
         Boolean idChecker; // 아이디 중복 체크용 플래그 변수
         Login login;
 
@@ -28,9 +35,14 @@ namespace Ledger
             conn.Open();
 
             InitializeComponent();
+            IFirebaseConfig config = new FirebaseConfig {
+                AuthSecret = baseSecret,
+                BasePath = basePath
+            };
+            client = new FirebaseClient(config);
         }
 
-        private void btnSignUp_Click(object sender, EventArgs e)
+        private async void btnSignUp_Click(object sender, EventArgs e)
         {
             if (suName.Text != "" && suId.Text != "" && suPw.Text != ""
                 && suPwRe.Text != "" && suPhone.Text != "" && suEmail.Text != "")
@@ -44,12 +56,16 @@ namespace Ledger
                             suId.Text + "', '" + suPw.Text + "', '" + suPhone.Text + "', '" +
                             suEmail.Text + "', '" + today.ToString() + "')";
                         MySqlCommand cmd1 = new MySqlCommand(sql1, conn);
+                        
                         try
                         {
                             if (cmd1.ExecuteNonQuery() == 1)
                             {
+                                sql1 = $"insert into tb_ach(f_id) values ('{suId.Text}')";
+                                cmd1 = new MySqlCommand(sql1, conn);
+                                cmd1.ExecuteNonQuery();
                                 MessageBox.Show("가입을 축하합니다 " + suName.Text + "님!", "회원가입 완료",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                           MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 this.Dispose();
                             }
                         }
@@ -58,6 +74,7 @@ namespace Ledger
                             MessageBox.Show("예기치 못한 문제로 가입에 실패했습니다.", "회원가입 실패",
                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+                        
                     }
                     else
                     {
@@ -106,7 +123,9 @@ namespace Ledger
                 }
             }
         }
-
+        private void ShowLoadingScreen() {
+            
+        }
         private void checkDuple_Click(object sender, EventArgs e)
         {
             if (suId.Text != "")

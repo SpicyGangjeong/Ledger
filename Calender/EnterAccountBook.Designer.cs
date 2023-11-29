@@ -1,7 +1,5 @@
-﻿namespace Ledger
-{
-    partial class EnterAccountBook
-    {
+﻿namespace Ledger {
+    partial class EnterAccountBook {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -31,6 +27,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnterAccountBook));
             tabControl1 = new TabControl();
             tabSpend = new TabPage();
+            dtp_spend = new DateTimePicker();
             cbx_RegSpend = new CheckBox();
             cbx_Imp = new CheckBox();
             pnl_Way = new Panel();
@@ -48,6 +45,7 @@
             label4 = new Label();
             btn_Add = new Button();
             tabIncome = new TabPage();
+            dtp_income = new DateTimePicker();
             cbx_RegIncome = new CheckBox();
             btn_Cancel2 = new Button();
             btn_Add2 = new Button();
@@ -79,6 +77,7 @@
             // 
             // tabSpend
             // 
+            tabSpend.Controls.Add(dtp_spend);
             tabSpend.Controls.Add(cbx_RegSpend);
             tabSpend.Controls.Add(cbx_Imp);
             tabSpend.Controls.Add(pnl_Way);
@@ -102,16 +101,28 @@
             tabSpend.Text = "지출 입력";
             tabSpend.UseVisualStyleBackColor = true;
             // 
+            // dtp_spend
+            // 
+            dtp_spend.CustomFormat = "yyyy/MM/dd";
+            dtp_spend.Enabled = false;
+            dtp_spend.Format = DateTimePickerFormat.Custom;
+            dtp_spend.Location = new Point(12, 240);
+            dtp_spend.Name = "dtp_spend";
+            dtp_spend.Size = new Size(200, 23);
+            dtp_spend.TabIndex = 23;
+            dtp_spend.Visible = false;
+            // 
             // cbx_RegSpend
             // 
             cbx_RegSpend.AutoSize = true;
             cbx_RegSpend.Location = new Point(173, 70);
             cbx_RegSpend.Margin = new Padding(2);
             cbx_RegSpend.Name = "cbx_RegSpend";
-            cbx_RegSpend.Size = new Size(106, 19);
+            cbx_RegSpend.Size = new Size(158, 19);
             cbx_RegSpend.TabIndex = 22;
-            cbx_RegSpend.Text = "매월 정기 지출";
+            cbx_RegSpend.Text = "정기 지출 기간 설정 (월)";
             cbx_RegSpend.UseVisualStyleBackColor = true;
+            cbx_RegSpend.CheckedChanged += cbx_Reg_CheckedChanged;
             // 
             // cbx_Imp
             // 
@@ -269,6 +280,7 @@
             // 
             // tabIncome
             // 
+            tabIncome.Controls.Add(dtp_income);
             tabIncome.Controls.Add(cbx_RegIncome);
             tabIncome.Controls.Add(btn_Cancel2);
             tabIncome.Controls.Add(btn_Add2);
@@ -290,16 +302,28 @@
             tabIncome.Text = "수입 입력";
             tabIncome.UseVisualStyleBackColor = true;
             // 
+            // dtp_income
+            // 
+            dtp_income.CustomFormat = "yyyy/MM/dd";
+            dtp_income.Enabled = false;
+            dtp_income.Format = DateTimePickerFormat.Custom;
+            dtp_income.Location = new Point(21, 240);
+            dtp_income.Name = "dtp_income";
+            dtp_income.Size = new Size(200, 23);
+            dtp_income.TabIndex = 22;
+            dtp_income.Visible = false;
+            // 
             // cbx_RegIncome
             // 
             cbx_RegIncome.AutoSize = true;
-            cbx_RegIncome.Location = new Point(171, 75);
+            cbx_RegIncome.Location = new Point(171, 47);
             cbx_RegIncome.Margin = new Padding(2);
             cbx_RegIncome.Name = "cbx_RegIncome";
-            cbx_RegIncome.Size = new Size(106, 19);
+            cbx_RegIncome.Size = new Size(158, 19);
             cbx_RegIncome.TabIndex = 21;
-            cbx_RegIncome.Text = "매월 정기 수입";
+            cbx_RegIncome.Text = "정기 수입 기간 설정 (월)";
             cbx_RegIncome.UseVisualStyleBackColor = true;
+            cbx_RegIncome.CheckedChanged += cbx_Reg_CheckedChanged;
             // 
             // btn_Cancel2
             // 
@@ -413,6 +437,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(353, 296);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             Name = "EnterAccountBook";
@@ -461,5 +486,7 @@
         private CheckBox cbx_Imp;
         private CheckBox cbx_RegSpend;
         private CheckBox cbx_RegIncome;
+        private DateTimePicker dtp_spend;
+        private DateTimePicker dtp_income;
     }
 }

@@ -170,6 +170,7 @@
             BackColor = SystemColors.Window;
             ClientSize = new Size(800, 450);
             Controls.Add(splitContainer1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "TreeMain";
             Text = "TreeMain";

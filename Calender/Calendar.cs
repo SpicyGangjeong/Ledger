@@ -125,9 +125,9 @@ namespace Ledger
             }
             string nowMonthFirst = year + "/" + Month + "/01";
             string nowMonthLast = year + "/" + Month + "/" + days;
-            string sql = "select f_date, f_money, f_regular from tb_spend where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + "' order by f_date";
 
-
+            // spend
+            string sql = "select f_date, f_money, f_regular from tb_spend where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + $"' and f_id = '{Login.logined_id}' order by f_date";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
             while (data.Read())                             // 지출내용이 있다면 - spends 추가
@@ -137,7 +137,8 @@ namespace Ledger
             }
             data.Close();
 
-            sql = "select f_date, f_money, f_regular from tb_income where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + "' order by f_date";
+            // income
+            sql = "select f_date, f_money, f_regular from tb_income where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + $"' and f_id = '{Login.logined_id}' order by f_date";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
             while (data.Read())
@@ -147,28 +148,14 @@ namespace Ledger
             }
             data.Close();
 
-            sql = "select f_date, f_money, f_regular from tb_spend where f_regular = 2 union all select f_date, f_money, f_regular from tb_income where f_regular = 2;";
+            // regular
+            sql = $"select f_date, f_money, f_regular from tb_spend where f_date between '{nowMonthFirst}' and '{nowMonthLast}' and f_regular in ('2', '3') and f_id = '{Login.logined_id}' union all select f_date, f_money, f_regular from tb_income where f_date between '{nowMonthFirst}' and '{nowMonthLast}' and f_regular in ('2', '3') and f_id = '{Login.logined_id}';";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
-            string ZeroMonth;
-            if (Month < 10)
-            {
-                ZeroMonth = "0"+ Convert.ToString(Month);
-            }
-            else
-            {
-                ZeroMonth = Convert.ToString(Month);
-            }
             while (data.Read())
             {
                 string f_date = data["f_date"].ToString();
-                DateTime InitialDate = DateTime.ParseExact(string.Concat(year, '-', ZeroMonth), "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture); // day를 무시해서 월간으로 비교
-                DateTime compareDate = DateTime.ParseExact(f_date.Substring(0, 7), "yyyy-MM", System.Globalization.CultureInfo.InvariantCulture);
-                DateTime twoMonthsLater = compareDate.AddMonths(2);
-                if (DateTime.Compare(InitialDate.Date, compareDate.Date) >= 0 && twoMonthsLater >= InitialDate) // 기록된 날 이후, 기록되고나서 3개월간
-                {
-                    regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
-                }
+                regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
             }
             data.Close();
 

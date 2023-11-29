@@ -18,9 +18,9 @@ namespace Ledger
         public static MySqlConnection conn = null;
 
         // 로그인 확인 및 정보
-        public bool islogined = false;
-        public String logined_user = "";
-        public String logined_id = "";
+        public static bool islogined = false;
+        public static String logined_user = "";
+        public static String logined_id = "";
 
         public Login()
         {
@@ -62,6 +62,8 @@ namespace Ledger
                 MessageBox.Show(logined_user + "님, 환영합니다.");
                 userId.Text = "";
                 userPw.Text = "";
+
+                
 
                 FormMain formMain = new FormMain(this);
                 formMain.Show();

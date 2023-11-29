@@ -54,7 +54,7 @@ namespace Ledger
             rtbRank.Enabled = false;
             List<string> dataX = new List<string>();
             List<double> dataY = new List<double>();
-            string sql = "select * from f_cate_analysis";
+            string sql = $"select * from f_cate_analysis where f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
             while (data.Read())
@@ -89,7 +89,7 @@ namespace Ledger
             btnhide();
             Title.Text = title[1];
 
-            string sql = "select * from f_way_analysis";
+            string sql = $"select * from f_way_analysis where f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
             while (data.Read())
@@ -172,7 +172,7 @@ namespace Ledger
             int[] days = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
             if ((year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0))) days[1] = 29; // 윤년 판단
 
-            string sql = "select * from stats_income_analysis";
+            string sql = $"select * from stats_income_analysis where f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
             while (data.Read())
@@ -182,7 +182,7 @@ namespace Ledger
             }
             data.Close();
 
-            sql = "select * from stats_spend_date";
+            sql = $"select * from stats_spend_date where f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
             while (data.Read())
