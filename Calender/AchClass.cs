@@ -11,7 +11,6 @@ namespace Ledger {
         public static readonly int[] achMaxCount = new int[20] {
             10, 20, 30, 10, 20, 30, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 1, 1
         };
-        public static Queue<Image> res = new Queue<Image>();
         public static readonly string[] categories = {
             "식사", "여가", "간식", "주거", "미용", "저축", "교통", "주식", "의료", "게임", "기타"
         };
