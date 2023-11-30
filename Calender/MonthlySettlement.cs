@@ -12,30 +12,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-namespace Ledger
-{
-    public partial class MonthlySettlement : Form
-    {
+namespace Ledger {
+    public partial class MonthlySettlement : Form {
         int year, month;
-        Form originalForm;
-        int[] cost_array = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        FormMain _formMain;
+        int[] cost_array = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         string costText;
         bool drawCost = false;
-        public MonthlySettlement(Form originalForm, int year, int month)
-        {
+        public MonthlySettlement(FormMain _formMain, int year, int month) {
             this.year = year;
             this.month = month;
-            this.originalForm = originalForm;
+            this._formMain = _formMain;
             this.DoubleBuffered = true;
             InitializeComponent();
             pnlChart.Paint += DrawChartMonthlyCategory;
             pnlRank.Paint += DrawRankMonthly;
             pnlDetailed.Paint += DrawDetailed;
+            SetComboBoxItem(cmbxMonth);
+            cmbxMonth.SelectedItem = $"{year}-{month}월";
+            cmbxMonth.SelectedIndexChanged += MonthSelectedIndexChanged;
         }
 
-        private void DrawChartMonthlyCategory(object sender, PaintEventArgs e)
-        {
-            string sql = "select f_cate, sum(f_money) from tb_spend where year(f_date) = " + year.ToString(); 
+        private void DrawChartMonthlyCategory(object sender, PaintEventArgs e) {
+            string sql = "select f_cate, sum(f_money) from tb_spend where year(f_date) = " + year.ToString();
             sql += " and month(f_date) = " + month.ToString() + $" and f_id = '{Login.logined_id}' group by f_cate";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
@@ -44,27 +43,22 @@ namespace Ledger
             string[] categories = { "식사", "여가", "간식", "주거", "미용", "저축", "교통", "주식", "의료", "게임", "기타" };
             string[] colors = { "#FF5733", "#4287f5", "#ffad29", "#56d440", "#c642f5", "#33d6ff", "#ff33ac", "#33ff68", "#a833ff", "#ff3362", "#3e3e3e" };
             // 딕셔너리 추가
-            foreach (string category in categories)
-            {
+            foreach (string category in categories) {
                 dict.Add(category, 0);
             }
 
             //총합이 담긴 변수
             int sum_all = 0;
 
-            while (data.Read())
-            {
+            while (data.Read()) {
                 // 딕셔너리에 해당 카테고리의 총 금액 합계 추가
                 dict[data["f_cate"].ToString()] = Convert.ToInt32(data["sum(f_money)"]);
                 sum_all += Convert.ToInt32(data["sum(f_money)"]);
             }
             data.Close();
-            foreach (string key in dict.Keys)
-            {
-                for(int i = 0; i < 11; i += 1)
-                {
-                    if (categories[i] == key)
-                    {
+            foreach (string key in dict.Keys) {
+                for (int i = 0; i < 11; i += 1) {
+                    if (categories[i] == key) {
                         cost_array[i] = dict[key];
                         break;
                     }
@@ -72,8 +66,7 @@ namespace Ledger
             }
 
             //지출이 있는 경우만
-            if (sum_all > 0)
-            {
+            if (sum_all > 0) {
                 Graphics g = e.Graphics;
 
                 //선을 그리기 위한 펜
@@ -90,26 +83,22 @@ namespace Ledger
                 //가장 비율이 높은 카테고리의 수치를 알아내서 10의 배수만큼 올림 치기 하면 됨.
                 int pad = 40;
                 int max_n = 0;
-                for (int i = 0; i < categories.Length; i++)
-                {
+                for (int i = 0; i < categories.Length; i++) {
                     double ratio_double = 100.0 * (Convert.ToDouble(dict[categories[i]]) / Convert.ToDouble(sum_all));
                     int ratio_int = Convert.ToInt32(ratio_double);
                     int roundedNumber = Convert.ToInt32((ratio_int == 0) ? 10.0 : Math.Ceiling(ratio_int / 10.0) * 10) / 10;
-                    if (max_n < roundedNumber)
-                    {
+                    if (max_n < roundedNumber) {
                         pad = 400 / roundedNumber;
                         max_n = roundedNumber;
                     }
                 }
                 //pad = 40;
                 //max_n = 10;
-                for (int i = 0; i < max_n; i++)
-                {
+                for (int i = 0; i < max_n; i++) {
                     g.DrawString(((max_n - i) * 10).ToString(), ft, Brushes.Black, new Point(42, 3 + (i * pad)));
                     g.DrawLine(pen, new Point(71, 10 + (i * pad)), new Point(835, 10 + (i * pad)));
                 }
-                for (int i = 0; i < categories.Length; i++)
-                {
+                for (int i = 0; i < categories.Length; i++) {
                     double ratio_double = 100.0 * (Convert.ToDouble(dict[categories[i]]) / Convert.ToDouble(sum_all));
                     int ratio_int = Convert.ToInt32(ratio_double);
                     int start_y = 410 - (ratio_int * (400 / (max_n * 10)));
@@ -133,8 +122,7 @@ namespace Ledger
             }
         }
 
-        private void DrawRankMonthly(object sender, PaintEventArgs e)
-        {
+        private void DrawRankMonthly(object sender, PaintEventArgs e) {
             string sql = "select f_cate, sum(f_money) from tb_spend where year(f_date) = " + year.ToString();
             sql += " and month(f_date) = " + month.ToString() + $" and f_id = '{Login.logined_id}' group by f_cate";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
@@ -144,16 +132,14 @@ namespace Ledger
             string[] categories = { "식사", "여가", "간식", "주거", "미용", "저축", "교통", "주식", "의료", "게임", "기타" };
 
             // 딕셔너리 추가
-            foreach (string category in categories)
-            {
+            foreach (string category in categories) {
                 dict.Add(category, 0);
             }
 
             //총합이 담긴 변수
             int sum_all = 0;
 
-            while (data.Read())
-            {
+            while (data.Read()) {
                 // 딕셔너리에 해당 카테고리의 총 금액 합계 추가
                 dict[data["f_cate"].ToString()] = Convert.ToInt32(data["sum(f_money)"]);
                 sum_all += Convert.ToInt32(data["sum(f_money)"]);
@@ -169,14 +155,12 @@ namespace Ledger
             PrivateFontCollection fontCollection = new PrivateFontCollection();
             fontCollection.AddMemoryFont(fontPtr, fontbyte.Length);
 
-            if (sum_all > 0)
-            {
+            if (sum_all > 0) {
                 // scores 배열을 내림차순으로 정렬하고 해당 인덱스를 추적
                 int[] ratios = new int[categories.Length];
 
 
-                for (int i = 0; i < categories.Length; i++)
-                {
+                for (int i = 0; i < categories.Length; i++) {
                     double ratio_double = 100.0 * (Convert.ToDouble(dict[categories[i]]) / Convert.ToDouble(sum_all));
                     int ratio_int = Convert.ToInt32(ratio_double);
                     ratios[i] = ratio_int;
@@ -185,8 +169,7 @@ namespace Ledger
                 //비율이 높은 순으로 정렬
                 // 정렬된 순서에 따라 categories 배열을 재배열
                 string[] sortedCategories = new string[categories.Length];
-                for (int i = 0; i < categories.Length; i++)
-                {
+                for (int i = 0; i < categories.Length; i++) {
                     sortedCategories[i] = categories[sortedIndices[i]];
                 }
                 Array.Sort(ratios);
@@ -208,8 +191,7 @@ namespace Ledger
                 g.DrawString("가장 많은 소비를 하셨습니다.", ft, Brushes.Black, new Point(60, 220));
 
             }
-            else
-            {
+            else {
                 Graphics g = e.Graphics;
                 Font ft = new Font(fontCollection.Families[0], 20, FontStyle.Bold);
                 g.DrawString("소비 내역이 없습니다.", ft, Brushes.Black, new Point(20, 110));
@@ -219,8 +201,7 @@ namespace Ledger
             Marshal.FreeCoTaskMem(fontPtr);
         }
 
-        private void DrawDetailed(object sender, PaintEventArgs e)
-        {
+        private void DrawDetailed(object sender, PaintEventArgs e) {
             int biggest_cost = 0;
             string biggest_date = "";
             //돈을 가장 많이 사용한 날의 비용
@@ -230,19 +211,18 @@ namespace Ledger
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
 
-            
+
             if (data.HasRows) {
                 while (data.Read()) {
                     biggest_cost = Convert.ToInt32(data["sum(f_money)"]);
                     biggest_date = data["month(f_date)"].ToString() + "월 " + data["day(f_date)"].ToString() + "일";
-                }   
+                }
             }
-            
+
             data.Close();
 
             //지출이 없다는 뜻이므로 더 이상의 처리 없이 함수를 빠져나옴.
-            if (biggest_cost == 0)
-            {
+            if (biggest_cost == 0) {
                 return;
             }
 
@@ -266,7 +246,7 @@ namespace Ledger
             sql += $" and f_id = '{Login.logined_id}'";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
-            
+
             double imp_ratio = 0;
             if (data.HasRows) {
                 while (data.Read()) {
@@ -285,7 +265,7 @@ namespace Ledger
             int sum_regular = 0;
             if (data.HasRows) {
                 while (data.Read()) {
-                    
+
                     if (!Convert.IsDBNull(data["sum(f_money)"])) {
                         sum_regular += Convert.ToInt32(data["sum(f_money)"]);
                     };
@@ -345,14 +325,64 @@ namespace Ledger
 
             AchClass.AddAchMonthly(all_cost);
         }
-
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            foreach(Control control in originalForm.Controls)
-            {
-                control.Show();
+        private void Monthly_FormClosing(object sender, FormClosingEventArgs e) {
+            _formMain.Show();
+            e.Cancel = true;
+            this.Dispose();
+        }
+        private void SetComboBoxItem(ComboBox c) {
+            string sql = $"select f_join from tb_user where f_id = '{Login.logined_id}'";
+            MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
+            MySqlDataReader data = cmd.ExecuteReader();
+            int join_year = 0;
+            int join_month = 0;
+            while (data.Read()) {
+                string dateString = data["f_join"].ToString();
+                DateTime receivedDate = DateTime.Parse(dateString);
+                join_year = receivedDate.Year;
+                join_month = receivedDate.Month;
             }
-            this.Close();
+            data.Close();
+            if (join_year < year) {
+                /*
+                 * 만약 가입 연도보다 폼의 연도가 더 크다면,
+                 * 현재 폼의 월이 1인 경우엔 작년의 기록을,
+                 * 현재 폼의 월이 2보다 크다면 1월부터 현재월 - 1까지
+                 */
+                if (month == 1) {
+                    if (year - 1 > join_year) {
+                        join_month = 1;
+                    }
+                    for (int i = join_month; i < 13; i++) {
+                        c.Items.Add($"{year - 1}-{i}월");
+                    }
+                }
+                else {
+                    for (int i = 1; i < DateTime.Now.Month; i++) {
+                        c.Items.Add($"{year}-{i}월");
+                    }
+                }
+            }
+            else if (join_year == year) {
+                /*
+                 * 만약 가입연도와 폼의 연도가 동일하다면, 
+                 * 가입월 between 현재 월 - 1 까지
+                */
+                for (int i = join_month; i < DateTime.Now.Month; i++) {
+                    c.Items.Add($"{year}-{i}월");
+                }
+
+            }
+        }
+        private void MonthSelectedIndexChanged(object sender, EventArgs e) {
+            String str = (sender as ComboBox).SelectedItem as String;
+            DateTime parsedDate = DateTime.Parse(str);
+            this.year = parsedDate.Year;
+            this.month = parsedDate.Month;
+            //드로우 이벤트 초기화 후 리드로우
+            pnlChart.Invalidate();
+            pnlRank.Invalidate();
+            pnlDetailed.Invalidate();
         }
     }
 }

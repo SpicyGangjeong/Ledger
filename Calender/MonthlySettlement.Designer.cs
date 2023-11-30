@@ -1,7 +1,5 @@
-﻿namespace Ledger
-{
-    partial class MonthlySettlement
-    {
+﻿namespace Ledger {
+    partial class MonthlySettlement {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,73 +22,65 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
-            btnBack = new Button();
+        private void InitializeComponent() {
             pnlChart = new Panel();
             pnlRank = new Panel();
             pnlDetailed = new Panel();
+            cmbxMonth = new ComboBox();
             SuspendLayout();
-            // 
-            // btnBack
-            // 
-            btnBack.Location = new Point(654, 574);
-            btnBack.Margin = new Padding(2, 2, 2, 2);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new Size(73, 22);
-            btnBack.TabIndex = 0;
-            btnBack.Text = "뒤로가기";
-            btnBack.UseVisualStyleBackColor = true;
-            btnBack.Click += btnBack_Click;
             // 
             // pnlChart
             // 
             pnlChart.BackColor = SystemColors.InactiveBorder;
-            pnlChart.Location = new Point(23, 23);
-            pnlChart.Margin = new Padding(2, 2, 2, 2);
+            pnlChart.Location = new Point(30, 31);
             pnlChart.Name = "pnlChart";
-            pnlChart.Size = new Size(705, 360);
+            pnlChart.Size = new Size(906, 480);
             pnlChart.TabIndex = 1;
             // 
             // pnlRank
             // 
             pnlRank.BackColor = SystemColors.InactiveBorder;
-            pnlRank.Location = new Point(23, 400);
-            pnlRank.Margin = new Padding(2, 2, 2, 2);
+            pnlRank.Location = new Point(30, 533);
             pnlRank.Name = "pnlRank";
-            pnlRank.Size = new Size(276, 194);
+            pnlRank.Size = new Size(355, 259);
             pnlRank.TabIndex = 2;
             // 
             // pnlDetailed
             // 
             pnlDetailed.BackColor = SystemColors.InactiveBorder;
-            pnlDetailed.Location = new Point(315, 400);
-            pnlDetailed.Margin = new Padding(2, 2, 2, 2);
+            pnlDetailed.Location = new Point(405, 533);
             pnlDetailed.Name = "pnlDetailed";
-            pnlDetailed.Size = new Size(412, 166);
+            pnlDetailed.Size = new Size(530, 221);
             pnlDetailed.TabIndex = 3;
+            // 
+            // cmbxMonth
+            // 
+            cmbxMonth.FormattingEnabled = true;
+            cmbxMonth.Location = new Point(837, 1);
+            cmbxMonth.Name = "cmbxMonth";
+            cmbxMonth.Size = new Size(128, 28);
+            cmbxMonth.TabIndex = 4;
             // 
             // MonthlySettlement
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(752, 603);
+            ClientSize = new Size(967, 804);
+            Controls.Add(cmbxMonth);
             Controls.Add(pnlDetailed);
             Controls.Add(pnlRank);
             Controls.Add(pnlChart);
-            Controls.Add(btnBack);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(2, 2, 2, 2);
             Name = "MonthlySettlement";
             Text = "MonthlySettlement";
+            FormClosing += Monthly_FormClosing;
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Button btnBack;
         private Panel pnlChart;
         private Panel pnlRank;
         private Panel pnlDetailed;
+        private ComboBox cmbxMonth;
     }
 }

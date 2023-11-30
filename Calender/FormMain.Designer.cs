@@ -1,7 +1,5 @@
-﻿namespace Ledger
-{
-    partial class FormMain
-    {
+﻿namespace Ledger {
+    partial class FormMain {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +22,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             notifyIcon1 = new NotifyIcon(components);
@@ -120,7 +115,7 @@
             btnSpendanal.Size = new Size(60, 55);
             btnSpendanal.TabIndex = 5;
             btnSpendanal.UseVisualStyleBackColor = false;
-            btnSpendanal.Click += btnAchievement_Click;
+            btnSpendanal.Click += btnMonthly_Click;
             // 
             // btnSearch
             // 

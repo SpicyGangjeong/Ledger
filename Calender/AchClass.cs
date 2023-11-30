@@ -46,6 +46,7 @@ namespace Ledger {
                     array[i] = data[$"f_ach{i - 2}"].ToString();
                 }
             }
+            data.Close();
             return array;
         }
         //총 업적 20개중에 몇 개를 완수했는지 반환합니다

@@ -38,7 +38,7 @@ namespace Ledger
         // 내정보를 로드
         public void loadInfo()
         {
-            String sql1 = "select * from tb_user where f_id='" + login.logined_id + "'";
+            String sql1 = "select * from tb_user where f_id='" + Login.logined_id + "'";
             MySqlCommand cmd1 = new MySqlCommand(sql1, conn);
             MySqlDataReader data1 = cmd1.ExecuteReader();
 
@@ -66,18 +66,18 @@ namespace Ledger
 
             if (result == DialogResult.OK)
             {
-                String sql2 = "delete from tb_user where f_id='" + login.logined_id + "'";
+                String sql2 = "delete from tb_user where f_id='" + Login.logined_id + "'";
                 MySqlCommand cmd2 = new MySqlCommand(sql2, conn);
                 cmd2.ExecuteNonQuery();
 
                 MessageBox.Show("성공적으로 회원탈퇴 되었습니다.\n" +
-                    "지금까지 사용해주셔서 감사합니다. " + login.logined_user + "님");
+                    "지금까지 사용해주셔서 감사합니다. " + Login.logined_user + "님");
 
                 cmd2.Dispose();
 
-                login.islogined = false;
-                login.logined_user = "";
-                login.logined_id = "";
+                Login.islogined = false;
+                Login.logined_user = "";
+                Login.logined_id = "";
 
                 conn.Close();
                 this.Dispose();
@@ -93,7 +93,7 @@ namespace Ledger
             {
                 String sql3 = "update tb_user set f_tel='" + infoPhone.Text +
                     "', f_email='" + infoEmail.Text + "' where f_id='" +
-                    login.logined_id + "'";
+                    Login.logined_id + "'";
                 MySqlCommand cmd3 = new MySqlCommand(sql3, conn);
                 cmd3.ExecuteNonQuery();
 
@@ -105,7 +105,7 @@ namespace Ledger
             {
                 String sql3 = "update tb_user set f_tel='" + infoPhone.Text +
                     "', f_email='" + infoEmail.Text + "', f_pw='" + infoPw.Text +
-                    "' where f_id='" + login.logined_id + "'";
+                    "' where f_id='" + Login.logined_id + "'";
                 MySqlCommand cmd3 = new MySqlCommand(sql3, conn);
                 cmd3.ExecuteNonQuery();
 
