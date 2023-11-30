@@ -148,7 +148,7 @@ namespace Ledger {
                 DateTime standardTime = DateTime.ParseExact(date, "yyyy/M/d", null); // 기준일
                 DateTime destinationTime = DateTime.ParseExact(dtp_spend.Text, "yyyy/MM/dd", null).AddMonths(-1); // 목표일
                 int inputTime = n; // 삽입 횟수
-                while (standardTime < destinationTime) // 목표일이 기준일보다 과거면 삽입 중단
+                while (standardTime <= destinationTime) // 목표일이 기준일보다 과거면 삽입 중단
                 {
                     standardTime = standardTime.AddMonths(1); // 격월로 삽입하기위해 1달만 추가
 
