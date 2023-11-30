@@ -64,6 +64,11 @@ namespace Ledger
                 dataY.Add(Convert.ToDouble(data["f_money"]));
             }
             data.Close();
+            if (dataY.Count < 1)
+            {
+                MessageBox.Show("지출과 수입 기록이 부족합니다. 지출 혹은 수입 기록을 작성하신 후 와주시면 감사드리겠습니다.");
+                return;
+            }
             formsPlot.Plot.AddBar(dataY.ToArray());
             formsPlot.Plot.XTicks(dataX.ToArray());
             formsPlot.Refresh();

@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_9291F3A82EDD4C1D84C38AFE47C4FDAD"
+        "MsmKey" = "8:_6CFE874F3AAE4C8493831C1AF0750E76"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -122,7 +122,7 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9291F3A82EDD4C1D84C38AFE47C4FDAD"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6CFE874F3AAE4C8493831C1AF0750E76"
             {
             "SourcePath" = "8:..\\..\\..\\..\\Downloads\\ledger.ico"
             "TargetName" = "8:ledger.ico"
@@ -341,7 +341,7 @@
             "Target" = "8:_FD0CEB1316F44E7895FB08C6BE8F720C"
             "Folder" = "8:_968B4DCA3A9A4C3985CE4F0DF172A588"
             "WorkingFolder" = "8:_895D8F85E7644236A4C6150886D74B22"
-            "Icon" = "8:_9291F3A82EDD4C1D84C38AFE47C4FDAD"
+            "Icon" = "8:_6CFE874F3AAE4C8493831C1AF0750E76"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8AE9D5D173204DDA961AD02A3449302E"
@@ -355,7 +355,7 @@
             "Target" = "8:_FD0CEB1316F44E7895FB08C6BE8F720C"
             "Folder" = "8:_6E7780613151469CA598CA0555E05AB9"
             "WorkingFolder" = "8:_895D8F85E7644236A4C6150886D74B22"
-            "Icon" = "8:_9291F3A82EDD4C1D84C38AFE47C4FDAD"
+            "Icon" = "8:_6CFE874F3AAE4C8493831C1AF0750E76"
             "Feature" = "8:"
             }
         }
