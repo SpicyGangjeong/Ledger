@@ -112,6 +112,7 @@ namespace Ledger {
                 }
             }
             int ind = Array.IndexOf(categories, cate_name);
+
             string[] split = cates[ind].Split('_');
             int cate_cnt = Convert.ToInt32(split[0]) + 1;
             int cate_get = Convert.ToInt32(split[1]);

@@ -12,7 +12,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Ledger {
+namespace Ledger
+{
     public partial class EnterAccountBook : Form
     {
         public string date;
@@ -23,7 +24,7 @@ namespace Ledger {
         int no;
         string kind;
         LedgerFunc ledgerFunc = new LedgerFunc();
-#region INIT
+        #region INIT
         public EnterAccountBook(AccountBookList _form, string date, FormMain fMain)
         {
             InitializeComponent();
@@ -95,7 +96,7 @@ namespace Ledger {
             }
         }
         #endregion INIT
-#region INSERECORDSPEND
+        #region INSERECORDSPEND
         private void InsertRecordSpend(object sender, EventArgs e)
         {
             //지출 테이블에 레코드 추가
@@ -203,7 +204,7 @@ namespace Ledger {
 
         }
         #endregion INSERECORDSPEND
-#region INSERTRECORDINCOME
+        #region INSERTRECORDINCOME
         private void InsertRecordIncome(object sender, EventArgs e)
         {
             //수입 테이블에 레코드 추가
@@ -243,7 +244,7 @@ namespace Ledger {
                 tbx_Memo2.Text + "', '" +
                 tbx_From.Text + "', '" +
                 GetRegularIndex(cbx_RegIncome).ToString() + $"', '{Login.logined_id}')";
-            
+
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             int n = cmd.ExecuteNonQuery(); //반환(DataSet)이 없는 SQL문
             if (cbx_RegIncome.Checked) // 정기적인경우
@@ -303,7 +304,7 @@ namespace Ledger {
             }
         }
         #endregion INSERTRECORDINCOME
-#region UPDATERECORDSPEND
+        #region UPDATERECORDSPEND
         private void UpdateRecordSpend(object sender, EventArgs e)
         {
             if (cbx_RegSpend.Checked)
@@ -369,7 +370,7 @@ namespace Ledger {
             }
         }
         #endregion UPDATERECORDSPEND
-#region UPDATERECORDINCOME
+        #region UPDATERECORDINCOME
         private void UpdateRecordIncome(object sender, EventArgs e)
         {
             if (cbx_RegIncome.Checked)

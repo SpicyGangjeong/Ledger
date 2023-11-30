@@ -1,5 +1,7 @@
-﻿namespace Ledger {
-    partial class EnterAccountBook {
+﻿namespace Ledger
+{
+    partial class EnterAccountBook
+    {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -9,8 +11,10 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -209,7 +213,7 @@
             cmbx_Cate.Name = "cmbx_Cate";
             cmbx_Cate.Size = new Size(98, 23);
             cmbx_Cate.TabIndex = 10;
-            cmbx_Cate.Text = "기타\t";
+            cmbx_Cate.Text = "기타";
             // 
             // label7
             // 
