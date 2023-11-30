@@ -38,11 +38,11 @@ namespace Ledger {
             }
             else days[1] = 28;
 
-            for (int i = 0; i < Month; i++) {
+            for (int i = 0; i < Month; i++) { // 현재 월의 시작날자를 찾음
                 startday += days[i];
             }
             startday = startday % 7;
-            Filling(startday, Month, days, year);
+            Filling(startday, Month, days, year); // 각 월의 시작날자, 현재 월, 일수, 년도를 넘겨줌
         }
         private void Filling(int startday, int Month, int[] days, int year) {
             List<int[]> arrays = MonthQuery(year, Month + 1, days[Month]);
@@ -97,7 +97,7 @@ namespace Ledger {
                 col++;
             }
         }
-        private List<int[]> MonthQuery(int year, int Month, int days) {
+        private List<int[]> MonthQuery(int year, int Month, int days) { // 월간 수입, 지출을 쿼리해서 2차원 리스트로 리턴하게됨
             int[] spend = new int[days + 1];
             int[] income = new int[days + 1];
             int[] regular = new int[days + 1];
@@ -122,7 +122,7 @@ namespace Ledger {
             sql = "select f_date, f_money, f_regular from tb_income where f_date between '" + nowMonthFirst + "' and '" + nowMonthLast + $"' and f_id = '{Login.logined_id}' order by f_date";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
-            while (data.Read()) {
+            while (data.Read()) { // 수입 내용이 있다면 - income 추가
                 string f_date = data["f_date"].ToString();
                 income[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
             }
@@ -132,7 +132,7 @@ namespace Ledger {
             sql = $"select f_date, f_money, f_regular from tb_spend where f_date between '{nowMonthFirst}' and '{nowMonthLast}' and f_regular in ('2', '3') and f_id = '{Login.logined_id}' union all select f_date, f_money, f_regular from tb_income where f_date between '{nowMonthFirst}' and '{nowMonthLast}' and f_regular in ('2', '3') and f_id = '{Login.logined_id}';";
             cmd = new MySqlCommand(sql, FormMain.conn);
             data = cmd.ExecuteReader();
-            while (data.Read()) {
+            while (data.Read()) { // 정기적 내용이 있다면 - regular 추가
                 string f_date = data["f_date"].ToString();
                 regular[Convert.ToInt32(f_date.Substring(8, 2)) - 1] += Convert.ToInt32(data["f_money"]);
             }
@@ -168,7 +168,7 @@ namespace Ledger {
                     rtb.Text += "+" + income + "\n";
                 }
 
-                rtb.Select(indexRegular, indexspend);
+                rtb.Select(indexRegular, indexspend); // 각 시작지점을 기준으로 텍스트에 색을 입히며 우로 정렬
                 rtb.SelectionColor = System.Drawing.Color.Green;
                 rtb.SelectionAlignment = HorizontalAlignment.Right;
                 rtb.Select(indexspend, indexincome);
