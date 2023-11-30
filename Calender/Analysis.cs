@@ -347,6 +347,7 @@ namespace Ledger
             List<double> showValues = new List<double>();
             List<string> showLabels = new List<string>();
             int check = 0;
+            // 각 체크박스들을 확인해서 값들을 더해줌
             for (int i = 0; i < checkBoxes.Length; i++)
             {
                 if (checkBoxes[i].Checked)
@@ -357,6 +358,7 @@ namespace Ledger
                 }
             }
             formsPlot.Plot.Clear();
+            // 더해진 값들을 plt함
             if (check != 0)
             {
                 var plt = new ScottPlot.Plot(600, 400);
