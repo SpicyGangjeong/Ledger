@@ -11,28 +11,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Ledger
-{
-    public partial class AccountBookList : Form
-    {
+namespace Ledger {
+    public partial class AccountBookList : Form {
         FormMain formMain;
         public string date;
-        public AccountBookList(string date, FormMain fMain)
-        {
+        public AccountBookList(string date, FormMain fMain) {
             InitializeComponent();
             CenterToParent();
             this.date = date; //해당 리스트는 몇월 몇일의 리스트인가
             this.lb_Date.Text = this.date; //날짜 레이블의 값을 설정
             this.formMain = fMain;
         }
-        public void LoadSpendDatabase(string date)
-        {
+        public void LoadSpendDatabase(string date) {
             //지출 테이블에서 인자로 받은 날짜에 존재하는 레코드를 추출합니다.
             string sql = "select * from tb_spend where f_date = '" + date + $"' and f_id = '{Login.logined_id}'";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
-            while (data.Read())
-            {
+            while (data.Read()) {
                 //데이터를 지출 패널 내에 패널 형태로 추가
                 //패널안에 텍스트와 가격, 수정, 삭제 버튼이 들어간다.
                 Panel pnl = new Panel(); //패널 생성
@@ -52,8 +47,7 @@ namespace Ledger
                 btn_delete.BringToFront(); // 삭제버튼 앞으로
                 flpnl_Spend.Controls.Add(pnl);
 
-                if (pnl.Bottom > flpnl_Spend.ClientSize.Height)
-                {
+                if (pnl.Bottom > flpnl_Spend.ClientSize.Height) {
                     flpnl_Spend.AutoScroll = true;
                 }
                 //이름 레이블
@@ -87,14 +81,12 @@ namespace Ledger
             data.Close();
 
         }
-        public void LoadIncomeDatabase(string date)
-        {
+        public void LoadIncomeDatabase(string date) {
             //수입 테이블에서 인자로 받은 날짜에 존재하는 레코드를 추출합니다.
             string sql = "select * from tb_income where f_date = '" + date + $"' and f_id = '{Login.logined_id}'";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
-            while (data.Read())
-            {
+            while (data.Read()) {
                 //데이터를 수입 패널 내에 패널 형태로 추가
                 //패널안에 텍스트와 가격, 수정, 삭제 버튼이 들어간다.
                 Panel pnl = new Panel(); //패널 생성
@@ -114,8 +106,7 @@ namespace Ledger
                 btn_delete.BringToFront(); // 삭제버튼 앞으로
                 flpnl_Income.Controls.Add(pnl);
 
-                if (pnl.Bottom > flpnl_Income.ClientSize.Height)
-                {
+                if (pnl.Bottom > flpnl_Income.ClientSize.Height) {
                     flpnl_Income.AutoScroll = true;
                 }
                 //이름 레이블
@@ -149,77 +140,62 @@ namespace Ledger
             data.Close();
 
         }
-        private void btn_Close_Click(object sender, EventArgs e)
-        {
+        private void btn_Close_Click(object sender, EventArgs e) {
             this.Close();
         }
 
-        private void btn_Add_Click(object sender, EventArgs e)
-        {
+        private void btn_Add_Click(object sender, EventArgs e) {
             EnterAccountBook acc_book = new EnterAccountBook(this, date, formMain);
             acc_book.ShowDialog(); //창을 모달 형식으로 생성
         }
 
-        public void AccountBookList_Load(object sender, EventArgs e)
-        {
+        public void AccountBookList_Load(object sender, EventArgs e) {
             //지출 / 수입 테이블 리스트 생성시, 데이터베이스에서 데이터 로드
             AddSpendToPanel();
             AddIncomeToPanel();
         }
-        private EventHandler DeleteRecordSpend(int no)
-        {
+        private EventHandler DeleteRecordSpend(int no) {
             //삭제 버튼 누를 시, 해당 넘버를 가진 레코드를 제거
-            return (sender, e) =>
-            {
+            return (sender, e) => {
                 string sql = "delete from tb_spend where f_no = '" + no.ToString() + $"' and f_id = '{Login.logined_id}'";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 int n = cmd.ExecuteNonQuery();
-                if (n == 1)
-                {
+                if (n == 1) {
                     MessageBox.Show("삭제 완료");
                 }
-                else
-                {
+                else {
                     MessageBox.Show("삭제 실패");
                 }
                 AddSpendToPanel();
             };
         }
-        private EventHandler DeleteRecordIncome(int no)
-        {
+        private EventHandler DeleteRecordIncome(int no) {
             //삭제 버튼 누를 시, 해당 넘버를 가진 레코드를 제거
-            return (sender, e) =>
-            {
+            return (sender, e) => {
                 string sql = "delete from tb_income where f_no = '" + no.ToString() + $"' and f_id = '{Login.logined_id}'";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 int n = cmd.ExecuteNonQuery();
-                if (n == 1)
-                {
+                if (n == 1) {
                     MessageBox.Show("삭제 완료");
                 }
-                else
-                {
+                else {
                     MessageBox.Show("삭제 실패");
                 }
                 AddIncomeToPanel();
             };
         }
-        private EventHandler OpenUpdateAccount(int no, string kind)
-        {
+        private EventHandler OpenUpdateAccount(int no, string kind) {
             //수정 버튼 누를 시, 해당 넘버를 가진 레코드를 수정하는 창을 생성
-            return (sender, e) =>
-            {
+            return (sender, e) => {
                 EnterAccountBook acc_book = new EnterAccountBook(this, date, no, kind, formMain);
                 acc_book.ShowDialog(); //창을 모달 형식으로 생성
             };
         }
-        public void AddSpendToPanel()
-        {
+        public void AddSpendToPanel() {
             flpnl_Spend.Controls.Clear(); //지출 패널을 먼저 초기화하고...
             LoadSpendDatabase(date); //데이터베이스에서 지출 레코드를 불러옵니다.
         }
-        public void AddIncomeToPanel()
-        {
+        public void AddIncomeToPanel() {
             flpnl_Income.Controls.Clear(); //지출 패널을 먼저 초기화하고...
             LoadIncomeDatabase(date); //데이터베이스에서 지출 레코드를 불러옵니다.
         }

@@ -10,10 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Ledger
-{
-    public partial class TreeMain : Form
-    {
+namespace Ledger {
+    public partial class TreeMain : Form {
 
         FormMain formMain;
         public string date;
@@ -22,8 +20,7 @@ namespace Ledger
             InitializeComponent();
             this.formMain = formMain;
         }
-        public void InitializeTree()
-        {
+        public void InitializeTree() {
             string sql = $"select distinct substr(f_date, 1, 4) \"YEAR\" from tb_spend where f_id = '{Login.logined_id}' " +
                 $"union select distinct substr(f_date, 1, 4) \"YEAR\" from tb_income where f_id = '{Login.logined_id}'";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
@@ -34,8 +31,7 @@ namespace Ledger
             // 월 노드 : M + Text
             // 일 노드 : D + Text
             ///////////////////////////
-            while (data.Read())
-            {
+            while (data.Read()) {
                 TreeNode node = new TreeNode();
                 node.Text = data["YEAR"].ToString();
                 node.Name = "Y" + node.Text;
@@ -46,34 +42,29 @@ namespace Ledger
         }
 
 
-        private void TreeMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        private void TreeMain_FormClosing(object sender, FormClosingEventArgs e) {
             this.Hide();
             e.Cancel = true;
             formMain.Show();
         }
 
-        private void TreeMain_Load(object sender, EventArgs e)
-        {
+        private void TreeMain_Load(object sender, EventArgs e) {
             InitializeTree();
 
         }
 
-        private void IOTree_AfterSelect(object sender, TreeViewEventArgs e)
-        {
+        private void IOTree_AfterSelect(object sender, TreeViewEventArgs e) {
             TreeNode Node = IOTree.SelectedNode;
             string sql;
 
             // Year 노드 클릭한 경우
-            if (Node.Name.Substring(0, 1) == "Y")
-            {
+            if (Node.Name.Substring(0, 1) == "Y") {
                 Node.Nodes.Clear();
                 sql = "select distinct substr(f_date, 6, 2) \"MONTH\" from tb_spend where substr(f_date, 1, 4) = " + Node.Text + $" and f_id = '{Login.logined_id}'" +
                     " union select distinct substr(f_date, 6, 2) \"MONTH\" from tb_income where substr(f_date, 1, 4) = " + Node.Text + $" and f_id = '{Login.logined_id}' order by Month asc";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 MySqlDataReader data = cmd.ExecuteReader();
-                while (data.Read())
-                {
+                while (data.Read()) {
                     TreeNode nodeMonth = new TreeNode();
                     nodeMonth.ImageIndex = 0;
                     nodeMonth.Text = data["MONTH"].ToString();
@@ -85,15 +76,13 @@ namespace Ledger
                 Node.Expand();
             }
             // Month 노드 클릭한 경우
-            else if (Node.Name.Substring(0, 1) == "M")
-            {
+            else if (Node.Name.Substring(0, 1) == "M") {
                 Node.Nodes.Clear();
-                sql = "select distinct substr(f_date, 9, 2) \"DATE\" from tb_spend where substr(f_date, 1, 4) = " + Node.Parent.Text + " and substr(f_date, 6, 2) =" + Node.Text + $" and f_id = '{Login.logined_id}'" + 
+                sql = "select distinct substr(f_date, 9, 2) \"DATE\" from tb_spend where substr(f_date, 1, 4) = " + Node.Parent.Text + " and substr(f_date, 6, 2) =" + Node.Text + $" and f_id = '{Login.logined_id}'" +
                     " union select distinct substr(f_date, 9, 2) \"DATE\" from tb_income where substr(f_date, 1, 4) = " + Node.Parent.Text + " and substr(f_date, 6, 2) =" + Node.Text + $" and f_id = '{Login.logined_id}' order by DATE asc";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 MySqlDataReader data = cmd.ExecuteReader();
-                while (data.Read())
-                {
+                while (data.Read()) {
                     TreeNode nodeDate = new TreeNode();
                     nodeDate.ImageIndex = 0;
                     nodeDate.Text = data["DATE"].ToString();
@@ -102,18 +91,15 @@ namespace Ledger
                 }
                 data.Close();
                 Node.ImageIndex = 1;
-                foreach (TreeNode node in Node.Parent.Nodes)
-                {
-                    if (node.IsExpanded == true)
-                    {
+                foreach (TreeNode node in Node.Parent.Nodes) {
+                    if (node.IsExpanded == true) {
                         node.Collapse();
                     }
                 }
                 Node.Expand();
             }
             // 날짜 노드를 클릭한 경우
-            else if (Node.Name.Substring(0, 1) == "D")
-            {
+            else if (Node.Name.Substring(0, 1) == "D") {
                 date = Node.Parent.Parent.Text + '/' + Node.Parent.Text + '/' + Node.Text;
                 AddIncomeToPanel();
                 AddSpendToPanel();
@@ -121,14 +107,12 @@ namespace Ledger
         }
         #region 패널추가 코드
 
-        public void LoadSpendDatabase(string date)
-        {
+        public void LoadSpendDatabase(string date) {
             //지출 테이블에서 인자로 받은 날짜에 존재하는 레코드를 추출합니다.
             string sql = "select * from tb_spend where f_date = '" + date + $"' and f_id = '{Login.logined_id}'";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
-            while (data.Read())
-            {
+            while (data.Read()) {
                 //데이터를 지출 패널 내에 패널 형태로 추가
                 //패널안에 텍스트와 가격, 수정, 삭제 버튼이 들어간다.
                 Panel pnl = new Panel(); //패널 생성
@@ -175,14 +159,12 @@ namespace Ledger
             data.Close();
 
         }
-        public void LoadIncomeDatabase(string date)
-        {
+        public void LoadIncomeDatabase(string date) {
             //수입 테이블에서 인자로 받은 날짜에 존재하는 레코드를 추출합니다.
             string sql = "select * from tb_income where f_date = '" + date + "'";
             MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
             MySqlDataReader data = cmd.ExecuteReader();
-            while (data.Read())
-            {
+            while (data.Read()) {
                 //데이터를 수입 패널 내에 패널 형태로 추가
                 //패널안에 텍스트와 가격, 수정, 삭제 버튼이 들어간다.
                 Panel pnl = new Panel(); //패널 생성
@@ -229,67 +211,54 @@ namespace Ledger
             data.Close();
 
         }
-        private EventHandler DeleteRecordSpend(int no)
-        {
+        private EventHandler DeleteRecordSpend(int no) {
             //삭제 버튼 누를 시, 해당 넘버를 가진 레코드를 제거
-            return (sender, e) =>
-            {
+            return (sender, e) => {
                 string sql = "delete from tb_spend where f_no = '" + no.ToString() + $"' and f_id = '{Login.logined_id}'";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 int n = cmd.ExecuteNonQuery();
-                if (n == 1)
-                {
+                if (n == 1) {
                     MessageBox.Show("삭제 완료");
                 }
-                else
-                {
+                else {
                     MessageBox.Show("삭제 실패");
                 }
                 AddSpendToPanel();
             };
         }
-        private EventHandler DeleteRecordIncome(int no)
-        {
+        private EventHandler DeleteRecordIncome(int no) {
             //삭제 버튼 누를 시, 해당 넘버를 가진 레코드를 제거
-            return (sender, e) =>
-            {
+            return (sender, e) => {
                 string sql = "delete from tb_income where f_no = '" + no.ToString() + $"' and f_id = '{Login.logined_id}'";
                 MySqlCommand cmd = new MySqlCommand(sql, FormMain.conn);
                 int n = cmd.ExecuteNonQuery();
-                if (n == 1)
-                {
+                if (n == 1) {
                     MessageBox.Show("삭제 완료");
                 }
-                else
-                {
+                else {
                     MessageBox.Show("삭제 실패");
                 }
                 AddIncomeToPanel();
             };
         }
-        public void AddSpendToPanel()
-        {
+        public void AddSpendToPanel() {
             flpnl_Spend.Controls.Clear(); //지출 패널을 먼저 초기화하고...
             LoadSpendDatabase(date); //데이터베이스에서 지출 레코드를 불러옵니다.
         }
-        public void AddIncomeToPanel()
-        {
+        public void AddIncomeToPanel() {
             flpnl_Income.Controls.Clear(); //지출 패널을 먼저 초기화하고...
             LoadIncomeDatabase(date); //데이터베이스에서 지출 레코드를 불러옵니다.
         }
-        private EventHandler OpenUpdateAccount(int no, string kind)
-        {
+        private EventHandler OpenUpdateAccount(int no, string kind) {
             //수정 버튼 누를 시, 해당 넘버를 가진 레코드를 수정하는 창을 생성
-            return (sender, e) =>
-            {
+            return (sender, e) => {
                 EnterAccountBook acc_book = new EnterAccountBook(this, date, no, kind, formMain);
                 acc_book.ShowDialog(); //창을 모달 형식으로 생성
             };
         }
 
         #endregion 패널추가 종료
-        private void IOTree_AfterCollapse(object sender, TreeViewEventArgs e)
-        {
+        private void IOTree_AfterCollapse(object sender, TreeViewEventArgs e) {
             TreeNode node = IOTree.SelectedNode;
             node.ImageIndex = 0;
         }

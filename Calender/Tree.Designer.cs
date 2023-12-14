@@ -1,7 +1,5 @@
-﻿namespace Ledger
-{
-    partial class TreeMain
-    {
+﻿namespace Ledger {
+    partial class TreeMain {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +22,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeMain));
             splitContainer1 = new SplitContainer();
@@ -56,6 +51,7 @@
             // 
             splitContainer1.Dock = DockStyle.Fill;
             splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Margin = new Padding(4, 4, 4, 4);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -65,8 +61,9 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(splitContainer2);
-            splitContainer1.Size = new Size(800, 450);
-            splitContainer1.SplitterDistance = 199;
+            splitContainer1.Size = new Size(1029, 600);
+            splitContainer1.SplitterDistance = 255;
+            splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 5;
             // 
             // IOTree
@@ -75,9 +72,10 @@
             IOTree.ImageIndex = 0;
             IOTree.ImageList = TreeImages;
             IOTree.Location = new Point(0, 0);
+            IOTree.Margin = new Padding(4, 4, 4, 4);
             IOTree.Name = "IOTree";
             IOTree.SelectedImageIndex = 0;
-            IOTree.Size = new Size(199, 450);
+            IOTree.Size = new Size(255, 600);
             IOTree.TabIndex = 0;
             IOTree.AfterCollapse += IOTree_AfterCollapse;
             IOTree.AfterSelect += IOTree_AfterSelect;
@@ -94,6 +92,7 @@
             // 
             splitContainer2.Dock = DockStyle.Fill;
             splitContainer2.Location = new Point(0, 0);
+            splitContainer2.Margin = new Padding(4, 4, 4, 4);
             splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -103,8 +102,9 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(groupBoxSpend);
-            splitContainer2.Size = new Size(597, 450);
-            splitContainer2.SplitterDistance = 298;
+            splitContainer2.Size = new Size(769, 600);
+            splitContainer2.SplitterDistance = 383;
+            splitContainer2.SplitterWidth = 5;
             splitContainer2.TabIndex = 0;
             // 
             // groupBoxIncome
@@ -112,19 +112,20 @@
             groupBoxIncome.Controls.Add(flpnl_Spend);
             groupBoxIncome.Dock = DockStyle.Fill;
             groupBoxIncome.Location = new Point(0, 0);
+            groupBoxIncome.Margin = new Padding(4, 4, 4, 4);
             groupBoxIncome.Name = "groupBoxIncome";
-            groupBoxIncome.Size = new Size(298, 450);
+            groupBoxIncome.Padding = new Padding(4, 4, 4, 4);
+            groupBoxIncome.Size = new Size(383, 600);
             groupBoxIncome.TabIndex = 0;
             groupBoxIncome.TabStop = false;
-            groupBoxIncome.Text = "수입";
+            groupBoxIncome.Text = "지출";
             // 
             // flpnl_Spend
             // 
             flpnl_Spend.Dock = DockStyle.Fill;
-            flpnl_Spend.Location = new Point(3, 19);
-            flpnl_Spend.Margin = new Padding(2);
+            flpnl_Spend.Location = new Point(4, 24);
             flpnl_Spend.Name = "flpnl_Spend";
-            flpnl_Spend.Size = new Size(292, 428);
+            flpnl_Spend.Size = new Size(375, 572);
             flpnl_Spend.TabIndex = 10;
             // 
             // groupBoxSpend
@@ -132,19 +133,20 @@
             groupBoxSpend.Controls.Add(flpnl_Income);
             groupBoxSpend.Dock = DockStyle.Fill;
             groupBoxSpend.Location = new Point(0, 0);
+            groupBoxSpend.Margin = new Padding(4, 4, 4, 4);
             groupBoxSpend.Name = "groupBoxSpend";
-            groupBoxSpend.Size = new Size(295, 450);
+            groupBoxSpend.Padding = new Padding(4, 4, 4, 4);
+            groupBoxSpend.Size = new Size(381, 600);
             groupBoxSpend.TabIndex = 0;
             groupBoxSpend.TabStop = false;
-            groupBoxSpend.Text = "지출";
+            groupBoxSpend.Text = "수입";
             // 
             // flpnl_Income
             // 
             flpnl_Income.Dock = DockStyle.Fill;
-            flpnl_Income.Location = new Point(3, 19);
-            flpnl_Income.Margin = new Padding(2);
+            flpnl_Income.Location = new Point(4, 24);
             flpnl_Income.Name = "flpnl_Income";
-            flpnl_Income.Size = new Size(289, 428);
+            flpnl_Income.Size = new Size(373, 572);
             flpnl_Income.TabIndex = 11;
             // 
             // imageList1
@@ -165,13 +167,14 @@
             // 
             // TreeMain
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1029, 600);
             Controls.Add(splitContainer1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 4, 4, 4);
             Name = "TreeMain";
             Text = "TreeMain";
             FormClosing += TreeMain_FormClosing;

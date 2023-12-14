@@ -30,6 +30,10 @@ namespace Ledger {
 
         //검색 폼 변수 선언
         private Panel msPanel;
+        CalendarMain CalendarMain;
+        TreeMain tree;
+        Analysis anly;
+
 
         public FormMain(Login login) {
             this.login = login;
@@ -343,7 +347,7 @@ namespace Ledger {
         private void btnCalendar_Click(object sender, EventArgs e) {
             // 캘린터 폼 열기
             if (isthisOpenedForm("CalendarMain")) return;
-            CalendarMain CalendarMain = new CalendarMain(this);
+            CalendarMain = new CalendarMain(this);
             CalendarMain.Show();
             this.Hide();
             notifyIcon1.Visible = true;
@@ -352,7 +356,7 @@ namespace Ledger {
         private void btnTree_Click(object sender, EventArgs e) {
             // 트리 폼 열기
             if (isthisOpenedForm("TreeMain")) return;
-            TreeMain tree = new TreeMain(this);
+            tree = new TreeMain(this);
             tree.Show();
             this.Hide();
             notifyIcon1.Visible = true;
@@ -361,7 +365,7 @@ namespace Ledger {
         private void btnGraph_Click(object sender, EventArgs e) {
             // 그래프 폼 열기
             if (isthisOpenedForm("Analysis")) return;
-            Analysis anly = new Analysis(this);
+            anly = new Analysis(this);
             anly.Show();
             this.Hide();
             notifyIcon1.Visible = true;
@@ -502,6 +506,7 @@ namespace Ledger {
                     Login.logined_user = "";
                     Login.logined_id = "";
 
+                    DisposeAllForm();
                     this.Dispose();
                     login.Show();
                 }
@@ -523,6 +528,7 @@ namespace Ledger {
                 Login.logined_user = "";
                 Login.logined_id = "";
 
+                DisposeAllForm();
                 this.Dispose();
                 login.Show();
             }
@@ -532,6 +538,18 @@ namespace Ledger {
             // 내정보 폼 열기
             MyInfo myinfo = new MyInfo(this, login);
             myinfo.ShowDialog();
+        }
+        //열려 있는 폼들을 닫습니다.
+        private void DisposeAllForm() {
+            if (CalendarMain != null) {
+                CalendarMain.Dispose();
+            }
+            if (tree != null) {
+                tree.Dispose();
+            }
+            if (anly != null) {
+                anly.Dispose();
+            }
         }
     }
 }
